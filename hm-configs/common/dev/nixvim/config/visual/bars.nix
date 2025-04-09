@@ -38,16 +38,16 @@
 
       pkgs.vimPlugins.plenary-nvim
       pkgs.vimPlugins.nvim-web-devicons
-      # (pkgs.vimUtils.buildVimPlugin {
-      #   name = "battery";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "justinhj";
-      #     repo = "battery.nvim";
-      #     # 3/17/2025
-      #     rev = "e215ff0351c1c80730bb3f7d6edc612b9502d719";
-      #     sha256 = "sha256-GSVrbS15qm1FmCt1qwv5ETCWRM/jc3CtEw7F5UrzbAY=";
-      #   };
-      # })
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "battery";
+        src = pkgs.fetchFromGitHub {
+          owner = "justinhj";
+          repo = "battery.nvim";
+          # 3/17/2025
+          rev = "e215ff0351c1c80730bb3f7d6edc612b9502d719";
+          sha256 = "sha256-GSVrbS15qm1FmCt1qwv5ETCWRM/jc3CtEw7F5UrzbAY=";
+        };
+      })
     ];
 
     extraConfigLua = builtins.readFile ./editing.lua;

@@ -46,15 +46,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1744038920,
-        "narHash": "sha256-9a4V1wQXS8hXZtc7mRtz0qINkGW+C99aDrmXY6oYBFg=",
+        "lastModified": 1744117652,
+        "narHash": "sha256-t7dFCDl4vIOOUMhEZnJF15aAzkpaup9x4ZRGToDFYWI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a4d8020820a85b47f842eae76ad083b0ec2a886a",
+        "rev": "b4e98224ad1336751a2ac7493967a4c9f6d9cb3f",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
+        "ref": "release-24.11",
         "repo": "home-manager",
         "type": "github"
       }
@@ -89,16 +90,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1743964447,
-        "narHash": "sha256-nEo1t3Q0F+0jQ36HJfbJtiRU4OI+/0jX/iITURKe3EE=",
+        "lastModified": 1744150046,
+        "narHash": "sha256-NE+wfx8/gJVJMnnIvUwaCyAHwRCR9tQPeH/Vuexy1bs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "063dece00c5a77e4a0ea24e5e5a5bd75232806f8",
+        "rev": "dd2fce0c5165963998ab400c6f860f31c93e16ef",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-unstable",
+        "ref": "release-24.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -112,11 +113,11 @@
         "nuschtosSearch": "nuschtosSearch"
       },
       "locked": {
-        "lastModified": 1744028177,
-        "narHash": "sha256-etbUDe2Httgl6oI14M1nTV39+478dJ0UyLJKx/DtZi8=",
+        "lastModified": 1744119992,
+        "narHash": "sha256-XtwL/QfMjJtqO//mAjEfiC7noaAtH/gtQttcBE8dufs=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "cc8918663a711a10cd45650e7bb4c933c5ec4ad7",
+        "rev": "7114362f36123a8401f4905c2e833fd9a0c2ddd1",
         "type": "github"
       },
       "original": {
@@ -151,16 +152,16 @@
     },
     "onix": {
       "locked": {
-        "lastModified": 1742841431,
-        "narHash": "sha256-ZLnR7iwuAwXtGIzeeHQ+Jg0KpTpClunriNfYhhWUpHM=",
+        "lastModified": 1743457482,
+        "narHash": "sha256-EuSGx2r74xMzPjEN5QCJadUVBhlv/ReMbq+YL97OKHQ=",
         "owner": "computerdane",
         "repo": "onix",
-        "rev": "67df5536b16867b6e7edb7349aa83c9d3e318f07",
+        "rev": "e73d4575304aca67d119b4a25b6cb2ba5654edb3",
         "type": "github"
       },
       "original": {
         "owner": "computerdane",
-        "ref": "v0.1.1",
+        "ref": "v0.1.2",
         "repo": "onix",
         "type": "github"
       }
