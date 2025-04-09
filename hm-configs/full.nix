@@ -1,3 +1,4 @@
+# downloads full config for home manager based on system
 {
   lib,
   ...
@@ -9,7 +10,10 @@
     default = ./.;
   };
 
+  # TODO: Conditional import
   imports = [
     ./common/default.nix
+    ./darwin/default.nix
+    # ./linux/default.nix
   ];
 }

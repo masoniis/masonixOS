@@ -1,7 +1,7 @@
 {
   system = "aarch64-darwin";
   users.mason.hm-configs = [
-    "test"
+    "full"
   ];
   homeManagerOnly = true;
 }
