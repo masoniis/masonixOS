@@ -1,7 +1,11 @@
 name: PR Build Tests
 
+permissions:
+  statuses: write
+  pull-requests: read
+
 on:
-  # Trigger only on comments created on pull requests
+  # Trigger on comments created on pull requests
   issue_comment:
     types: [created]
 
