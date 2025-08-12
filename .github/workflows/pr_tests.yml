@@ -136,30 +136,47 @@ jobs:
 
   # Reports results back to PR
   report-final-status:
+    name: Report Final Status
     needs: [trigger-tests, test-nixos, test-home-linux, test-home-macos]
-    if: always() && needs.trigger-tests.result == 'success'
     runs-on: ubuntu-latest
+    if: always() && needs.trigger-tests.result == 'success'
+    env:
+      PR_SHA:          ${{ needs.trigger-tests.outputs.pr_sha }}
+      TEST_NIXOS:      ${{ needs.test-nixos.result }}
+      TEST_HOME_LINUX: ${{ needs.test-home-linux.result }}
+      TEST_HOME_MACOS: ${{ needs.test-home-macos.result }}
     steps:
       - uses: actions/github-script@v7
         with:
           script: |
-            const results = ['test-nixos','test-home-linux','test-home-macos']
-              .map(job => needs[job].result);
-            let finalState  = results.includes('failure') || results.includes('cancelled')
-                               ? 'failure'
-                               : 'success';
-            let description = finalState == 'success'
-                               ? 'All tests passed!'
-                               : 'One or more tests failed.';
-            // don’t post if everything was skipped:
-            if (results.every(r => r === 'skipped')) return;
+            // Gather results from env vars
+            const results = [
+              process.env.TEST_NIXOS,
+              process.env.TEST_HOME_LINUX,
+              process.env.TEST_HOME_MACOS
+            ];
 
+            // Decide overall state
+            const finalState = results.includes('failure') || results.includes('cancelled')
+              ? 'failure'
+              : 'success';
+
+            const description = finalState === 'success'
+              ? 'All tests passed!'
+              : 'One or more tests failed.';
+
+            // Skip posting if every test was skipped
+            if (results.every(r => r === 'skipped')) {
+              console.log('All jobs were skipped; skipping status post.');
+              return;
+            }
+
+            // Create the commit status on the PR’s head SHA
             await github.rest.repos.createCommitStatus({
-              owner:       context.repo.owner,
-              repo:        context.repo.repo,
-              sha:         needs.trigger-tests.outputs.pr_sha,
-              state:       finalState,
-              context:     'PR Tests (via `/test` comment)',
-              description: description
+              owner:      context.repo.owner,
+              repo:       context.repo.repo,
+              sha:        process.env.PR_SHA,
+              state:      finalState,
+              context:    'PR Tests (via `/test` comment)',
+              description
             });
-
