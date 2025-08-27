@@ -7,6 +7,6 @@
     ./ai.nix
 
     ./languages
-    ./nixvim
+    ./nixcats
   ];
 }

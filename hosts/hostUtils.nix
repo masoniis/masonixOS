@@ -41,7 +41,7 @@ in
               imports = [
                 ../modules/linux/default.nix
                 config
-                inputs.nixvim.homeManagerModules.nixvim
+                inputs.nixCats.homeManagerModules.nixcats
                 inputs.spicetify.homeManagerModules.spicetify
               ];
             };
@@ -82,7 +82,7 @@ in
           else
             ../modules/linux/default.nix
         )
-        inputs.nixvim.homeManagerModules.nixvim
+        inputs.nixCats.homeModule
         inputs.spicetify.homeManagerModules.spicetify
         config
         { homeManagerIsolated = true; }

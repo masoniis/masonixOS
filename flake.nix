@@ -11,7 +11,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    nixvim.url = "github:nix-community/nixvim/main";
+    nixCats.url = "github:BirdeeHub/nixCats-nvim";
     systems.url = "github:nix-systems/default";
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
