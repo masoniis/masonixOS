@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs-unstable, ... }:
 # let
 #   utils = import inputs.nixCats;
 # in
@@ -27,6 +27,7 @@
           categories = {
             necessary = true;
             lua.enable = true;
+						java.enable = true;
             general = true;
           };
         };
@@ -49,6 +50,10 @@
             stylua
           ];
 
+					java = [
+						jdt-language-server
+					];
+
           general = [
             ripgrep
             fd
@@ -65,6 +70,7 @@
 
             # Common dependencies
             nvim-web-devicons
+						nvim-lspconfig
             plenary-nvim
           ];
 
@@ -80,7 +86,6 @@
             fidget-nvim
             gitsigns-nvim
             neo-tree-nvim
-            nvim-lspconfig
             snacks-nvim
             todo-comments-nvim
             which-key-nvim

@@ -19,7 +19,8 @@ local options = {
 	-- foldmethod = "expr",
 	-- foldexpr = "nvim_treesitter#foldexpr()", -- nvim-treesitter folding
 	foldenable = false,
-	-- timeoutlen = 100, -- Controls how fast whichkey appears among other things
+	timeout = true,
+	timeoutlen = 300, -- Controls how fast whichkey appears among other things
 }
 
 -- vim.cmd.colorscheme("catppuccin-mocha")

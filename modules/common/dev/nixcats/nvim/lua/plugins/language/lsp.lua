@@ -1,7 +1,8 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPre", "BufNewFile" },
+		lazy = false, -- Since this is just a data repo, load at startup
+		priority = 99,
 		config = function()
 			vim.diagnostic.config({
 				virtual_text = false,
@@ -10,6 +11,9 @@ return {
 				update_in_insert = false,
 				severity_sort = false,
 			})
+
+			vim.lsp.enable("lua_ls")
+			vim.lsp.enable("jdtls")
 
 			-- LSP keybinds
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -66,6 +70,7 @@ return {
 	{
 		"j-hui/fidget.nvim", -- Fidget spinner showing lsp processes
 		event = { "BufReadPre", "BufNewFile" },
+		dependencies = { "neovim/nvim-lspconfig" },
 		options = {},
 	},
 }
