@@ -6,5 +6,7 @@ require("keymaps")
 require("options")
 
 -- Plugins --
+require("plugins.colorscheme")
+
 require("plugins.snacks")
 require("plugins.alpha") -- depends on 'snacks' for buttons
