@@ -80,7 +80,6 @@
 
           # General use plugins
           general = with pkgs.vimPlugins; [
-            alpha-nvim
             barbar-nvim
             catppuccin-nvim
             fidget-nvim

@@ -19,7 +19,7 @@ return {
 			{ "<leader>f", group = "file" },
 			{ "<leader>l", group = "lang" },
 			{ "<leader>s", group = "system" },
-			{ "<leader>t", group = "terminal", icon = "terminal" },
+			{ "<leader>t", group = "terminal" },
 		})
 	end,
 	keys = {
