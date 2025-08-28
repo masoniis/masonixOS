@@ -78,7 +78,7 @@ return {
 	},
 	keys = {
 		-- Terminals
-		{ "<leader>tl", ":lua Snacks.lazygit()<cr>", desc = "lazygit" },
+		{ "<leader>tl", "<cmd>lua Snacks.lazygit()<cr>", desc = "lazygit" },
 		-- Pickers
 		{ "<leader>ff", ":lua Snacks.picker.smart()<cr>", desc = "find files" },
 		{ "<leader>fr", ":lua Snacks.picker.recent()<cr>", desc = "find recent" },

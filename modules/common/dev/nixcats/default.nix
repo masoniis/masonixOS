@@ -33,22 +33,17 @@ in
             ];
           };
 
-          # Determines which plugin categories (defined below) to enable
+          # Determines which plugin categories to enable
           categories = {
             necessary = true;
             lua.enable = true;
             java.enable = true;
             general = true;
 
-            javaPaths =
-              let
-                debugServerDir = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
-                testServerDir = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";
-              in
-              {
-                debug_adapter = findFileBySuffix debugServerDir ".jar";
-                test_runner = findFileBySuffix testServerDir ".jar";
-              };
+            javaPaths = {
+              java_debug_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
+              java_test_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";
+            };
           };
         };
     };

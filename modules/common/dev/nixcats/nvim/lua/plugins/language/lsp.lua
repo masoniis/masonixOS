@@ -14,12 +14,26 @@ return {
 
 			vim.lsp.enable("lua_ls")
 
+			-- JDTLS stuff
+			local bundles = {
+				vim.fn.glob(nixCats("javaPaths.java_debug_dir") .. "/com.microsoft.java.debug.plugin-*.jar", true),
+			}
+
+			local java_test_bundles = vim.split(vim.fn.glob(nixCats("javaPaths.java_test_dir") .. "/*.jar", true), "\n")
+			local excluded = {
+				"com.microsoft.java.test.runner-jar-with-dependencies.jar",
+				"jacocoagent.jar",
+			}
+			for _, java_test_jar in ipairs(java_test_bundles) do
+				local fname = vim.fn.fnamemodify(java_test_jar, ":t")
+				if not vim.tbl_contains(excluded, fname) then
+					table.insert(bundles, java_test_jar)
+				end
+			end
+
 			vim.lsp.config("jdtls", {
 				init_options = {
-					bundles = {
-						nixCats("javaPaths.test_runner"),
-						nixCats("javaPaths.debug_adapter"),
-					},
+					bundles = bundles,
 				},
 			})
 			vim.lsp.enable("jdtls")
