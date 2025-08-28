@@ -11,17 +11,14 @@ in
 {
   nixCats = {
     enable = true;
-    luaPath = root + /dotfiles/nvim;
+    luaPath = ./nvim;
 
     packageNames = [ "myNvim" ];
-
-    # Defines the "myNvim" package.
     packageDefinitions.replace = {
       myNvim =
         { pkgs, ... }:
         {
           settings = {
-            # This creates shell aliases for your nvim command.
             aliases = [
               "vim"
               "vi"
@@ -31,11 +28,10 @@ in
               "nvim"
             ];
           };
-          # Even an empty set is enough to build a default Neovim.
+
+					# Determines which plugin categories to enable
           categories = {
-            categories = {
-              general = true;
-            };
+						general = true;
           };
         };
     };
@@ -49,16 +45,21 @@ in
         name,
         mkPlugin,
         ...
-      }@packageDef:
+      }:
       {
         startupPlugins = {
           general = with pkgs.vimPlugins; [
             alpha-nvim
+						catppuccin-nvim
+						snacks-nvim
             which-key-nvim
           ];
         };
 
         optionalPlugins = {
+          general = with pkgs.vimPlugins; [
+						lazydev-nvim
+          ];
         };
       }
     );
