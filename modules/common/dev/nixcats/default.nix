@@ -75,9 +75,11 @@
           # General use plugins
           general = with pkgs.vimPlugins; [
             alpha-nvim
+            barbar-nvim
             catppuccin-nvim
             fidget-nvim
             gitsigns-nvim
+            neo-tree-nvim
             nvim-lspconfig
             snacks-nvim
             todo-comments-nvim

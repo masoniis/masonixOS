@@ -31,7 +31,7 @@ return {
 						vim.lsp.buf.definition,
 						{ buffer = ev.buf, desc = "see definition" }
 					)
-					vim.keymap.set("n", "<leader>lK", vim.lsp.buf.hover, { buffer = ev.buf, desc = "hover action" })
+					vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "hover action" })
 					vim.keymap.set(
 						"n",
 						"<leader>li",
