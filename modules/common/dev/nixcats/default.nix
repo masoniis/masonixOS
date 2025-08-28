@@ -1,17 +1,4 @@
-{ lib, ... }:
-let
-  findFileBySuffix =
-    dir: suffix:
-    let
-      files = builtins.readDir dir;
-      filenames = lib.attrNames files;
-      foundFile = lib.findFirst (name: lib.hasSuffix suffix name) null filenames;
-    in
-    if foundFile != null then
-      dir + "/${foundFile}"
-    else
-      throw "masonix nixCats config: Could not find file with suffix '${suffix}' in ${dir}";
-in
+{ ... }:
 {
   nixCats = {
     enable = true;
@@ -38,6 +25,8 @@ in
             necessary = true;
             lua.enable = true;
             java.enable = true;
+            markdown.enable = true;
+            python.enable = true;
             general = true;
 
             javaPaths = {
@@ -60,23 +49,30 @@ in
       }:
       {
         lspsAndRuntimeDeps = with pkgs; {
-          lua = [
-            lua-language-server
-            stylua
-          ];
-
           java = [
             jdt-language-server
             vscode-extensions.vscjava.vscode-java-test
             vscode-extensions.vscjava.vscode-java-debug
           ];
 
+          lua = [
+            lua-language-server
+            stylua
+          ];
+
+          markdown = [
+            prettierd
+          ];
+
+          python = [
+            basedpyright
+            ruff
+          ];
+
           general = [
+            prettierd # shell formatting, other general use
             ripgrep
             fd
-
-            # formatters
-            prettierd
           ];
         };
 
@@ -95,6 +91,10 @@ in
             plenary-nvim
           ];
 
+          java = with pkgs.vimPlugins; [
+            nvim-jdtls
+          ];
+
           lua = with pkgs.vimPlugins; [
             lazydev-nvim
           ];
@@ -107,9 +107,8 @@ in
             conform-nvim
             fidget-nvim
             gitsigns-nvim
-            neo-tree-nvim
             nvim-dap-ui
-            nvim-jdtls
+            smart-splits-nvim
             snacks-nvim
             todo-comments-nvim
             which-key-nvim

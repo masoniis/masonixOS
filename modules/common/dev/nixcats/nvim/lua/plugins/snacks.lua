@@ -85,5 +85,10 @@ return {
 		{ "<leader>fn", ":lua Snacks.picker.notifications()<cr>", desc = "find notifications" },
 		{ "<leader>fg", ":lua Snacks.picker.git_files()<cr>", desc = "find git files" },
 		{ "<leader>fG", ":lua Snacks.picker.git_files()<cr>", desc = "find grep open buffers" },
+		{
+			"<leader>e",
+			"<cmd>lua Snacks.explorer()<cr>",
+			desc = "Snacks explorer",
+		},
 	},
 }
