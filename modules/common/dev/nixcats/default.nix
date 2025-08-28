@@ -127,6 +127,8 @@
             conform-nvim
             fidget-nvim
             gitsigns-nvim
+            neo-tree-nvim
+            neotree-nesting-config-nvim
             nvim-dap-ui
             slimline-nvim
             smart-splits-nvim

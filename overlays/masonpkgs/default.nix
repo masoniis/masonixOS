@@ -5,6 +5,7 @@ self: super: {
   timetrack = args: super.callPackage ./timetrack/default.nix args;
 
   vimPlugins = super.vimPlugins // {
-    slimline-nvim = super.callPackage ./vim-plugins/slimline.nix { };
+    slimline-nvim = super.callPackage ./nvim-plugins/slimline.nix { };
+    neotree-nesting-config-nvim = super.callPackage ./nvim-plugins/neotree-nesting-config.nix { };
   };
 }

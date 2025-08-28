@@ -4,7 +4,7 @@ return {
 	lazy = false,
 	opts = {
 		bigfile = { enabled = true },
-		explorer = { enabled = true },
+		explorer = { enabled = false }, -- neotree superior
 		indent = { enabled = true },
 		input = { enabled = true },
 		picker = { enabled = true },
