@@ -1,4 +1,4 @@
-{ ... }:
+{ root, ... }:
 {
   nixCats = {
     enable = true;
@@ -111,6 +111,7 @@
             smart-splits-nvim
             snacks-nvim
             todo-comments-nvim
+            toggleterm-nvim
             which-key-nvim
           ];
         };
