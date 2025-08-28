@@ -32,10 +32,9 @@ map("n", "<leader>cd", "<cmd>cd %:h<cr>", "change file dir") -- Format mapping
 -----------------
 -- Visual mode --
 -----------------
--- map("v", "
--- map("v", "<A-j>", ":m .+1<CR>==")
+
 -- map("v", "p", '"_dP') -- When pasting, don't cut text pasted over
---
+
 -- --- Terminal mode to navigate in and out
 map("t", "<esc>", [[<C-\><C-n>]])
 -- -- Having this keybind makes normal j navigationi n terminal slow

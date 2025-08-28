@@ -29,9 +29,9 @@ in
             ];
           };
 
-					# Determines which plugin categories (defined below) to enable
+          # Determines which plugin categories (defined below) to enable
           categories = {
-						general = true;
+            general = true;
           };
         };
     };
@@ -49,16 +49,21 @@ in
       {
         startupPlugins = {
           general = with pkgs.vimPlugins; [
+            lazy-nvim
+
             alpha-nvim
-						catppuccin-nvim
-						snacks-nvim
+            nvim-web-devicons # alpha dep
+
+            catppuccin-nvim
             which-key-nvim
+
+            snacks-nvim
           ];
         };
 
         optionalPlugins = {
           general = with pkgs.vimPlugins; [
-						lazydev-nvim
+            lazydev-nvim
           ];
         };
       }
