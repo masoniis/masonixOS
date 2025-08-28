@@ -2,12 +2,17 @@
   config,
   root,
   pkgs,
+  lib,
   ...
 }:
 {
   # ghostty only available on linux in nixpkgs at the moment
   # install it on macos manually bruv or use regular terminal
-  home.packages = if config.isLinux then [ pkgs.ghostty ] else [ ];
+  home.packages = [
+    pkgs.ripgrep
+    pkgs.fd
+  ]
+  ++ lib.optional config.isLinux pkgs.ghostty;
 
   # INFO: Source dotfiles directly
   xdg.configFile = {

@@ -13,6 +13,15 @@ return {
 			})
 
 			vim.lsp.enable("lua_ls")
+
+			vim.lsp.config("jdtls", {
+				init_options = {
+					bundles = {
+						nixCats("javaPaths.test_runner"),
+						nixCats("javaPaths.debug_adapter"),
+					},
+				},
+			})
 			vim.lsp.enable("jdtls")
 
 			-- LSP keybinds
@@ -82,6 +91,7 @@ return {
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 				{ path = "LazyVim", words = { "LazyVim" } },
 				{ path = "snacks.nvim", words = { "Snacks" } },
+				{ "nvim-dap-ui" },
 			},
 		},
 	},

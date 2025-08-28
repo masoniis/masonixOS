@@ -20,6 +20,7 @@ return {
 			{ "<leader>l", group = "lang" },
 			{ "<leader>s", group = "system" },
 			{ "<leader>t", group = "terminal" },
+			{ "<leader>d", group = "debug" },
 		})
 	end,
 	keys = {

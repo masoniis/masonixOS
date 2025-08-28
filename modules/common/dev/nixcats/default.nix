@@ -1,15 +1,25 @@
-{ pkgs-unstable, ... }:
-# let
-#   utils = import inputs.nixCats;
-# in
+{ lib, ... }:
+let
+  findFileBySuffix =
+    dir: suffix:
+    let
+      files = builtins.readDir dir;
+      filenames = lib.attrNames files;
+      foundFile = lib.findFirst (name: lib.hasSuffix suffix name) null filenames;
+    in
+    if foundFile != null then
+      dir + "/${foundFile}"
+    else
+      throw "masonix nixCats config: Could not find file with suffix '${suffix}' in ${dir}";
+in
 {
   nixCats = {
     enable = true;
     luaPath = ./nvim;
 
-    packageNames = [ "myNvim" ];
+    packageNames = [ "onixNvim" ];
     packageDefinitions.replace = {
-      myNvim =
+      onixNvim =
         { pkgs, ... }:
         {
           settings = {
@@ -29,6 +39,16 @@
             lua.enable = true;
             java.enable = true;
             general = true;
+
+            javaPaths =
+              let
+                debugServerDir = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
+                testServerDir = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";
+              in
+              {
+                debug_adapter = findFileBySuffix debugServerDir ".jar";
+                test_runner = findFileBySuffix testServerDir ".jar";
+              };
           };
         };
     };
@@ -52,6 +72,8 @@
 
           java = [
             jdt-language-server
+            vscode-extensions.vscjava.vscode-java-test
+            vscode-extensions.vscjava.vscode-java-debug
           ];
 
           general = [
@@ -85,6 +107,8 @@
             fidget-nvim
             gitsigns-nvim
             neo-tree-nvim
+            nvim-dap-ui
+            nvim-jdtls
             snacks-nvim
             todo-comments-nvim
             which-key-nvim
