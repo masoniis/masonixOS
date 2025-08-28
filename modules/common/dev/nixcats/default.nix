@@ -29,7 +29,7 @@ in
             ];
           };
 
-					# Determines which plugin categories to enable
+					# Determines which plugin categories (defined below) to enable
           categories = {
 						general = true;
           };
