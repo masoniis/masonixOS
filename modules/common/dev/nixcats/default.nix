@@ -108,6 +108,7 @@
             fidget-nvim
             gitsigns-nvim
             nvim-dap-ui
+            slimline-nvim
             smart-splits-nvim
             snacks-nvim
             todo-comments-nvim
