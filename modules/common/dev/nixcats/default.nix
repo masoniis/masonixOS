@@ -1,13 +1,7 @@
-{
-  config,
-  pkgs,
-  inputs,
-  root,
-  ...
-}:
-let
-  utils = import inputs.nixCats;
-in
+{ ... }:
+# let
+#   utils = import inputs.nixCats;
+# in
 {
   nixCats = {
     enable = true;
@@ -31,6 +25,8 @@ in
 
           # Determines which plugin categories (defined below) to enable
           categories = {
+            necessary = true;
+            lua.enable = true;
             general = true;
           };
         };
@@ -47,23 +43,43 @@ in
         ...
       }:
       {
-        startupPlugins = {
-          general = with pkgs.vimPlugins; [
-            lazy-nvim
+        lspsAndRuntimeDeps = with pkgs; {
+          lua = [
+            lua-language-server
+            stylua
+          ];
 
-            alpha-nvim
-            nvim-web-devicons # alpha dep
-
-            catppuccin-nvim
-            which-key-nvim
-
-            snacks-nvim
+          general = [
+            ripgrep
+            fd
           ];
         };
 
-        optionalPlugins = {
-          general = with pkgs.vimPlugins; [
+        # Even though every plugin is a "startup plugin",
+        # lazy-nvim can manage the lazy loading of them.
+        startupPlugins = {
+
+          # All necessary baseline plugins
+          necessary = with pkgs.vimPlugins; [
+            lazy-nvim
+
+            # Common dependencies
+            nvim-web-devicons
+            plenary-nvim
+          ];
+
+          lua = with pkgs.vimPlugins; [
             lazydev-nvim
+          ];
+
+          # General use plugins
+          general = with pkgs.vimPlugins; [
+            alpha-nvim
+            catppuccin-nvim
+            fidget-nvim
+            nvim-lspconfig
+            snacks-nvim
+            which-key-nvim
           ];
         };
       }
