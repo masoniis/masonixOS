@@ -77,8 +77,10 @@
             alpha-nvim
             catppuccin-nvim
             fidget-nvim
+            gitsigns-nvim
             nvim-lspconfig
             snacks-nvim
+            todo-comments-nvim
             which-key-nvim
           ];
         };

@@ -19,7 +19,6 @@ return {
 					vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
-					local opts = { buffer = ev.buf }
 					vim.keymap.set(
 						"n",
 						"<leader>lD",
