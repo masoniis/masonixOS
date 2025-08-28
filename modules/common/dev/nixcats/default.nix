@@ -74,6 +74,9 @@ in
           general = [
             ripgrep
             fd
+
+            # formatters
+            prettierd
           ];
         };
 
@@ -86,6 +89,7 @@ in
             lazy-nvim
 
             # Common dependencies
+            friendly-snippets
             nvim-web-devicons
             nvim-lspconfig
             plenary-nvim
@@ -98,7 +102,9 @@ in
           # General use plugins
           general = with pkgs.vimPlugins; [
             barbar-nvim
+            blink-cmp
             catppuccin-nvim
+            conform-nvim
             fidget-nvim
             gitsigns-nvim
             neo-tree-nvim

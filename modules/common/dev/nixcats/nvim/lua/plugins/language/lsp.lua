@@ -14,6 +14,25 @@ return {
 
 			vim.lsp.enable("lua_ls")
 
+			vim.lsp.config("glsl_analyzer", {
+				filetypes = {
+					"glsl",
+					"vert",
+					"tesc",
+					"tese",
+					"frag",
+					"geom",
+					"comp",
+					"fsh",
+					"vsh",
+				},
+			})
+			vim.lsp.enable("glsl_analyzer")
+
+			vim.lsp.enable("zls")
+			vim.lsp.enable("clangd")
+			vim.lsp.enable("basedpyright")
+
 			-- JDTLS stuff
 			local bundles = {
 				vim.fn.glob(nixCats("javaPaths.java_debug_dir") .. "/com.microsoft.java.debug.plugin-*.jar", true),
