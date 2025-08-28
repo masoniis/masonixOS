@@ -27,7 +27,7 @@
           categories = {
             necessary = true;
             lua.enable = true;
-						java.enable = true;
+            java.enable = true;
             general = true;
           };
         };
@@ -50,9 +50,9 @@
             stylua
           ];
 
-					java = [
-						jdt-language-server
-					];
+          java = [
+            jdt-language-server
+          ];
 
           general = [
             ripgrep
@@ -70,7 +70,7 @@
 
             # Common dependencies
             nvim-web-devicons
-						nvim-lspconfig
+            nvim-lspconfig
             plenary-nvim
           ];
 
