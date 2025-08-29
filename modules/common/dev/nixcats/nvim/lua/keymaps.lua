@@ -156,8 +156,4 @@ map("v", ">", ">gv") -- Dedent selection and stay in visual mode
 -- Terminal mode --
 -------------------
 map("t", "<esc>", [[<C-\><C-n>]]) -- Exit terminal mode
-map("t", "<C-h>", [[<Cmd>wincmd h<CR>]], "Terminal left")
-map("t", "<C-j>", [[<Cmd>wincmd j<CR>]], "Terminal down")
-map("t", "<C-k>", [[<Cmd>wincmd k<CR>]], "Terminal up")
-map("t", "<C-l>", [[<Cmd>wincmd l<CR>]], "Terminal right")
-map("t", "<C-w>", [[<C-\><C-n><C-w>]], "Terminal window command")
+map("t", "<C-w>", [[<C-\><C-n><C-w>]], "terminal window command")

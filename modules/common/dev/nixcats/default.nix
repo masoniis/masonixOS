@@ -159,6 +159,7 @@
             slimline-nvim
             smart-splits-nvim
             snacks-nvim
+            render-markdown-nvim
             todo-comments-nvim
             toggleterm-nvim
             which-key-nvim
