@@ -23,8 +23,6 @@ local options = {
 	timeoutlen = 300, -- Controls how fast whichkey appears among other things
 }
 
--- vim.cmd.colorscheme("catppuccin-mocha")
-
 for option, value in pairs(options) do
 	vim.opt[option] = value
 end

@@ -31,8 +31,10 @@
             # INFO: -------------------
             #    Language categories
             # -------------------------
-            lua.enable = true;
+            clang.enable = true;
+            glsl.enable = true;
             java.enable = true;
+            lua.enable = true;
             markdown.enable = true;
             markup.enable = true;
             nix.enable = true;
@@ -40,7 +42,6 @@
             rust.enable = true;
             shell.enable = true;
             zig.enable = true;
-            glsl.enable = true;
 
             # INFO: ----------------
             #    Config variables
@@ -78,6 +79,10 @@
           # INFO: -------------------
           #    Language categories
           # -------------------------
+          clang = [
+            clang-tools # includes clangd langserver
+          ];
+
           glsl = [
             glsl_analyzer
           ];
