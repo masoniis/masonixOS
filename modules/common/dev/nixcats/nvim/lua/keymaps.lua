@@ -23,21 +23,18 @@ map("n", "j", "gj") -- Move through visual lines instead of logical lines
 map("n", "k", "gk")
 
 map("n", "<leader>fn", "<cmd>new<cr>", "New file") -- Make new file
--- map("n", "<leader>F", "<cmd>lua vim.lsp.buf.format {async = false}<cr>", "format code") -- Format mapping
-
 map("n", "<leader>cd", "<cmd>cd %:h<cr>", "change file dir") -- Format mapping
-
--- map("n", "<C-,>", "<cmd>bprevious<cr>", "Navigate back") -- Navigate back buffer like in obsidian
+map("n", "<C-q>", "<cmd>close<cr>", "close")
 
 -----------------
 -- Visual mode --
 -----------------
 
--- map("v", "p", '"_dP') -- When pasting, don't cut text pasted over
+map("v", "p", '"_dP') -- When pasting over a selection, don't copy the selected text to the clipboard
+map("t", "<C-q>", "<cmd>close<cr>", "close")
 
--- --- Terminal mode to navigate in and out
+-- Terminal mode to navigate in and out
 map("t", "<esc>", [[<C-\><C-n>]])
--- -- Having this keybind makes normal j navigationi n terminal slow
 map("t", "<C-h>", [[<Cmd>wincmd h<CR>]])
 map("t", "<C-j>", [[<Cmd>wincmd j<CR>]])
 map("t", "<C-k>", [[<Cmd>wincmd k<CR>]])

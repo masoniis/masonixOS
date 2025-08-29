@@ -129,10 +129,6 @@ return {
 			togglefloat:toggle()
 		end
 
-		function _Lazygit_Toggle()
-			lazygit:toggle()
-		end
-
 		function _Ollama_Toggle()
 			ollama:toggle()
 		end
@@ -148,44 +144,43 @@ return {
 		function _FlutterRun()
 			flutter_run:toggle()
 		end
-
-		--  INFO: Toggle keymaps
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>tt",
-			"<cmd>lua _ToggleTerm()<CR>",
-			{ noremap = true, silent = true, desc = "floating term" }
-		)
-
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>to",
-			"<cmd>lua _Ollama_Toggle()<CR>",
-			{ noremap = true, silent = true, desc = "ollama serve term" }
-		)
-
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>th",
-			"<cmd>lua _HomeManagerSwitch()<CR>",
-			{ noremap = true, silent = true, desc = "hm switch term" }
-		)
-
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>ts",
-			"<cmd>lua _Spotify_Toggle()<CR>",
-			{ noremap = true, silent = true, desc = "spotify term" }
-		)
-
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>tf",
-			"<cmd>lua _FlutterRun()<CR>",
-			{ noremap = true, silent = true, desc = "flutter run term" }
-		)
-
-		vim.api.nvim_set_keymap("n", "<C-q>", "<cmd>close<CR>", { noremap = true, silent = true, desc = "close" })
-		vim.api.nvim_set_keymap("t", "<C-q>", "<cmd>close<CR>", { noremap = true, silent = true, desc = "close" })
 	end,
+	keys = {
+		-- INFO: Toggle keymaps
+		{
+			"<leader>tt",
+			function()
+				_ToggleTerm()
+			end,
+			desc = "floating term",
+		},
+		{
+			"<leader>to",
+			function()
+				_Ollama_Toggle()
+			end,
+			desc = "ollama serve term",
+		},
+		{
+			"<leader>th",
+			function()
+				_HomeManagerSwitch()
+			end,
+			desc = "hm switch term",
+		},
+		{
+			"<leader>ts",
+			function()
+				_Spotify_Toggle()
+			end,
+			desc = "spotify term",
+		},
+		{
+			"<leader>tf",
+			function()
+				_FlutterRun()
+			end,
+			desc = "flutter run term",
+		},
+	},
 }
