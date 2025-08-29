@@ -24,13 +24,29 @@ return {
 			{ "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", desc = "toggle dap ui" },
 		},
 	},
+
+	-- INFO: -----------------------------------
+	--        Specific language debuggers
+	-- -----------------------------------------
+	{
+		"mfussenegger/nvim-dap-python",
+		dependencies = { "mfussenegger/nvim-dap" },
+		ft = "python", -- Load only for python files
+		config = function()
+			-- Note: This requires that you have debugpy installed with uv: `uv add debugpy`
+			require("dap-python").setup("uv")
+		end,
+	},
+
+	-- TODO: Doesnt work who knows why
 	{
 		"mfussenegger/nvim-jdtls", -- java lsp, debugger, etc
 		dependencies = { "mfussenegger/nvim-dap" },
 		ft = "java", -- Load only for Java files
-		config = function()
-			require("jdtls")
-		end,
+		opts = {},
+		-- config = function()
+		-- 	require("jdtls")
+		-- end,
 		keys = {
 			{ "<leader>dC", "<cmd>lua require'jdtls'.test_class()<cr>", desc = "test class (java)" },
 			{ "<leader>dm", "<cmd>lua require'jdtls'.test_nearest_method()<cr>", desc = "test nearest method (java)" },
