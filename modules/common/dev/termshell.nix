@@ -54,6 +54,7 @@
       enableCompletion = true;
       initContent = ''
         set -o vi
+        bindkey '^l' autosuggest-accept
       '';
       profileExtra =
         # adds docker desktop to path for macos

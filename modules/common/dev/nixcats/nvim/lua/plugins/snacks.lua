@@ -88,5 +88,7 @@ return {
 			"<cmd>lua Snacks.explorer()<cr>",
 			desc = "Snacks explorer",
 		},
+		-- System mapping
+		{ "<leader>sg", ":lua Snacks.gitbrowse.open()<cr>", desc = "open local repo in github" },
 	},
 }
