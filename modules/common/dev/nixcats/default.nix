@@ -90,6 +90,7 @@
           ];
 
           general = [
+            nodejs-slim # required for copilot
             prettierd # shell formatting, other general use
             ripgrep
             fd
@@ -123,8 +124,10 @@
           general = with pkgs.vimPlugins; [
             barbar-nvim
             blink-cmp
+            blink-copilot
             catppuccin-nvim
             conform-nvim
+            copilot-lua
             fidget-nvim
             gitsigns-nvim
             neo-tree-nvim
