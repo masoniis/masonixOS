@@ -22,10 +22,6 @@ return {
 				{ section = "keys", gap = 1, padding = 1 },
 				{
 					pane = 2,
-					padding = 5,
-				},
-				{
-					pane = 2,
 					icon = " ",
 					title = "Recent Files",
 					section = "recent_files",

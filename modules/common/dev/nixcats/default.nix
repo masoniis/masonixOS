@@ -1,4 +1,4 @@
-{ root, ... }:
+{ pkgs-unstable, ... }:
 {
   nixCats = {
     enable = true;
@@ -132,7 +132,10 @@
             gitsigns-nvim
             neo-tree-nvim
             neotree-nesting-config-nvim
+            noice-nvim
+            pkgs-unstable.vimPlugins.nui-nvim # unstable fixes an annoying deprecation warning 8/28/25
             nvim-dap-ui
+            nvim-treesitter.withAllGrammars
             slimline-nvim
             smart-splits-nvim
             snacks-nvim
