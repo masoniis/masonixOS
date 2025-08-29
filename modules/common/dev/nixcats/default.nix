@@ -34,7 +34,11 @@
             lua.enable = true;
             java.enable = true;
             markdown.enable = true;
+            markup.enable = true;
+            nix.enable = true;
             python.enable = true;
+            rust.enable = true;
+            shell.enable = true;
             zig.enable = true;
             glsl.enable = true;
 
@@ -61,12 +65,26 @@
       }:
       {
         lspsAndRuntimeDeps = with pkgs; {
+          # INFO: ----------------
+          #    Broad categories
+          # ----------------------
+          general = [
+            nodejs-slim # required for copilot
+            codespell
+            ripgrep
+            fd
+          ];
+
+          # INFO: -------------------
+          #    Language categories
+          # -------------------------
           glsl = [
             glsl_analyzer
           ];
 
           java = [
             jdt-language-server
+            google-java-format
             vscode-extensions.vscjava.vscode-java-test
             vscode-extensions.vscjava.vscode-java-debug
           ];
@@ -80,47 +98,41 @@
             prettierd
           ];
 
+          markup = [
+            prettierd
+            taplo # toml formatter
+          ];
+
+          nix = [
+            nixfmt-rfc-style
+          ];
+
           python = [
             basedpyright
             ruff
+          ];
+
+          rust = [
+            rustfmt
+          ];
+
+          shell = [
+            shfmt
+            shellcheck
           ];
 
           zig = [
             zls # zig langserver
           ];
 
-          general = [
-            nodejs-slim # required for copilot
-            prettierd # shell formatting, other general use
-            ripgrep
-            fd
-          ];
         };
 
         # Even though every plugin is a "startup plugin",
-        # lazy-nvim can manage the lazy loading of them.
+        # lazy-nvim manages the lazy loading of them.
         startupPlugins = {
-
-          # All necessary baseline plugins
-          necessary = with pkgs.vimPlugins; [
-            lazy-nvim
-
-            # Common dependencies
-            friendly-snippets
-            nvim-web-devicons
-            nvim-lspconfig
-            plenary-nvim
-          ];
-
-          java = with pkgs.vimPlugins; [
-            nvim-jdtls
-          ];
-
-          lua = with pkgs.vimPlugins; [
-            lazydev-nvim
-          ];
-
-          # General use plugins
+          # INFO: ----------------
+          #    Broad categories
+          # ----------------------
           general = with pkgs.vimPlugins; [
             barbar-nvim
             blink-cmp
@@ -135,6 +147,7 @@
             noice-nvim
             pkgs-unstable.vimPlugins.nui-nvim # unstable fixes an annoying deprecation warning 8/28/25
             tint-nvim
+            todo-comments-nvim
             nvim-dap-ui
             nvim-treesitter.withAllGrammars
             slimline-nvim
@@ -143,6 +156,28 @@
             todo-comments-nvim
             toggleterm-nvim
             which-key-nvim
+          ];
+
+          # All necessary baseline plugins
+          necessary = with pkgs.vimPlugins; [
+            lazy-nvim
+
+            # Common dependencies
+            friendly-snippets
+            nvim-web-devicons
+            nvim-lspconfig
+            plenary-nvim
+          ];
+
+          # INFO: -------------------
+          #    Language categories
+          # -------------------------
+          java = with pkgs.vimPlugins; [
+            nvim-jdtls
+          ];
+
+          lua = with pkgs.vimPlugins; [
+            lazydev-nvim
           ];
         };
       }

@@ -1,19 +1,24 @@
 return {
 	"stevearc/conform.nvim",
 	opts = {
+		format_on_save = {
+			timeout_ms = 2000,
+			lsp_fallback = true,
+		},
 		formatters_by_ft = {
 			bash = { "shfmt", "shellcheck", stop_after_first = true },
-			css = { "prettierd", "prettier", stop_after_first = true },
-			hbs = { "prettierd", "prettier", stop_after_first = true },
-			html = { "prettierd", "prettier", stop_after_first = true },
-			javascript = { "prettierd", "prettier", stop_after_first = true },
+			css = { "prettierd" },
+			hbs = { "prettierd" },
+			html = { "prettierd" },
+			javascript = { "prettierd" },
 			lua = { "stylua" },
+			nix = { "nixfmt" },
 			python = { "ruff_organize_imports", "ruff_format", "ruff_fix" },
-			typescript = { "prettierd", "prettier", stop_after_first = true },
-			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-			svelte = { "prettierd", "prettier", stop_after_first = true }, -- set up https://github.com/sveltejs/prettier-plugin-svelte for formatting to work
-			markdown = { "prettierd", "prettier", stop_after_first = true },
-			yaml = { "prettierd", "prettier", stop_after_first = true },
+			typescript = { "prettierd" },
+			typescriptreact = { "prettierd" },
+			svelte = { "prettierd" }, -- set up https://github.com/sveltejs/prettier-plugin-svelte for formatting to work
+			markdown = { "prettierd" },
+			yaml = { "prettierd" },
 			sh = { "shfmt", "shellcheck", stop_after_first = true },
 			rust = { "rustfmt" },
 			toml = { "taplo" },

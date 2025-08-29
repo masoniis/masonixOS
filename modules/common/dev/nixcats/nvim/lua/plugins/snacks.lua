@@ -73,6 +73,8 @@ return {
 		},
 	},
 	keys = {
+		-- Dashboard
+		{ "<leader><leader><leader>", "<cmd>lua Snacks.dashboard()<cr>", desc = "snacks dashboard" },
 		-- Terminals
 		{ "<leader>tl", "<cmd>lua Snacks.lazygit()<cr>", desc = "lazygit" },
 		-- Pickers

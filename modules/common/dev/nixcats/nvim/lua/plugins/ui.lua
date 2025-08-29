@@ -17,6 +17,11 @@ return {
 		},
 	},
 	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {},
+	},
+	{
 		"levouh/tint.nvim",
 		opts = {
 			tint = -15, -- Darken colors, use a positive value to brighten
