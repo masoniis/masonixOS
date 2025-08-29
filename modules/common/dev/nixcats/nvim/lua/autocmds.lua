@@ -15,13 +15,3 @@ api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
 
 --- Remove line numbers in a terminal
 api.nvim_create_autocmd("TermOpen", { command = [[setlocal nonumber norelativenumber]] })
-
--- When entering command mode, set height to 1 in order to shift statusline up so it remains visible
-api.nvim_create_autocmd("CmdlineEnter", {
-	command = ":set cmdheight=1",
-})
-
--- When leaving, set height back to 0 to hide command line
-api.nvim_create_autocmd("CmdlineLeave", {
-	command = ":set cmdheight=0",
-})

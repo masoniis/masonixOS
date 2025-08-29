@@ -134,6 +134,7 @@
             neotree-nesting-config-nvim
             noice-nvim
             pkgs-unstable.vimPlugins.nui-nvim # unstable fixes an annoying deprecation warning 8/28/25
+            tint-nvim
             nvim-dap-ui
             nvim-treesitter.withAllGrammars
             slimline-nvim

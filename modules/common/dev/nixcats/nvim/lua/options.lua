@@ -9,8 +9,8 @@ local options = {
 	smartcase = true,
 	ignorecase = true,
 	-- Fold based on indents rather than manual
-	cmdheight = 0, -- When a command is not being typed, height is 0 instead of 1 line
-	scrolloff = 2, -- Handled in VSCode settings, makes it so it starts scrolling before cursor reaches e
+	cmdheight = 0, -- Cmd height to 0, using noice which doesnt use the bottom command bar
+	scrolloff = 2, -- Makes it so screen starts scrolling before cursor reaches edge
 	sidescrolloff = 8, -- Handled in VSCode settings
 	laststatus = 3,
 	-- Folding options
