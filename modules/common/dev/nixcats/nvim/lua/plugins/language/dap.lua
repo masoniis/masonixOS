@@ -38,15 +38,12 @@ return {
 		end,
 	},
 
-	-- TODO: Doesnt work who knows why
+	-- TODO: No clue how to get this to work
 	{
 		"mfussenegger/nvim-jdtls", -- java lsp, debugger, etc
 		dependencies = { "mfussenegger/nvim-dap" },
 		ft = "java", -- Load only for Java files
-		opts = {},
-		-- config = function()
-		-- 	require("jdtls")
-		-- end,
+		config = function() end,
 		keys = {
 			{ "<leader>dC", "<cmd>lua require'jdtls'.test_class()<cr>", desc = "test class (java)" },
 			{ "<leader>dm", "<cmd>lua require'jdtls'.test_nearest_method()<cr>", desc = "test nearest method (java)" },

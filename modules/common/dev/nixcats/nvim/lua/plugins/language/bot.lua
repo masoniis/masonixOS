@@ -4,15 +4,10 @@ return {
 	event = "InsertEnter",
 	opts = {
 		suggestion = {
-			enabled = true,
-			auto_trigger = true,
-			keymap = {
-				accept = "<C-l>", -- Use Ctrl+L to accept suggestions
-				dismiss = "<C-h>", -- Use Ctrl+H to dismiss suggestions
-			},
+			enabled = false,
 		},
 		panel = {
-			enabled = true, -- Shows a panel with multiple suggestions
+			enabled = false, -- Shows a panel with multiple suggestions
 		},
 	},
 }

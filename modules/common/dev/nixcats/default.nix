@@ -144,6 +144,7 @@
             blink-copilot
             catppuccin-nvim
             conform-nvim
+            colorful-menu-nvim
             copilot-lua
             fidget-nvim
             gitsigns-nvim
@@ -183,6 +184,10 @@
 
           lua = with pkgs.vimPlugins; [
             lazydev-nvim
+          ];
+
+          python = with pkgs.vimPlugins; [
+            nvim-dap-python
           ];
         };
       }
