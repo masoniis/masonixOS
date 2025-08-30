@@ -1,15 +1,19 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		lazy = false, -- Since this is just a data repo, load at startup
-		priority = 99,
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			vim.diagnostic.config({
-				virtual_text = false,
+				virtual_text = {
+					current_line = true,
+				},
+				virtual_lines = {
+					current_line = true,
+				},
 				signs = true,
 				underline = true,
+				severity_sort = true,
 				update_in_insert = false,
-				severity_sort = false,
 			})
 
 			vim.lsp.enable("lua_ls")
@@ -32,9 +36,7 @@ return {
 			vim.lsp.enable("zls")
 			vim.lsp.enable("clangd")
 			vim.lsp.enable("basedpyright")
-
-			-- JDTLS stuff
-			vim.lsp.enable("jdtls")
+			vim.lsp.enable("jdtls") -- java
 
 			-- LSP keybinds
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -44,6 +46,12 @@ return {
 					vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
+					vim.keymap.set(
+						"n",
+						"<leader>la",
+						vim.lsp.buf.code_action,
+						{ buffer = ev.buf, desc = "code action" }
+					)
 					vim.keymap.set(
 						"n",
 						"<leader>lD",
@@ -56,20 +64,26 @@ return {
 						vim.lsp.buf.definition,
 						{ buffer = ev.buf, desc = "see definition" }
 					)
-					vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "hover action" })
+					vim.keymap.set("n", "<leader>lF", function()
+						local context = { only = { "source.fixAll" } }
+						vim.lsp.buf.code_action({
+							context = context,
+							apply = true,
+							filter = function(action)
+								return (action.title:find("Fix all") ~= nil) or action.kind == "source.fixAll"
+							end,
+						})
+					end, { buffer = ev.buf, desc = "fix all issues in file" })
+					vim.keymap.set("n", "<leader>lf", function()
+						vim.diagnostic.open_float()
+					end, { buffer = ev.buf, desc = "diagnostics float" })
 					vim.keymap.set(
 						"n",
 						"<leader>li",
 						vim.lsp.buf.implementation,
 						{ buffer = ev.buf, desc = "see implementation" }
 					)
-
-					-- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts) -- collides with window changing
-					-- vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
-					-- vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
-					-- vim.keymap.set("n", "<space>wl", function()
-					-- 	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-					-- end, opts)
+					vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "hover action" })
 					vim.keymap.set(
 						"n",
 						"<leader>lt",
@@ -77,12 +91,6 @@ return {
 						{ buffer = ev.buf, desc = "type definition" }
 					)
 					vim.keymap.set("n", "<leader>ln", vim.lsp.buf.rename, { buffer = ev.buf, desc = "rename symbol" })
-					vim.keymap.set(
-						"n",
-						"<leader>la",
-						vim.lsp.buf.code_action,
-						{ buffer = ev.buf, desc = "code action" }
-					)
 					vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, { buffer = ev.buf, desc = "references" })
 				end,
 			})

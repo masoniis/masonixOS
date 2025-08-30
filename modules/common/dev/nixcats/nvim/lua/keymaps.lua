@@ -24,7 +24,7 @@ map("n", "k", "gk")
 
 map("n", "<leader>fn", "<cmd>new<cr>", "New file") -- Make new file
 map("n", "<leader>cd", "<cmd>cd %:h<cr>", "Change to file directory") -- Change directory
-map("n", "<C-q>", "<cmd>close<cr>", "Close buffer")
+map("n", "<C-q>", "<cmd>close<cr>", "close buffer")
 
 -- System interaction keymaps
 map("n", "<leader>sr", function()
@@ -157,3 +157,4 @@ map("v", ">", ">gv") -- Dedent selection and stay in visual mode
 -------------------
 map("t", "<esc>", [[<C-\><C-n>]]) -- Exit terminal mode
 map("t", "<C-w>", [[<C-\><C-n><C-w>]], "terminal window command")
+map("t", "<C-q>", "<cmd>close<cr>", "close buffer")

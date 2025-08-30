@@ -11,7 +11,7 @@ return {
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
 		scope = { enabled = true },
-		scroll = { enabled = true },
+		scroll = { enabled = true, easing = "inQuad" },
 		statuscolumn = { enabled = true },
 		words = { enabled = true },
 		image = { enabled = true },
@@ -91,5 +91,7 @@ return {
 		},
 		-- System mapping
 		{ "<leader>sg", ":lua Snacks.gitbrowse.open()<cr>", desc = "open local repo in github" },
+		-- Misc
+		{ "<leader>gb", ":lua Snacks.git.blame_line()<cr>", desc = "git blame line" },
 	},
 }
