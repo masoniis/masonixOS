@@ -1,5 +1,17 @@
 return {
 	{
+		"smjonas/inc-rename.nvim",
+		dependencies = { "folke/snacks.nvim", "folke/noice.nvim" },
+		opts = {},
+		keys = {
+			{
+				"<leader>rn",
+				":IncRename ",
+				desc = "inc rename [cword]",
+			},
+		},
+	},
+	{
 		"romgrk/barbar.nvim", -- file "tabs"
 		dependencies = {
 			"lewis6991/gitsigns.nvim",

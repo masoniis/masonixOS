@@ -148,6 +148,7 @@
             copilot-lua
             fidget-nvim
             gitsigns-nvim
+            inc-rename-nvim
             neo-tree-nvim
             neotree-nesting-config-nvim
             noice-nvim
