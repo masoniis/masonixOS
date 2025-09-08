@@ -15,7 +15,6 @@ return {
 		wk.add({
 			-- TODO: remove unused groups?
 			{ "<leader>a", group = "ai" },
-			{ "<leader>b", group = "buffer" },
 
 			{ nixCats("binds.find.group"), group = "find" },
 			{ nixCats("binds.lsp.group"), group = "lang" },
