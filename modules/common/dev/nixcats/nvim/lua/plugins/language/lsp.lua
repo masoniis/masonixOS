@@ -55,23 +55,23 @@ return {
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
 					vim.keymap.set(
 						"n",
-						nixCats('binds.lsp.code_action'),
+						nixCats("binds.lsp.code_action"),
 						vim.lsp.buf.code_action,
 						{ buffer = ev.buf, desc = "code action" }
 					)
 					vim.keymap.set(
 						"n",
-						nixCats('binds.lsp.declaration'),
+						nixCats("binds.lsp.declaration"),
 						vim.lsp.buf.declaration,
 						{ buffer = ev.buf, desc = "see declaration" }
 					)
 					vim.keymap.set(
 						"n",
-						nixCats('binds.lsp.definition'),
+						nixCats("binds.lsp.definition"),
 						vim.lsp.buf.definition,
 						{ buffer = ev.buf, desc = "see definition" }
 					)
-					vim.keymap.set("n", nixCats('binds.lsp.fix_all'), function()
+					vim.keymap.set("n", nixCats("binds.lsp.fix_all"), function()
 						local context = { only = { "source.fixAll" } }
 						vim.lsp.buf.code_action({
 							context = context,
@@ -81,24 +81,39 @@ return {
 							end,
 						})
 					end, { buffer = ev.buf, desc = "fix all issues in file" })
-					vim.keymap.set("n", nixCats('binds.lsp.diagnostics_float'), function()
+					vim.keymap.set("n", nixCats("binds.lsp.diagnostics_float"), function()
 						vim.diagnostic.open_float()
 					end, { buffer = ev.buf, desc = "diagnostics float" })
 					vim.keymap.set(
 						"n",
-						nixCats('binds.lsp.implementation'),
+						nixCats("binds.lsp.implementation"),
 						vim.lsp.buf.implementation,
 						{ buffer = ev.buf, desc = "see implementation" }
 					)
-					vim.keymap.set("n", nixCats('binds.lsp.hover'), vim.lsp.buf.hover, { buffer = ev.buf, desc = "hover action" })
 					vim.keymap.set(
 						"n",
-						nixCats('binds.lsp.type_definition'),
+						nixCats("binds.lsp.hover"),
+						vim.lsp.buf.hover,
+						{ buffer = ev.buf, desc = "hover action" }
+					)
+					vim.keymap.set(
+						"n",
+						nixCats("binds.lsp.type_definition"),
 						vim.lsp.buf.type_definition,
 						{ buffer = ev.buf, desc = "type definition" }
 					)
-					vim.keymap.set("n", nixCats('binds.lsp.rename_symbol'), vim.lsp.buf.rename, { buffer = ev.buf, desc = "rename symbol" })
-					vim.keymap.set("n", nixCats('binds.lsp.references'), vim.lsp.buf.references, { buffer = ev.buf, desc = "references" })
+					vim.keymap.set(
+						"n",
+						nixCats("binds.lsp.rename_symbol"),
+						vim.lsp.buf.rename,
+						{ buffer = ev.buf, desc = "rename symbol" }
+					)
+					vim.keymap.set(
+						"n",
+						nixCats("binds.lsp.references"),
+						vim.lsp.buf.references,
+						{ buffer = ev.buf, desc = "references" }
+					)
 				end,
 			})
 		end,

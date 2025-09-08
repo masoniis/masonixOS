@@ -1,11 +1,12 @@
 {
   leader = " ";
-  new_file = "<leader>fn";  # FIXME: conflicts with ...
+  new_file = "<leader>fn"; # FIXME: conflicts with ...
   change_dir = "<leader>cd";
   close_window = "<C-q>";
   save_buffer = "<C-s";
   which_key = "<leader>?";
-  system = rec { # relating to files and the system
+  system = rec {
+    # relating to files and the system
     group = "<leader>s";
     reveal_file = "${group}r";
     copy_file_path = "${group}f"; # copy the (absolute) file path associated with the open buffer
