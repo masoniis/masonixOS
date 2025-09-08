@@ -1,7 +1,7 @@
 { fetchFromGitHub, vimUtils }:
 
 vimUtils.buildVimPlugin {
-  pname = "battery-nvim";
+  pname = "battery.nvim";
   version = "ecc6cf13312a26179f67d3b99d203da9285b9b0a";
   src = fetchFromGitHub {
     owner = "justinhj";

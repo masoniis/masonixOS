@@ -3,7 +3,7 @@
   new_file = "<leader>fn"; # FIXME: conflicts with ...
   change_dir = "<leader>cd";
   close_window = "<C-q>";
-  save_buffer = "<C-s";
+  save_buffer = "<C-s>";
   which_key = "<leader>?";
   system = rec {
     # relating to files and the system
