@@ -13,13 +13,19 @@ return {
 		---@module 'neo-tree'
 		---@type neotree.Config
 		opts = {
+			use_libuv_file_watcher = true, -- refresh on file changes
 			popup_border_style = "", -- uses 'winborder' on Neovim v0.11+
 			window = {
 				mappings = {
 					["<space>"] = false, -- disable space for toggle node, interferes leader
 					["<S-CR>"] = {
-						command = "toggle_node", -- shift enter to toggle fold node
+						command = "toggle_node", -- shift enter to toggle fold node instead
 					},
+				},
+			},
+			filesystem = {
+				follow_current_file = { -- intelligently follow current buffer's file
+					enabled = true,
 				},
 			},
 		},

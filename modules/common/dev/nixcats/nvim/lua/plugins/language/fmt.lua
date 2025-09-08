@@ -8,6 +8,8 @@ return {
 		},
 		formatters_by_ft = {
 			bash = { "shfmt", "shellcheck", stop_after_first = true },
+			c = { "clang_format" },
+			cpp = { "clang_format" },
 			css = { "prettierd" },
 			hbs = { "prettierd" },
 			html = { "prettierd" },
