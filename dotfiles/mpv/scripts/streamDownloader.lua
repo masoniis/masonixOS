@@ -3,12 +3,12 @@
 -- =======================================================================================
 -- DESCRIPTION:
 -- 1. Auto-detects network subtitles during playback and stores their URL.
--- 2. On ALT+s, downloads the stream & subtitle, saves both side-by-side.
+-- 2. On ALT+s, downloads the stream & subtitle into a series-specific subfolder.
 -- 3. Logs subtitle file size for debugging.
 -- 4. After saving, prompts user to open the new download in mpv.
 --
 -- DEPENDENCIES:
--- - yt-dlp, curl (must be in PATH)
+-- - yt-dlp, curl, mkdir (must be in PATH)
 -- =======================================================================================
 
 local msg = require("mp.msg")
@@ -19,6 +19,43 @@ local save_directory = mp.command_native({ "expand-path", "/tmp/jellydownloader"
 -- ---------------------
 
 local current_network_sub_url = nil
+
+-- Extracts a likely series name from a video title to use as a folder name.
+local function get_series_folder_name(title)
+	-- Patterns to detect the end of a series title (e.g., S01E01, Season 1, etc.)
+	local patterns = {
+		"%s*-%s*[sS]%d+[eE]%d+", -- matches "Title - s01e01"
+		"[sS]%d+[eE]%d+",
+		"[sS]eason %d+",
+		"[pP]art %d+",
+		"[eE]pisode %d+",
+		"[eE]%d+",
+	}
+
+	-- 1. Try to match common series patterns first
+	for _, pat in ipairs(patterns) do
+		-- Match everything non-greedily from the start (^) until the pattern
+		local series_name = string.match(title, "^(.-)%s*" .. pat)
+		if series_name and #series_name > 0 then
+			-- Trim trailing whitespace or separators and return
+			msg.info("Detected series name via pattern '" .. pat .. "': " .. series_name)
+			return series_name:gsub("[%s_-]+$", "")
+		end
+	end
+
+	-- 2. Fallback: Split at the first number if no pattern matched
+	local first_digit_pos = title:find("%d")
+	if first_digit_pos and first_digit_pos > 1 then
+		local series_name = title:sub(1, first_digit_pos - 1)
+		-- Trim trailing whitespace or separators and return
+		msg.info("Detected series name via fallback (first digit): " .. series_name)
+		return series_name:gsub("[%s_-]+$", "")
+	end
+
+	-- 3. Last resort: If no logic applies, don't use a subfolder.
+	msg.warn("Could not determine a series name for: " .. title)
+	return nil
+end
 
 -- Generic subprocess runner with stderr logging
 local function run_async_command(args, step_name, callback)
@@ -93,7 +130,7 @@ local function prompt_open_file(mkv_path)
 	end)
 end
 
--- Main download pipeline (no muxing)
+-- Main download pipeline
 local function download_video_and_captured_sub()
 	local video_url = mp.get_property("path")
 	if not string.match(video_url, "^https?://") then
@@ -112,8 +149,25 @@ local function download_video_and_captured_sub()
 
 	local video_title = mp.get_property("media-title") or "video"
 	local clean_title = video_title:gsub("[/\\?%%*:|\"<>']", "")
-	local final_video_path = utils.join_path(save_directory, clean_title .. ".mkv")
-	local final_sub_path = utils.join_path(save_directory, clean_title .. ".srt")
+
+	local final_save_directory = save_directory
+	local series_folder = get_series_folder_name(clean_title)
+
+	if series_folder then
+		final_save_directory = utils.join_path(save_directory, series_folder)
+		msg.info("Creating series directory: " .. final_save_directory)
+		-- Use mkdir -p to safely create the directory if it doesn't exist
+		-- ### FIX IS HERE ###
+		local mkdir_result = utils.subprocess({ name = "subprocess", args = { "mkdir", "-p", final_save_directory } })
+		if mkdir_result.status ~= 0 then
+			msg.error("Failed to create directory: " .. final_save_directory)
+			mp.osd_message("Error: Could not create series folder.", 5)
+			return
+		end
+	end
+
+	local final_video_path = utils.join_path(final_save_directory, clean_title .. ".mkv")
+	local final_sub_path = utils.join_path(final_save_directory, clean_title .. ".srt")
 
 	local yt_dlp_cmd = { "yt-dlp", "-o", final_video_path, video_url }
 	local curl_cmd = { "curl", "-s", "-L", "-o", final_sub_path, current_network_sub_url }
