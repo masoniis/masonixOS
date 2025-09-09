@@ -165,6 +165,7 @@ in
             todo-comments-nvim
             nvim-dap-ui
             nvim-treesitter.withAllGrammars
+            nvzone-minty
             persistence-nvim
             slimline-masonpkgs
             smart-splits-nvim

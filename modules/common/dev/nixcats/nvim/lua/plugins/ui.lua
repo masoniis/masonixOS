@@ -104,4 +104,14 @@ return {
 			})
 		end,
 	},
+	{
+		"nvzone/minty",
+		cmd = { "Shades", "Huefy" },
+		name = "nvzone-minty", -- required for because the nix plugin names it this
+		keys = {
+			-- TODO: temp binds will adjust once thought through
+			{ "<leader>uc", "<cmd>Shades<cr>", desc = "Change color scheme shade" },
+			{ "<leader>uh", "<cmd>Huefy<cr>", desc = "Change color scheme hue" },
+		},
+	},
 }
