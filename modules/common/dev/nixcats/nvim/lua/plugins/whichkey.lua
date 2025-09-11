@@ -13,7 +13,6 @@ return {
 		wk.setup(opts)
 
 		wk.add({
-			-- TODO: remove unused groups?
 			{ "<leader>a", group = "ai" },
 
 			{ nixCats("binds.find.group"), group = "find" },
@@ -21,6 +20,7 @@ return {
 			{ nixCats("binds.system.group"), group = "system" },
 			{ nixCats("binds.terminals.group"), group = "terminal" },
 			{ nixCats("binds.debug.group"), group = "debug" },
+			{ nixCats("binds.util.group"), group = "util" },
 		})
 	end,
 	keys = {

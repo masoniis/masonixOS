@@ -124,6 +124,7 @@ in
 
           rust = [
             rustfmt
+            cargo
             rust-analyzer
           ];
 

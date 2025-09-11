@@ -110,5 +110,11 @@ return {
 		},
 		-- Misc
 		{ nixCats("binds.snacks.git_blame_line"), ":lua Snacks.git.blame_line()<cr>", desc = "git blame line" },
+
+		{
+			nixCats("binds.util.dismiss_notifications"),
+			"<cmd>lua Snacks.notifier.hide()<cr>",
+			desc = "dismiss notifications",
+		},
 	},
 }

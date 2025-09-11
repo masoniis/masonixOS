@@ -90,4 +90,8 @@
     rename_symbol = "${group}n";
     references = "${group}r";
   };
+  util = rec {
+    group = "<leader>u";
+    dismiss_notifications = "${group}n";
+  };
 }
