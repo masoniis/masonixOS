@@ -24,6 +24,7 @@ return {
 			vim.lsp.enable("nixd")
 			vim.lsp.enable("rust_analyzer")
 			vim.lsp.enable("zls") -- zig
+			vim.lsp.enable("wgsl_analyzer") -- webgpu shader lang
 
 			-- INFO: -------------------------------
 			--         Tweaked config servers

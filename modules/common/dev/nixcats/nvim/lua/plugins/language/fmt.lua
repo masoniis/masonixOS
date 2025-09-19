@@ -26,6 +26,7 @@ return {
 			rust = { "rustfmt" },
 			toml = { "taplo" },
 			java = { "google-java-format" },
+			wgsl = { "clang_format" },
 			zig = { "zigfmt" },
 
 			["*"] = { "codespell" }, -- Applies to all files
