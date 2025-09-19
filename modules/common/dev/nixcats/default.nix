@@ -53,6 +53,7 @@ in
             javaPaths = {
               java_debug_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
               java_test_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";
+              jdtls_executable = "${pkgs.jdt-language-server}/bin/jdtls";
             };
           };
         };

@@ -19,7 +19,7 @@ return {
 			-- ------------------------------------
 			vim.lsp.enable("basedpyright")
 			vim.lsp.enable("clangd")
-			vim.lsp.enable("jdtls") -- java
+			-- vim.lsp.enable("jdtls") -- java is handeld in dap.lua
 			vim.lsp.enable("lua_ls")
 			vim.lsp.enable("nixd")
 			vim.lsp.enable("rust_analyzer")
