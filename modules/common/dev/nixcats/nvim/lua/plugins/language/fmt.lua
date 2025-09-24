@@ -26,12 +26,21 @@ return {
 			rust = { "rustfmt" },
 			toml = { "taplo" },
 			java = { "google-java-format" },
-			wgsl = { "clang_format" },
+			wgsl = { "wgslfmt" },
 			zig = { "zigfmt" },
 
 			["*"] = { "codespell" }, -- Applies to all files
 			["_"] = {
 				"trim_whitespace", -- Applies to files with no preset formatter
+			},
+		},
+
+		-- INFO: Custom defined formatters below
+		formatters = {
+			wgslfmt = {
+				command = "wgslfmt",
+				args = { "$FILENAME" },
+				stdin = false,
 			},
 		},
 	},

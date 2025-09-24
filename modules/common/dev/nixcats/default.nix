@@ -127,7 +127,7 @@ in
             rustfmt
             cargo
             rust-analyzer
-            wgsl-analyzer
+            wgsl-analyzer # provides wgslfmt
           ];
 
           shell = [
