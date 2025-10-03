@@ -173,6 +173,7 @@ in
             slimline-masonpkgs
             smart-splits-nvim
             snacks-nvim
+            oil-nvim
             render-markdown-nvim
             todo-comments-nvim
             toggleterm-nvim

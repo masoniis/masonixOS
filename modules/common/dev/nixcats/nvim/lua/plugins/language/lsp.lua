@@ -22,13 +22,29 @@ return {
 			-- vim.lsp.enable("jdtls") -- java is handeld in dap.lua
 			vim.lsp.enable("lua_ls")
 			vim.lsp.enable("nixd")
-			vim.lsp.enable("rust_analyzer")
 			vim.lsp.enable("zls") -- zig
 			vim.lsp.enable("wgsl_analyzer") -- webgpu shader lang
 
 			-- INFO: -------------------------------
 			--         Tweaked config servers
 			-- -------------------------------------
+
+			vim.lsp.config("rust_analyzer", {
+				settings = {
+					["rust-analyzer"] = {
+						cargo = {
+							build_scripts = {
+								enable = true,
+							},
+						},
+						procMacro = {
+							enable = true,
+						},
+					},
+				},
+			})
+			vim.lsp.enable("rust_analyzer")
+
 			vim.lsp.config("glsl_analyzer", {
 				filetypes = {
 					"glsl",

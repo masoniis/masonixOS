@@ -1,5 +1,26 @@
 return {
 	{
+		"stevearc/oil.nvim",
+		opts = {
+			float = {
+				padding = 17,
+			},
+		},
+		-- Not sure why but the config wasn't being passed properly by lazy automatically?
+		config = function(_, opts)
+			require("oil").setup(opts)
+		end,
+		keys = {
+			{
+				nixCats("binds.files.float"),
+				function()
+					require("oil").toggle_float()
+				end,
+				desc = "oil float",
+			},
+		},
+	},
+	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
 		dependencies = {
@@ -60,11 +81,6 @@ return {
 				nixCats("binds.files.explorer"),
 				"<cmd>Neotree toggle filesystem left<cr>",
 				desc = "neotree explorer",
-			},
-			{
-				nixCats("binds.files.float"),
-				"<cmd>Neotree toggle float<cr>",
-				desc = "neotree float",
 			},
 		},
 	},
