@@ -127,6 +127,7 @@ in
             rustfmt
             cargo
             rust-analyzer
+            rustc # rustc is needed for some rust-analyzer features (*cough* procmacro)
             wgsl-analyzer # provides wgslfmt
           ];
 

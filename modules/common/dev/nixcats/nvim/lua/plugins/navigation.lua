@@ -34,7 +34,6 @@ return {
 		---@module 'neo-tree'
 		---@type neotree.Config
 		opts = {
-			use_libuv_file_watcher = true, -- refresh on file changes
 			popup_border_style = "", -- uses 'winborder' on Neovim v0.11+
 			window = {
 				mappings = {
@@ -44,10 +43,57 @@ return {
 					},
 				},
 			},
+			-- Custom sort function to "pin" files. Useful imo for things like mod.rs
+			sort_function = (function()
+				local pinned_files_order = {
+					"mod.rs",
+				}
+
+				local pin_lookup = {}
+				for i, name in ipairs(pinned_files_order) do
+					pin_lookup[name] = i
+				end
+
+				-- Return the sorting function
+				return function(a, b)
+					local a_name = vim.fn.fnamemodify(a.path, ":t")
+					local b_name = vim.fn.fnamemodify(b.path, ":t")
+
+					local a_pin_index = pin_lookup[a_name]
+					local b_pin_index = pin_lookup[b_name]
+
+					-- Rule 0: Directories always come first
+					if a.type == "directory" and b.type ~= "directory" then
+						return true
+					end
+					if a.type ~= "directory" and b.type == "directory" then
+						return false
+					end
+
+					-- Rule 1: If both files are pinned, sort by their order in the list
+					if a_pin_index and b_pin_index then
+						return a_pin_index < b_pin_index
+					end
+
+					-- Rule 2: If only 'a' is pinned, 'a' comes first
+					if a_pin_index then
+						return true
+					end
+
+					-- Rule 3: If only 'b' is pinned, 'b' comes first
+					if b_pin_index then
+						return false
+					end
+
+					-- Rule 4: Neither is pinned, fall back to default sorting
+					return a_name < b_name
+				end
+			end)(),
 			filesystem = {
 				follow_current_file = { -- intelligently follow current buffer's file
 					enabled = true,
 				},
+				use_libuv_file_watcher = true, -- refresh on file changes (useful for external edits like AI)
 			},
 		},
 		config = function(_, opts)
