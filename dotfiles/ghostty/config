@@ -1,4 +1,3 @@
-theme = catppuccin-mocha
 quit-after-last-window-closed = true
 window-padding-x = 0
 window-padding-y = 0

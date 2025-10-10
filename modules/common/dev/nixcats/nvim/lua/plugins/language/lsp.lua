@@ -23,7 +23,6 @@ return {
 			vim.lsp.enable("lua_ls")
 			vim.lsp.enable("nixd")
 			vim.lsp.enable("zls") -- zig
-			vim.lsp.enable("wgsl_analyzer") -- webgpu shader lang
 
 			-- INFO: -------------------------------
 			--         Tweaked config servers
@@ -44,6 +43,14 @@ return {
 				},
 			})
 			vim.lsp.enable("rust_analyzer")
+
+			vim.lsp.config("wgsl_analyzer", {
+				filetypes = {
+					"wgsl",
+					-- "wesl" wesl support is still WIP
+				},
+			})
+			vim.lsp.enable("wgsl_analyzer") -- webgpu shader lang
 
 			vim.lsp.config("glsl_analyzer", {
 				filetypes = {

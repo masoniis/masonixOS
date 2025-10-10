@@ -124,11 +124,11 @@ in
           ];
 
           rust = [
-            rustfmt
-            cargo
-            rust-analyzer
-            rustc # rustc is needed for some rust-analyzer features (*cough* procmacro)
-            wgsl-analyzer # provides wgslfmt
+            pkgs-unstable.rustfmt
+            pkgs-unstable.cargo
+            pkgs-unstable.rust-analyzer
+            pkgs-unstable.rustc # rustc is needed for some rust-analyzer features (*cough* procmacro)
+            pkgs-unstable.wgsl-analyzer # provides wgslfmt
           ];
 
           shell = [
