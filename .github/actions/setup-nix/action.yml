@@ -1,0 +1,34 @@
+name: Setup Nix
+description: Install Nix, configure Cachix, and setup build secrets
+
+inputs:
+  cachix-name:
+    required: false
+    default: nix-community
+
+runs:
+  using: composite
+  steps:
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@main
+
+    - name: Setup Cachix
+      uses: cachix/cachix-action@v15
+      with:
+        name: ${{ inputs.cachix-name }}
+
+    - name: Setup secrets
+      shell: bash
+      run: |
+        if [ -n "$OVPN_FILE" ] && [ -n "$NORD_USER" ] && [ -n "$NORD_PASS" ]; then
+          mkdir -p ./hosts/xpsOnix/media
+          echo "$OVPN_FILE" > ./hosts/xpsOnix/media/nordvpn.com.udp.ovpn.key
+          echo "$NORD_USER" > ./hosts/xpsOnix/media/nordUser.key
+          echo "$NORD_PASS" > ./hosts/xpsOnix/media/nordPass.key
+          chmod 600 ./hosts/xpsOnix/media/nordvpn.com.udp.ovpn.key
+          chmod 600 ./hosts/xpsOnix/media/nordUser.key
+          chmod 600 ./hosts/xpsOnix/media/nordPass.key
+          echo "Secrets configured"
+        else
+          echo "Secrets not provided, skipping secret setup"
+        fi
