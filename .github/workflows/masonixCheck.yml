@@ -1,5 +1,9 @@
 name: Test the masonix flake 😳
 
+permissions:
+  contents: write
+  pull-requests: write
+
 on:
   push:
     branches: [main]
@@ -7,30 +11,21 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  OVPN_FILE: ${{ secrets.ovpnFile }}
+  NORD_USER: ${{ secrets.nordUser }}
+  NORD_PASS: ${{ secrets.nordPass }}
+
 jobs:
   # Test NixOS configurations
   test-nixos:
     name: Raw NixOS Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Setup secrets
-        run: |
-          echo "${{ secrets.ovpnFile }}" > ./hosts/xpsOnix/media/nordvpn.com.udp.ovpn.key
-          echo "${{ secrets.nordUser }}" > ./hosts/xpsOnix/media/nordUser.key
-          echo "${{ secrets.nordPass }}" > ./hosts/xpsOnix/media/nordPass.key
-          chmod 600 ./hosts/xpsOnix/media/nordvpn.com.udp.ovpn.key
-          chmod 600 ./hosts/xpsOnix/media/nordUser.key
-          chmod 600 ./hosts/xpsOnix/media/nordPass.key
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
-      - name: Enable Flakes
-        run: |
-          mkdir -p ~/.config/nix
-          echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
 
       # - name: Check flake
       #   run: nix flake check --no-build
@@ -46,24 +41,10 @@ jobs:
     name: Home Manager Linux
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Setup secrets
-        run: |
-          echo "${{ secrets.ovpnFile }}" > ./hosts/xpsOnix/media/us5080.nordvpn.com.udp.ovpn.key
-          echo "${{ secrets.nordUser }}" > ./hosts/xpsOnix/media/nordUser.key
-          echo "${{ secrets.nordPass }}" > ./hosts/xpsOnix/media/nordPass.key
-          chmod 600 ./hosts/xpsOnix/media/us5080.nordvpn.com.udp.ovpn.key
-          chmod 600 ./hosts/xpsOnix/media/nordUser.key
-          chmod 600 ./hosts/xpsOnix/media/nordPass.key
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
-      - name: Enable Flakes
-        run: |
-          mkdir -p ~/.config/nix
-          echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
 
       - name: Build mason@xpsOnix configuration
         run: nix build .#packages.x86_64-linux.homeConfigurations."mason@xpsOnix".activationPackage --dry-run
@@ -76,24 +57,23 @@ jobs:
     name: Home Manager macOS
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Setup secrets
-        run: |
-          echo "${{ secrets.ovpnFile }}" > ./hosts/xpsOnix/media/us5080.nordvpn.com.udp.ovpn.key
-          echo "${{ secrets.nordUser }}" > ./hosts/xpsOnix/media/nordUser.key
-          echo "${{ secrets.nordPass }}" > ./hosts/xpsOnix/media/nordPass.key
-          chmod 600 ./hosts/xpsOnix/media/us5080.nordvpn.com.udp.ovpn.key
-          chmod 600 ./hosts/xpsOnix/media/nordUser.key
-          chmod 600 ./hosts/xpsOnix/media/nordPass.key
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
-      - name: Enable Flakes
-        run: |
-          mkdir -p ~/.config/nix
-          echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
 
       - name: Build mason macOS configuration
         run: nix build .#packages.aarch64-darwin.homeConfigurations.mason.activationPackage --dry-run
+
+  # Auto-merge for PRs with "automated" label
+  auto-merge:
+    name: Auto-merge automated PRs
+    needs: [test-nixos, test-home-linux, test-home-macos]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'automated')
+    steps:
+      - name: Enable auto-merge
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
