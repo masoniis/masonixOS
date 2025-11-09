@@ -10,9 +10,7 @@ return {
 		config = function()
 			require("neotest").setup({
 				adapters = {
-					require("neotest-java")({
-						-- config here
-					}),
+					require("neotest-java")({}),
 				},
 			})
 		end,

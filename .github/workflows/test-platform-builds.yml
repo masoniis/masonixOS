@@ -1,4 +1,4 @@
-name: Test the masonix flake 😳
+name: Test all masonix platform builds
 
 permissions:
   contents: write
@@ -26,6 +26,10 @@ jobs:
 
       - name: Setup Nix
         uses: ./.github/actions/setup-nix
+        with:
+          ovpn-file: ${{ secrets.ovpnFile }}
+          nord-user: ${{ secrets.nordUser }}
+          nord-pass: ${{ secrets.nordPass }}
 
       # - name: Check flake
       #   run: nix flake check --no-build

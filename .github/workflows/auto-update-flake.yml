@@ -1,8 +1,8 @@
-name: Update Flake
+name: Auto update flake
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * 0"
   workflow_dispatch:
 
 jobs:

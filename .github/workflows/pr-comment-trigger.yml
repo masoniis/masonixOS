@@ -1,4 +1,4 @@
-name: PR Build Tests
+name: Test all platform builds via PR comment trigger
 
 permissions:
   statuses: write
@@ -8,11 +8,6 @@ on:
   # Trigger on comments created on pull requests
   issue_comment:
     types: [created]
-
-env:
-  OVPN_FILE: ${{ secrets.ovpnFile }}
-  NORD_USER: ${{ secrets.nordUser }}
-  NORD_PASS: ${{ secrets.nordPass }}
 
 jobs:
   # This job checks if the trigger comment is valid
@@ -45,8 +40,8 @@ jobs:
   # Test NixOS configurations
   test-nixos:
     name: Raw NixOS Build
-    needs: trigger-tests # This job depends on the trigger job
-    if: needs.trigger-tests.outputs.is_authorized == 'true' # Run only if authorized
+    needs: trigger-tests
+    if: needs.trigger-tests.outputs.is_authorized == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -55,6 +50,10 @@ jobs:
 
       - name: Setup Nix
         uses: ./.github/actions/setup-nix
+        with:
+          ovpn-file: ${{ secrets.ovpnFile }}
+          nord-user: ${{ secrets.nordUser }}
+          nord-pass: ${{ secrets.nordPass }}
 
       - name: Build NixOS configurations
         run: |

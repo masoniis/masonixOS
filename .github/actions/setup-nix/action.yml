@@ -5,6 +5,15 @@ inputs:
   cachix-name:
     required: false
     default: nix-community
+  ovpn-file:
+    required: false
+    description: "OpenVPN file content for media server"
+  nord-user:
+    required: false
+    description: "NordVPN username for vpn auth"
+  nord-pass:
+    required: false
+    description: "NordVPN password for vpn auth"
 
 runs:
   using: composite
@@ -19,6 +28,10 @@ runs:
 
     - name: Setup secrets
       shell: bash
+      env:
+        OVPN_FILE: ${{ inputs.ovpn-file }}
+        NORD_USER: ${{ inputs.nord-user }}
+        NORD_PASS: ${{ inputs.nord-pass }}
       run: |
         if [ -n "$OVPN_FILE" ] && [ -n "$NORD_USER" ] && [ -n "$NORD_PASS" ]; then
           mkdir -p ./hosts/xpsOnix/media
