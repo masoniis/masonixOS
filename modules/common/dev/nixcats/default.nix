@@ -44,6 +44,7 @@ in
             python.enable = true;
             rust.enable = true;
             shell.enable = true;
+            web.enable = true;
             zig.enable = true;
 
             # INFO: ----------------
@@ -134,6 +135,11 @@ in
           shell = [
             shfmt
             shellcheck
+          ];
+
+          web = [
+            typescript-language-server
+            tailwindcss-language-server
           ];
 
           zig = [

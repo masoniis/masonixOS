@@ -18,15 +18,27 @@ return {
 			--        Default config servers
 			-- ------------------------------------
 			vim.lsp.enable("basedpyright")
+			vim.lsp.enable("tailwindcss")
 			vim.lsp.enable("clangd")
 			-- vim.lsp.enable("jdtls") -- java is handeld in dap.lua
 			vim.lsp.enable("lua_ls")
+			vim.lsp.enable("ts_ls")
 			vim.lsp.enable("nixd")
 			vim.lsp.enable("zls") -- zig
 
 			-- INFO: -------------------------------
 			--         Tweaked config servers
 			-- -------------------------------------
+
+			vim.lsp.config("svelte", {
+				cmd = {
+					"bunx",
+					"svelte-language-server",
+					"--stdio",
+				},
+				settings = {},
+			})
+			vim.lsp.enable("svelte")
 
 			vim.lsp.config("rust_analyzer", {
 				settings = {
