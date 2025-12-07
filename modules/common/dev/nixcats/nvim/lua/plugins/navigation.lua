@@ -6,7 +6,7 @@ return {
 				padding = 17,
 			},
 		},
-		-- Not sure why but the config wasn't being passed properly by lazy automatically?
+		-- not sure why but the config isn't being passed properly by lazy automatically?
 		config = function(_, opts)
 			require("oil").setup(opts)
 		end,
@@ -43,10 +43,11 @@ return {
 					},
 				},
 			},
-			-- Custom sort function to "pin" files. Useful imo for things like mod.rs
+			-- custom sort function to "pin" files. Useful imo for things like module files
 			sort_function = (function()
 				local pinned_files_order = {
 					"mod.rs",
+					"index.ts",
 				}
 
 				local pin_lookup = {}
@@ -54,7 +55,6 @@ return {
 					pin_lookup[name] = i
 				end
 
-				-- Return the sorting function
 				return function(a, b)
 					local a_name = vim.fn.fnamemodify(a.path, ":t")
 					local b_name = vim.fn.fnamemodify(b.path, ":t")
