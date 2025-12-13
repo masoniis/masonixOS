@@ -1,6 +1,5 @@
 { config, ... }:
 {
-  # INFO: Media server setup
   nixarr = {
     enable = true;
     mediaDir = "/srv/media_downloads";
@@ -11,6 +10,10 @@
       wgConf = config.sops.secrets."wgQuickConfiguration".path;
     };
 
+    # INFO: -----------------------
+    #         core services
+    # -----------------------------
+
     # essential media service/#/login.html?serverid=79d8602d7fcc40e8b9ffad653eacf7d4s
     jellyfin = {
       enable = true;
@@ -19,6 +22,11 @@
     jellyseerr = {
       enable = true;
       openFirewall = true;
+      expose.https = {
+        enable = true;
+        domainName = "jellyfin.masonbott.com";
+        acmeMail = "mason@masonbott.com";
+      };
     };
     transmission = {
       enable = true;
@@ -46,7 +54,10 @@
       };
     };
 
-    # *arr services
+    # INFO: -----------------------
+    #         *arr services
+    # -----------------------------
+
     sonarr.enable = true;
     radarr.enable = true;
     bazarr.enable = true;
