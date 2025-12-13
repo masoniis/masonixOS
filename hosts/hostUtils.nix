@@ -1,6 +1,6 @@
 { inputs }:
 let
-  inherit (inputs) nixpkgs home-manager;
+  inherit (inputs) nixpkgs home-manager sops-nix;
 
   # lil helper to allow unfree in all the unstables
   mkPkgsUnstable =
@@ -19,15 +19,13 @@ in
       username,
       extraModules ? [ ],
     }:
-    # TODO: Look into using this pkgs instead of nixpkgs.lib.nixosSystem:
-    # pkgs = import nixpkgs{overlays=[flakeB.overlay];inherit system;};
-    # and then use pkgs.nixos instead of nixpkgs.lib.nixosSystem
     nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {
         pkgs-unstable = mkPkgsUnstable system;
       };
       modules = [
+        sops-nix.nixosModules.sops
         home-manager.nixosModules.home-manager
         {
           # home-manager.useUserPackages = true;

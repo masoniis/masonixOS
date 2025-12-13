@@ -99,4 +99,23 @@
   };
 
   services.vnstat.enable = true;
+
+  # INFO: Secrets setup
+  sops.defaultSopsFile = ../../secrets/default.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
+  # writes secrets to /run/secrets/...
+  sops.secrets = {
+    "super_secret" = { }; # uses defaults
+    "nordUsername" = {
+      sopsFile = ../../secrets/nordConfig.yaml;
+    };
+    "nordPassword" = {
+      sopsFile = ../../secrets/nordConfig.yaml;
+    };
+    "ovpnContents" = {
+      sopsFile = ../../secrets/nordConfig.yaml;
+    };
+  };
 }
