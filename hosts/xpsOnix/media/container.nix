@@ -2,6 +2,7 @@
   lib,
   pkgs,
   pkgs-unstable,
+  sops,
   ...
 }:
 {
@@ -137,10 +138,12 @@
       # VPN service
       services.openvpn.servers.mediaVPN = {
         updateResolvConf = true;
-        authUserPass.username = lib.removeSuffix "\n" (builtins.readFile ./nordUser.key);
-        authUserPass.password = lib.removeSuffix "\n" (builtins.readFile ./nordPass.key);
+        authUserPass = {
+          usernameFile = sops.secrets.nordUsername;
+          passwordFile = sops.secrets.nordPassword;
+        };
         # udp config from https://my.nordaccount.com/dashboard/nordvpn/manual-configuration/openvpn/
-        config = builtins.readFile ./nordvpn.com.udp.ovpn.key;
+        config = builtins.readFile sops.secrets.ovpnContents;
       };
 
       nixpkgs.config.permittedInsecurePackages = [

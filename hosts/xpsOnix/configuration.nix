@@ -114,6 +114,9 @@
     "nordPassword" = {
       sopsFile = ../../secrets/nordConfig.yaml;
     };
+    "nordAuth" = {
+      sopsFile = ../../secrets/nordConfig.yaml;
+    };
     "ovpnContents" = {
       sopsFile = ../../secrets/nordConfig.yaml;
     };
