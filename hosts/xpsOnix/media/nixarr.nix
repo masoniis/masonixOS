@@ -37,7 +37,7 @@
         rpc-password = "N/A";
 
         download-dir = "/srv/media_torrents/downloaded";
-        incomplete-dir = "/srv/media_downloads/.incomplete";
+        incomplete-dir = "/srv/media_torrents/.incomplete";
 
         # Seeding and download configs
         ratio-limit-enabled = true;
