@@ -1,6 +1,7 @@
 keys:
   - &mason_xpsonix age1w4gpvqfdw2w7ly0fjlcaddxlvt3mwd0hvp3rhvk4jtd5m2cmsp4segcmej
   - &host_xpsonix age1sj3axmvypjme2f9m7csxehahj78chnek6dhrhhlv4hqjd4lgd5lq6sehmk
+  - &mason_masonmac age1laa24tfw3yf9sms55ydw8h437h7ksyt4alwnsjg3z5569tlc0gmq2ceyvt
 
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
@@ -8,3 +9,4 @@ creation_rules:
       - age:
           - *mason_xpsonix
           - *host_xpsonix
+          - *mason_masonmac
