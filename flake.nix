@@ -15,6 +15,7 @@
     systems.url = "github:nix-systems/default";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     sops-nix.url = "github:Mic92/sops-nix";
+    nixarr.url = "github:rasmus-kirk/nixarr";
 
     # Following
     home-manager.inputs.nixpkgs.follows = "nixpkgs";

@@ -7,9 +7,11 @@ utils.nixosSetup {
   username = "mason";
   extraModules = [
     ./configuration.nix
+    ./media/nixarr.nix
     ./media/container.nix
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
+    inputs.nixarr.nixosModules.default
   ];
   config = {
     personal.enable = true;

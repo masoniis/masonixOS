@@ -108,16 +108,7 @@
   # writes secrets to /run/secrets/...
   sops.secrets = {
     "super_secret" = { }; # uses defaults
-    "nordUsername" = {
-      sopsFile = ../../secrets/nordConfig.yaml;
-    };
-    "nordPassword" = {
-      sopsFile = ../../secrets/nordConfig.yaml;
-    };
-    "nordAuth" = {
-      sopsFile = ../../secrets/nordConfig.yaml;
-    };
-    "ovpnContents" = {
+    "wgQuickConfiguration" = {
       sopsFile = ../../secrets/nordConfig.yaml;
     };
   };
