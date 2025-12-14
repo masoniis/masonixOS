@@ -79,12 +79,18 @@
     ];
   };
 
+  # INFO: Remote control
   services.openssh = {
     enable = true;
     ports = [ 22 ];
     settings = {
       PasswordAuthentication = false;
     };
+  };
+
+  services.xrdp = {
+    enable = true;
+    defaultWindowManager = "startplasma-x11";
   };
 
   # INFO: Networking
@@ -107,7 +113,7 @@
 
   # writes secrets to /run/secrets/...
   sops.secrets = {
-    "super_secret" = { }; # uses defaults
+    "personalEmail" = { }; # uses defaults
     "wgQuickConfiguration" = {
       sopsFile = ../../secrets/nordConfig.yaml;
     };
