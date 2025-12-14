@@ -1,6 +1,5 @@
 { config, ... }:
 {
-  # INFO: Media server setup
   nixarr = {
     enable = true;
     mediaDir = "/srv/media_downloads";
@@ -11,22 +10,36 @@
       wgConf = config.sops.secrets."wgQuickConfiguration".path;
     };
 
+    # INFO: -----------------------
+    #         core services
+    # -----------------------------
+
     # essential media service/#/login.html?serverid=79d8602d7fcc40e8b9ffad653eacf7d4s
     jellyfin = {
       enable = true;
-      openFirewall = true;
+      openFirewall = true; # port 8096
+      expose.https = {
+        enable = false;
+        domainName = "jellyfin.masonbott.com";
+        acmeMail = "masonmbott@gmail.com";
+      };
     };
     jellyseerr = {
       enable = true;
-      openFirewall = true;
+      openFirewall = true; # port 5055
+      expose.https = {
+        enable = true;
+        domainName = "jellyseerr.masonbott.com";
+        acmeMail = "masonmbott@gmail.com";
+      };
     };
     transmission = {
       enable = true;
+      # openFirewall = true; # port 9091
       vpn.enable = true;
       extraSettings = {
-        peer-port = 51413;
-        unmask = 2; # set write perms for other groups
-        rpc-bind-address = "0.0.0.0"; # bind to own ip
+        # peer-port = 51413;
+        # rpc-bind-address = "0.0.0.0"; # bind to own ip
 
         # Below only lets host access transmission
         rpc-host-whitelist-enabled = false; # allow any hostname to access
@@ -46,7 +59,10 @@
       };
     };
 
-    # *arr services
+    # INFO: -----------------------
+    #         *arr services
+    # -----------------------------
+
     sonarr.enable = true;
     radarr.enable = true;
     bazarr.enable = true;
