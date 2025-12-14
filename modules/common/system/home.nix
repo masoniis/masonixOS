@@ -39,6 +39,11 @@ in
     enable = true;
     addKeysToAgent = "yes";
     matchBlocks = {
+      # update hostname of xps to local address if available
+      "check-xps-local" = {
+        match = "host xps exec \"nc -z -w 1 192.168.68.72 22\"";
+        hostname = "192.168.68.72";
+      };
       xps = {
         hostname = "bop.tplinkdns.com";
         user = "mason";
@@ -51,6 +56,13 @@ in
             host.port = 9091;
           }
         ];
+      };
+
+      # update hostname of worldgov to local address if available
+      "check-worldgov-local" = {
+        match = "host worldgov exec \"nc -z -w 1 192.168.68.69 22\"";
+        hostname = "192.168.68.69";
+        port = 22;
       };
       worldgov = {
         hostname = "bop.tplinkdns.com";
