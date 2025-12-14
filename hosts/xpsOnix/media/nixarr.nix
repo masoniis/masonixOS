@@ -51,5 +51,9 @@
     radarr.enable = true;
     bazarr.enable = true;
     prowlarr.enable = true;
+    recyclarr = {
+      enable = true;
+      configFile = "./recyclarr.yaml";
+    };
   };
 }
