@@ -23,6 +23,7 @@ in
       inherit system;
       specialArgs = {
         pkgs-unstable = mkPkgsUnstable system;
+        root = ./..;
       };
       modules = [
         sops-nix.nixosModules.sops

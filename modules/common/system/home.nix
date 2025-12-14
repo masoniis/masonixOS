@@ -38,6 +38,26 @@ in
     # enabling the ssh-agent informs some software of active keys
     enable = true;
     addKeysToAgent = "yes";
+    matchBlocks = {
+      xps = {
+        hostname = "bop.tplinkdns.com";
+        user = "mason";
+        port = 22;
+        localForwards = [
+          # open port 9091 to localhost for accessing transmission
+          {
+            bind.port = 9091;
+            host.address = "localhost";
+            host.port = 9091;
+          }
+        ];
+      };
+      worldgov = {
+        hostname = "bop.tplinkdns.com";
+        user = "mason";
+        port = 23;
+      };
+    };
   };
 
   # INFO: If home-manager is not isolated then home-manager is not in the path,

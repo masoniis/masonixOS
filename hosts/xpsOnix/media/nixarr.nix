@@ -14,7 +14,7 @@
     #         core services
     # -----------------------------
 
-    # essential media service/#/login.html?serverid=79d8602d7fcc40e8b9ffad653eacf7d4s
+    # essential media services
     jellyfin = {
       enable = true;
       openFirewall = true; # port 8096
@@ -28,7 +28,7 @@
       enable = true;
       openFirewall = true; # port 5055
       expose.https = {
-        enable = true;
+        enable = false;
         domainName = "jellyseerr.masonbott.com";
         acmeMail = "masonmbott@gmail.com";
       };
@@ -49,8 +49,8 @@
         rpc-username = "N/A";
         rpc-password = "N/A";
 
-        download-dir = "/srv/media_torrents/downloaded";
-        incomplete-dir = "/srv/media_torrents/.incomplete";
+        # download-dir = "/srv/media_torrents/downloaded";
+        # incomplete-dir = "/srv/media_torrents/.incomplete";
 
         # Seeding and download configs
         ratio-limit-enabled = true;
@@ -69,7 +69,53 @@
     prowlarr.enable = true;
     recyclarr = {
       enable = true;
-      configFile = "./recyclarr.yaml";
+      configuration = {
+        radarr = {
+          movies = {
+            base_url = "http://localhost:7878";
+            api_key = "!env_var RADARR_API_KEY";
+            quality_definition = {
+              type = "movie";
+            };
+            delete_old_custom_formats = true;
+            replace_existing_custom_formats = false;
+            custom_formats = [
+              {
+                trash_ids = [
+                  "570bc9ebecd92723d2d21500f4be314c" # Remaster
+                  "eca37840c13c6ef2dd0262b141a5482f" # 4K Remaster
+                ];
+                assign_scores_to = [
+                  {
+                    name = "HD Bluray + WEB";
+                    score = 25;
+                  }
+                ];
+              }
+            ];
+          };
+        };
+      };
     };
+    # sonarr = {
+    #   base_url = "http://localhost:8989";
+    #   api_key = "!env_var SONARR_API_KEY";
+    #
+    #   tv = {
+    #     quality_profiles = [
+    #       "P0"
+    #       "P1"
+    #       "P2"
+    #
+    #       "Anime"
+    #       "Anime - Absolute"
+    #     ];
+    #
+    #     custom_formats = [ ];
+    #
+    #     delete_old_custom_formats = false;
+    #     replace_existing_custom_formats = false;
+    #   };
+    # };
   };
 }
