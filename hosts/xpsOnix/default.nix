@@ -6,8 +6,8 @@ utils.nixosHomeManagerSystem {
   system = "x86_64-linux";
   username = "mason";
   extraModules = [
+    ./media
     ./configuration.nix
-    ./media/nixarr.nix
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
     inputs.nixarr.nixosModules.default

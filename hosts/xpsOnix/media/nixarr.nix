@@ -22,7 +22,7 @@
       enable = true;
       openFirewall = true; # port 8096
       expose.https = {
-        enable = false;
+        enable = true;
         domainName = "jellyfin.masonbott.com";
         acmeMail = "masonmbott@gmail.com";
       };
