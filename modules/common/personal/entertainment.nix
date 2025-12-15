@@ -31,12 +31,12 @@ in
 
   config = lib.mkIf config.entertainment.enable {
     xdg.configFile.jerry = {
-      source = root + /dotfiles/jerry;
+      source = "${root}/dotfiles/jerry";
       recursive = true;
     };
 
     xdg.configFile.lobster = {
-      source = root + /dotfiles/lobster;
+      source = "${root}/dotfiles/lobster";
       recursive = true;
     };
 
@@ -61,10 +61,10 @@ in
 
     # INFO: MPV stuff
     xdg.configFile = {
-      "mpv/mpv.conf".source = root + /dotfiles/mpv/mpv.conf;
-      "mpv/input.conf".source = root + /dotfiles/mpv/input.conf;
-      "mpv/scripts/streamDownloader.lua".source = root + /dotfiles/mpv/scripts/streamDownloader.lua;
-      "mpv/scripts/secondarySubs.lua".source = root + /dotfiles/mpv/scripts/secondarySubs.lua;
+      "mpv/mpv.conf".source = "${root}/dotfiles/mpv/mpv.conf";
+      "mpv/input.conf".source = "${root}/dotfiles/mpv/input.conf";
+      "mpv/scripts/streamDownloader.lua".source = "${root}/dotfiles/mpv/scripts/streamDownloader.lua";
+      "mpv/scripts/secondarySubs.lua".source = "${root}/dotfiles/mpv/scripts/secondarySubs.lua";
       # Only take the /shaders folder because I don't want the shaders
       # to be activated by default which happens if we use their mpv.conf
       "mpv/shaders" = {
@@ -76,7 +76,7 @@ in
         recursive = true;
       };
       # Loading config files
-      "mpv/script-opts/SimpleHistory.conf".source = root + /dotfiles/mpv/script-opts/SimpleHistory.conf;
+      "mpv/script-opts/SimpleHistory.conf".source = "${root}/dotfiles/mpv/script-opts/SimpleHistory.conf";
       # Example loading external script
       # "mpv/scripts/progressbar.lua" = {
       #   # cooler progress bar

@@ -2,7 +2,7 @@
 { root, ... }:
 {
   xdg.configFile.hypr = {
-    source = root + /dotfiles/hypr;
+    source = "${root}/dotfiles/hypr";
     recursive = true;
   };
 }

@@ -13,7 +13,15 @@ let
   # general special args for nixos systems
   mkSpecialArgs = system: {
     pkgs-unstable = mkPkgsUnstable system;
-    root = ./..;
+    inherit (inputs) self;
+  };
+
+  # general special args for home manager
+  mkHomeManagerSpecialArgs = system: username: {
+    pkgs-unstable = mkPkgsUnstable system;
+    pkgs-spice = inputs.spicetify.legacyPackages.${system};
+    root = inputs.self;
+    inherit username;
   };
 in
 {
@@ -45,10 +53,7 @@ in
     }:
     nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = {
-        pkgs-unstable = mkPkgsUnstable system;
-        root = ./..;
-      };
+      specialArgs = mkSpecialArgs system;
       modules = [
         sops-nix.nixosModules.sops
         home-manager.nixosModules.home-manager
@@ -69,12 +74,7 @@ in
               ];
             };
 
-          home-manager.extraSpecialArgs = {
-            pkgs-unstable = mkPkgsUnstable system;
-            pkgs-spice = inputs.spicetify.legacyPackages.${system};
-            username = username;
-            root = ./..;
-          };
+          home-manager.extraSpecialArgs = mkHomeManagerSpecialArgs system username;
         }
       ]
       ++ extraModules;
@@ -92,12 +92,7 @@ in
         inherit system;
         overlays = [ (import ../overlays/masonpkgs) ];
       };
-      extraSpecialArgs = {
-        pkgs-unstable = mkPkgsUnstable system;
-        pkgs-spice = inputs.spicetify.legacyPackages.${system};
-        username = username;
-        root = ./..;
-      };
+      extraSpecialArgs = mkHomeManagerSpecialArgs system username;
       modules = [
         (
           if system == "aarch64-darwin" || system == "x86_64-darwin" then

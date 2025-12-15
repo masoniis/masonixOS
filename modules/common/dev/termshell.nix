@@ -25,11 +25,11 @@
   # INFO: Source dotfiles directly
   xdg.configFile = {
     wezterm = {
-      source = root + /dotfiles/wezterm;
+      source = "${root}/dotfiles/wezterm";
       recursive = true;
     };
     ghostty = {
-      source = root + /dotfiles/ghostty;
+      source = "${root}/dotfiles/ghostty";
       recursive = true;
     };
   };
