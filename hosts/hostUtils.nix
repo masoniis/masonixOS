@@ -25,7 +25,6 @@ let
   };
 in
 {
-
   # NixOS isolated setup with no assumptions on default user
   nixosSystem =
     {

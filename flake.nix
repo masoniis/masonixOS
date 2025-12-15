@@ -31,7 +31,7 @@
       # To load a nixos config with home-manager built into it run
       # sudo nixos-rebuild switch --flake .#hostname
       nixosConfigurations = {
-        worldgov = import ./hosts/worldgov { inherit inputs; };
+        worldGovOS = import ./hosts/worldGovOS { inherit inputs; };
         wslOnix = import ./hosts/wslOnix { inherit inputs; };
         xpsOnix = import ./hosts/xpsOnix { inherit inputs; };
       };
@@ -41,6 +41,7 @@
       # TODO: error on home-manager news evoked when using these. Same as:
       # https://discourse.nixos.org/t/news-json-output-and-home-activationpackage-in-home-manager-switch/54192
       packages.x86_64-linux.homeConfigurations = {
+        "mason@worldgov" = import ./hosts/masongov { inherit inputs; };
         "mason@wslOnix" = nixosConfigurations.wslOnix.config.home-manager.users."mason".home;
         "mason@xpsOnix" = nixosConfigurations.xpsOnix.config.home-manager.users."mason".home;
       };
