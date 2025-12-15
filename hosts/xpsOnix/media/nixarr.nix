@@ -1,5 +1,15 @@
 { config, ... }:
 {
+  services.nginx = {
+    virtualHosts."_" = {
+      default = true;
+      rejectSSL = true; # dont try to use SSL for unknown domains, rejects DDNS endpoint for example
+      locations."/" = {
+        return = "444"; # "no response" (closes connection)
+      };
+    };
+  };
+
   nixarr = {
     enable = true;
     # this is the default, but leaving it in b/c it is
