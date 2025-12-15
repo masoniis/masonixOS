@@ -6,6 +6,7 @@ utils.nixosSystem {
   system = "x86_64-linux";
   extraModules = [
     ./configuration.nix
+    ./minecraft.nix
     inputs.nixarr.nixosModules.default
   ];
   config = {
