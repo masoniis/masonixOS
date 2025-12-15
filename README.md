@@ -20,6 +20,7 @@ The ultimate goal is to manage the entire system with a flake, but also have the
 
 You can build a specific host with
 
+- `sudo nixos-rebuild switch --flake .#hostname` for nixos isolated config
 - `sudo nixos-rebuild switch --flake .#user@hostname` for nixos configs + home-manager
 - `home-manager switch --flake .#user@hostname` for just home-manager packages
 

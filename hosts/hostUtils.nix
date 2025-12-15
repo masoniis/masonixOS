@@ -9,10 +9,34 @@ let
       inherit system;
       config.allowUnfree = true;
     };
+
+  # general special args for nixos systems
+  mkSpecialArgs = system: {
+    pkgs-unstable = mkPkgsUnstable system;
+    root = ./..;
+  };
 in
 {
-  # General nixosSystem wrapper that takes in config system and username
-  nixosSetup =
+
+  # NixOS isolated setup with no assumptions on default user
+  nixosSystem =
+    {
+      config,
+      system,
+      extraModules ? [ ],
+    }:
+    nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = mkSpecialArgs system;
+      modules = [
+        sops-nix.nixosModules.sops
+        config
+      ]
+      ++ extraModules;
+    };
+
+  # NixOS + Homemanager personal PC setup
+  nixosHomeManagerSystem =
     {
       config,
       system,

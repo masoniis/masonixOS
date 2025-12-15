@@ -2,7 +2,7 @@
 let
   utils = import ../hostUtils.nix { inherit inputs; };
 in
-utils.nixosSetup {
+utils.nixosHomeManagerSystem {
   system = "x86_64-linux";
   username = "mason";
   extraModules = [
