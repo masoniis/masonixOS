@@ -1,6 +1,6 @@
 {
   imports = [
-    ./nixarr.nix
+    ./nixarr
     ./fail2ban.nix
   ];
 }

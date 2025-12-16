@@ -1,4 +1,8 @@
 {
+  # Service responsible for banning IPs that appear to have malicious intent
+  #
+  # Especially useful for jellyfin, since the jellyfin login portal has no rate limiting
+  # or login attempt limits set otherwise.
   services.fail2ban = {
     enable = true;
     bantime = "1h";
