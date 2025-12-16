@@ -300,6 +300,18 @@
           base_url = "http://localhost:8989";
           api_key = "!env_var SONARR_API_KEY";
 
+          # template config to be pulled in
+          include = [
+            # general config template
+            { template = "sonarr-quality-definition-series"; }
+            # movie hd web profile and formats
+            { template = "sonarr-v4-quality-profile-web-1080p-alternative"; }
+            { template = "sonarr-v4-custom-formats-web-1080p"; }
+            # anime custom formats doesnt use templates because I couldn't
+            # get it to properly work out with my setup of having different
+            # sub/dub quality profiles
+          ];
+
           # naming-style config
           media_naming = {
             season = "default";
@@ -310,11 +322,6 @@
               daily = "default";
               anime = "default";
             };
-          };
-
-          # download quality preference
-          quality_definition = {
-            type = "series";
           };
 
           # overarching quality profiles
