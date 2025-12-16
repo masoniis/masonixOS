@@ -13,6 +13,16 @@
     "flakes"
   ];
 
+  # mount drives
+  fileSystems."/mnt/sdb1" = {
+    device = "/dev/disk/by-uuid/25927064-e74e-4554-9930-faafd0eb91c6";
+    fsType = "ext4";
+    options = [
+      "defaults"
+      "noatime" # without this, all reads count as writes
+    ];
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
