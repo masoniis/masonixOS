@@ -23,6 +23,19 @@
     ];
   };
 
+  fileSystems."/data/media" = {
+    fsType = "fuse.mergerfs";
+    device = "/mnt/sdb1";
+    options = [
+      "defaults"
+      "allow_other" # Essential: allows non-root users to access the mount
+      "minfreespace=50G" # Don't write to a drive if it has less than 50G left
+      "category.create=mfs" # "Most Free Space": write new files to the emptiest drive
+      "fsname=mergerfs" # Makes "df -h" show a pretty name instead of a long device string
+    ];
+    depends = [ "/mnt/sdb1" ];
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -98,6 +111,7 @@
   environment.systemPackages = with pkgs; [
     vim
     git
+    mergerfs
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
