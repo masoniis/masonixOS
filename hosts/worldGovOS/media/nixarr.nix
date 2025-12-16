@@ -48,6 +48,7 @@
     };
     transmission = {
       enable = true;
+      flood.enable = true;
       # with vpn on, firewalling doesn't work for local access, using ssh forwarding
       # to access the page on other devices is the best strategy
       vpn.enable = true;
