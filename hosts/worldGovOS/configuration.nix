@@ -132,4 +132,16 @@
   };
 
   system.stateVersion = "23.11"; # WARNING: dont update without reading docs
+
+  # INFO: Secrets setup
+  sops.defaultSopsFile = ../../secrets/worldgov.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
+  # writes secrets to /run/secrets/...
+  sops.secrets = {
+    "wgQuickConfiguration" = {
+      sopsFile = ../../secrets/worldgov.yaml;
+    };
+  };
 }
