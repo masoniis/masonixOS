@@ -19,6 +19,7 @@
             # movie hd web profile and formats
             { template = "radarr-quality-profile-hd-bluray-web"; }
             { template = "radarr-custom-formats-hd-bluray-web"; }
+            # NOTE: Anime
             # anime custom formats doesnt use templates because I couldn't
             # get it to properly work out with my setup of having different
             # sub/dub quality profiles
@@ -304,9 +305,12 @@
           include = [
             # general config template
             { template = "sonarr-quality-definition-series"; }
-            # movie hd web profile and formats
+            # sonarr series hd web profile and formats
             { template = "sonarr-v4-quality-profile-web-1080p-alternative"; }
             { template = "sonarr-v4-custom-formats-web-1080p"; }
+            { template = "sonarr-v4-quality-profile-web-2160p-alternative"; }
+            { template = "sonarr-v4-custom-formats-web-2160p"; }
+            # NOTE: Anime
             # anime custom formats doesnt use templates because I couldn't
             # get it to properly work out with my setup of having different
             # sub/dub quality profiles
