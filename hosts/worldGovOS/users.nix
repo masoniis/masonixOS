@@ -22,9 +22,10 @@
       "wheel"
     ];
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIZblT7Q/WxYTQnb3WL9lJMclp1DeQeYzdBKOBPAX0bD" # mbp14 (mason)
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqYhMkfTYA7biVs4xp0OxhcV0Zk4yxvMTLn7u6S0PWc" # windows 3080pc (mason)
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICTbAHXhrIZzJXvOge68KHYVx88pvb0nlaz8tbFaPnho" # xps (mason)
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICTbAHXhrIZzJXvOge68KHYVx88pvb0nlaz8tbFaPnho" # mason@xps
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGkXARiuSNUpCWhhRtp35ldIeg0T/2J6vaCr4CzUBeoz" # mason@wslOnix
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIZblT7Q/WxYTQnb3WL9lJMclp1DeQeYzdBKOBPAX0bD" # mason@masonmac
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqYhMkfTYA7biVs4xp0OxhcV0Zk4yxvMTLn7u6S0PWc" # mason@[nixless windows 3080pc]
     ];
   };
 

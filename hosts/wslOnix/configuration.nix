@@ -23,8 +23,9 @@
     shell = pkgs.zsh;
     openssh.authorizedKeys = {
       keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIZblT7Q/WxYTQnb3WL9lJMclp1DeQeYzdBKOBPAX0bD" # mbp14
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqYhMkfTYA7biVs4xp0OxhcV0Zk4yxvMTLn7u6S0PWc" # windows 3080pc
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICTbAHXhrIZzJXvOge68KHYVx88pvb0nlaz8tbFaPnho" # mason@xps
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIZblT7Q/WxYTQnb3WL9lJMclp1DeQeYzdBKOBPAX0bD" # mason@masonmac
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqYhMkfTYA7biVs4xp0OxhcV0Zk4yxvMTLn7u6S0PWc" # mason@[nixless windows 3080pc]
       ];
     };
   };
@@ -47,6 +48,9 @@
 
   # important on WSL so that nvidia-smi & drivers in /usr/lib/wsl/lib can link properly
   programs.nix-ld.enable = true;
+
+  # prevents nrswitch from failing on WSL despite network usually working
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   # open up remote desktop to connect from windows
   services.xserver.enable = true;
