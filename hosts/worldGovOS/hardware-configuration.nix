@@ -11,6 +11,8 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  networking.interfaces."enp2s0".wakeOnLan.enable = true;
+
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
