@@ -32,7 +32,7 @@
       enable = true;
       openFirewall = true; # port 5055
       expose.https = {
-        enable = false;
+        enable = true;
         domainName = "jellyseerr.masonbott.com";
         acmeMail = "masonmbott@gmail.com";
       };
