@@ -68,5 +68,14 @@
     radarr.enable = true;
     bazarr.enable = true;
     prowlarr.enable = true;
+    autobrr = {
+      enable = true;
+      settings = {
+        checkForUpdates = false;
+        host = "0.0.0.0";
+        port = 7474;
+        logLevel = "DEBUG";
+      };
+    };
   };
 }
