@@ -46,4 +46,14 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  # Enable graphics and add packages for the intel iGPU useful for media encoding on jellyfin
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # required for Skylake+ (HD 530)
+      intel-vaapi-driver # fallback driver
+      intel-compute-runtime # OpenCL (helps with subtitles/tone mapping)
+    ];
+  };
 }
