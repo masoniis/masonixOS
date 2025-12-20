@@ -115,6 +115,7 @@ in
         subs2srs = {
           use_ffmpeg = true;
           preview_audio = true;
+          autoclip = true; # auto turn on clipboard copy
           audio_format = "mp3"; # opus is default
           audio_bitrate = "96k"; # raised from 24k because mp3
           opus_container = "m4a";
