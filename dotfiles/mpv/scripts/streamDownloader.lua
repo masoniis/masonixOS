@@ -91,6 +91,7 @@ local function prompt_open_file(mkv_path)
 	local function cleanup()
 		mp.remove_key_binding("open-yes")
 		mp.remove_key_binding("open-no")
+		mp.osd_message("", 0)
 	end
 	mp.add_forced_key_binding("y", "open-yes", function()
 		cleanup()
@@ -185,4 +186,5 @@ mp.observe_property("track-list", "native", function(name, val)
 end)
 
 mp.add_key_binding("alt+s", "download-video", download_video_and_captured_sub)
+
 msg.info("Jellyfin Downloader (Async+Progress) loaded.")
