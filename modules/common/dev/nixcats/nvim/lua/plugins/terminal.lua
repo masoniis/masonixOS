@@ -7,7 +7,7 @@ return {
 			terminals = {
 				{ name = "Term 0" },
 				{ name = "G Term", cmd = "onefetch" },
-				{ name = "Terminull", cmd = "neofetch" },
+				{ name = "Terminull", cmd = "fastfetch" },
 			},
 			mappings = {
 				sidebar = function(buf)

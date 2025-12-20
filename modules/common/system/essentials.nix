@@ -6,7 +6,7 @@
 }:
 {
   home.packages = with pkgs; [
-    neofetch # eblic show system stuff
+    fastfetch # eblic show system stuff
     fzf # useful for piping commands into searches
     dua # disk usage analyzer tool
 
