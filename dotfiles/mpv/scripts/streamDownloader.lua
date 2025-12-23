@@ -1,6 +1,5 @@
--- =======================================================================================
--- MPV LUA SCRIPT: Jellyfin Downloader (With Locking & Progress)
--- =======================================================================================
+-- A script to download the currently playing video stream along with any captured network subtitle
+-- from a source. Useful for downloading a local copy of a video when using jellyfin-mpv-shim, etc.
 
 local msg = require("mp.msg")
 local utils = require("mp.utils")
@@ -12,7 +11,8 @@ local save_directory = mp.command_native({ "expand-path", "/tmp/jellydownloader"
 local progress_file = "/tmp/mpv_jelly_progress.log"
 
 local current_network_sub_url = nil
-local is_downloading = false -- THE LOCK
+-- A boolean lock used to ensure only 1 download stream via FFMPEG is opened for a video at the same time
+local is_downloading = false
 local progress_timer = nil
 
 -- Extracts series name from title
