@@ -53,7 +53,11 @@
     extraPackages = with pkgs; [
       intel-media-driver # required for Skylake+ (HD 530)
       intel-vaapi-driver # fallback driver
-      intel-compute-runtime # OpenCL (helps with subtitles/tone mapping)
+      vaapiVdpau
+      libvdpau-va-gl
+
+      intel-compute-runtime # OpenCL support
+      vpl-gpu-rt # Intel Video Processing Library (formerly onevpl-intel-gpu)
     ];
   };
 }
