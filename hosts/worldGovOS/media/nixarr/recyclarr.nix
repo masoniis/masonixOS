@@ -316,6 +316,13 @@
             # sub/dub quality profiles
           ];
 
+          quality_definition = {
+            # for quality definition anime over series is better because series often sets
+            # the min at values that are too high for anime, and as long as we still set the
+            # preferred to be pretty high we still get good quality series by default
+            type = "anime";
+          };
+
           # naming-style config
           media_naming = {
             season = "default";
