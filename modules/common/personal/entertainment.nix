@@ -170,8 +170,8 @@ in
       enabledExtensions = with pkgs-spice.extensions; [
         # INFO: nice-to-haves
         shuffle # fischer-yates lets go (ballotery)
-        adblockify
         beautifulLyrics # adds epic lyrics with cool fullscreen mode
+
         # INFO: stats
         songStats # shows song key and other
         # INFO: opinionated
@@ -179,9 +179,7 @@ in
 
         # lowkey this fullscreen mode looks epic but it kinda overlaps with
         # simpleBeautiful lyrics fullscreen and it feels weird to have two
-        # fullScreen
-
-        # actually im not sure if that full screen was the issue, I still have 2 after removing
+        # fullScreen # cooler group screen but adds a dupe button
       ];
     };
 
