@@ -4,7 +4,7 @@ let
   lib = super.lib;
 
   # INFO: --------------------------------------------------------------
-  #         Auto read nvim-plugins dir to an attr set for overlay
+  #         auto read nvim-plugins dir to an attr set for overlay
   # --------------------------------------------------------------------
 
   pluginsPath = ./nvim-plugins;
@@ -24,8 +24,6 @@ let
   );
 in
 {
-  jerry = args: super.callPackage ./jerry/default.nix args;
-  lobster = args: super.callPackage ./lobster/default.nix args;
   timetrack = args: super.callPackage ./timetrack/default.nix args;
 
   vimPlugins = super.vimPlugins // customVimPlugins;

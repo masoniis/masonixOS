@@ -30,26 +30,10 @@ in
   };
 
   config = lib.mkIf config.entertainment.enable {
-    xdg.configFile.jerry = {
-      source = "${root}/dotfiles/jerry";
-      recursive = true;
-    };
-
-    xdg.configFile.lobster = {
-      source = "${root}/dotfiles/lobster";
-      recursive = true;
-    };
-
     home.packages = [
       # video players and other
       pkgs.ffmpeg-full # just useful for a lot of things
       pkgs.yt-dlp # yt downloading util
-      # pkgs.jellyfin-mpv-shim
-
-      (pkgs.jerry {
-        imagePreviewSupport = true;
-      })
-      (pkgs.lobster { })
 
       # music
       pkgs.spotifyd
@@ -184,8 +168,6 @@ in
     };
 
     home.shellAliases = {
-      jerry = "command jerry --dub";
-      jerrysub = "command jerry";
       spt = "spotify_player";
       mpv = "mpv --idle --force-window";
     };
