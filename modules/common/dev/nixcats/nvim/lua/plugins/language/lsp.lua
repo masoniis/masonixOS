@@ -22,6 +22,7 @@ return {
 			vim.lsp.enable("clangd")
 			-- vim.lsp.enable("jdtls") -- java is handeld in dap.lua
 			vim.lsp.enable("lua_ls")
+			vim.lsp.enable("selene3p_ls") -- lua linter
 			vim.lsp.enable("ts_ls")
 			vim.lsp.enable("nixd")
 			vim.lsp.enable("zls") -- zig
