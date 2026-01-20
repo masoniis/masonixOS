@@ -17,6 +17,10 @@
       merge.tool = "nvimdiff2";
       init.defaultBranch = "main";
       pull.rebase = false; # default to merging
+      fetch = {
+        prune = true; # auto prune deleted remote branches from local
+        pruneTags = true; # auto prune deleted remote tags from local
+      };
     };
   };
 
