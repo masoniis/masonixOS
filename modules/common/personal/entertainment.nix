@@ -33,7 +33,6 @@ in
     home.packages = [
       # video players and other
       pkgs.ffmpeg-full # just useful for a lot of things
-      pkgs.yt-dlp # yt downloading util
 
       # music
       pkgs.spotifyd
@@ -115,6 +114,18 @@ in
           animated_snapshot_quality = 100;
           animated_snapshot_height = 480;
         };
+      };
+    };
+
+    programs.yt-dlp = {
+      enable = true;
+      settings = {
+        write-sub = true;
+        write-auto-sub = true;
+        sub-lang = "en.*,ja.*";
+        sub-format = "vtt"; # format MPV prefers
+        cookies-from-browser = "firefox";
+        output = "%(title)s.%(ext)s";
       };
     };
 
