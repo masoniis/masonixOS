@@ -15,7 +15,7 @@
     noto-fonts
     nerd-fonts.fira-code # mono nerd font
     # emojis
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     noto-fonts-monochrome-emoji
   ];
 
