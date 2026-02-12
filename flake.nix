@@ -28,6 +28,14 @@
   outputs =
     { ... }@inputs:
     rec {
+      # Flake templates to provide for general use
+      templates = {
+        default = {
+          path = ./templates/default;
+          description = "Basic flake with treefmt and devShell";
+        };
+      };
+
       # To load a nixos config with home-manager built into it run
       # sudo nixos-rebuild switch --flake .#hostname
       nixosConfigurations = {

@@ -2,7 +2,7 @@
 {
   imports = [
     ./termshell.nix
-    ./direnv.nix
+    ./devenvs.nix
     ./git.nix
     ./ai.nix
 
