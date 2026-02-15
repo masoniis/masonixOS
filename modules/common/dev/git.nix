@@ -6,6 +6,12 @@
     enable = true;
     settings = {
       notARepository = "skip";
+      git = {
+        paging = {
+          colorArg = "always";
+          pager = "delta --dark --paging=never";
+        };
+      };
     };
   };
 
@@ -13,8 +19,21 @@
     enable = true;
     userName = "mason";
     userEmail = "58895787+masoniis@users.noreply.github.com";
+    delta = {
+      enable = true;
+      options = {
+        true-color = "always"; # syntax highlighting
+        navigate = true; # use n/N for nav
+        light = false;
+      };
+    };
+
     extraConfig = {
       merge.tool = "nvimdiff2";
+      merge.conflictstyle = "diff3";
+      diff = {
+        colorMoved = "default";
+      };
       init.defaultBranch = "main";
       pull.rebase = false; # default to merging
       fetch = {
