@@ -5,15 +5,25 @@ local msg = require("mp.msg")
 local utils = require("mp.utils")
 
 -- INFO: ----------------
---         Config
+--         config
 -- ----------------------
+
 local save_directory = mp.command_native({ "expand-path", "/tmp/jellydownloader" })
 local progress_file = "/tmp/mpv_jelly_progress.log"
+
+-- Optional: A local server URL to check before attempting the primary URL.
+-- Useful to save external bandwidth if you are often on the same network as the server.
+-- e.g., "http://192.168.1.50:8096"
+local local_server_url = "http://192.168.68.69:8096"
 
 local current_network_sub_url = nil
 -- A boolean lock used to ensure only 1 download stream via FFMPEG is opened for a video at the same time
 local is_downloading = false
 local progress_timer = nil
+
+-- INFO: ----------------
+--         helpers
+-- ----------------------
 
 -- Extracts series name from title
 local function get_series_folder_name(title)
@@ -31,43 +41,94 @@ local function get_series_folder_name(title)
 	return nil
 end
 
--- HELPER: Reads the last line of the progress file to find "%"
+-- HELPER: Extracts Jellyfin server info from a stream URL
+local function extract_jellyfin_info(url)
+	-- Base URL: match up to /Videos/, /Items/, or /emby/
+	local base_url = url:match("^(https?://.-)/Videos/")
+		or url:match("^(https?://.-)/Items/")
+		or url:match("^(https?://.-)/emby/")
+
+	-- API Key: match api_key= or Token=
+	local api_key = url:match("[?&]api_key=([^&]+)") or url:match("[?&]Token=([^&]+)")
+
+	-- Item ID: match GUID after /Videos/, /Items/, /emby/videos/ or in mediaSourceId
+	local item_id = url:match("/Videos/([A-Fa-f0-9]+)/")
+		or url:match("/Items/([A-Fa-f0-9]+)/")
+		or url:match("/emby/videos/([A-Fa-f0-9]+)/")
+		or url:match("[?&]mediaSourceId=([A-Fa-f0-9]+)")
+
+	if base_url and api_key and item_id then
+		return base_url, item_id, api_key
+	end
+	return nil, nil, nil
+end
+
 local function update_progress_osd()
 	local f = io.open(progress_file, "r")
 	if not f then
+		msg.warn("DEBUG: Progress file does not exist or cannot be opened: " .. progress_file)
 		return
 	end
 
-	-- Read the last 200 bytes
 	local size = f:seek("end")
-	if size > 200 then
-		f:seek("set", size - 200)
+	msg.info("DEBUG: Progress file size is " .. tostring(size) .. " bytes")
+
+	if size > 1500 then
+		f:seek("set", size - 1500)
 	else
 		f:seek("set", 0)
 	end
+
 	local content = f:read("*a")
 	f:close()
 
-	-- Parsing YT-DLP format: "[download]   1.9% of    6.77GiB at   10.97MiB/s ETA 10:20"
-	local percent = string.match(content, "(%d+%.?%d*)%%")
-	local speed = string.match(content, "at%s+(%S+)")
+	if content == nil or content == "" then
+		msg.info("DEBUG: Progress file is empty.")
+	else
+		-- Print the last 200 characters to keep the log relatively clean
+		msg.info("DEBUG: File content tail:\n" .. string.sub(content, -200))
+	end
 
-	if percent then
-		local msg = string.format("Download: %s%% at %s", percent, speed or "?")
-		mp.osd_message(msg, 1)
+	local out_time, out_size, out_speed
+
+	for v in string.gmatch(content, "out_time=(%d%d:%d%d:%d%d)") do
+		out_time = v
+	end
+	for v in string.gmatch(content, "total_size=(%d+)") do
+		out_size = v
+	end
+	for v in string.gmatch(content, "speed=(%s*%d+%.?%d*x)") do
+		out_speed = v
+	end
+
+	msg.info(
+		string.format(
+			"DEBUG: Parsed values -> Time: %s, Size: %s, Speed: %s",
+			tostring(out_time),
+			tostring(out_size),
+			tostring(out_speed)
+		)
+	)
+
+	if out_time or out_size then
+		local time_str = out_time or "N/A"
+		local size_str = out_size and string.format("%.1f MB", tonumber(out_size) / 1048576) or "?"
+		local speed_str = out_speed or "N/A"
+
+		local osd_msg = string.format("Download: %s | Size: %s | Speed: %s", time_str, size_str, speed_str)
+		mp.osd_message(osd_msg, 1)
 	else
 		mp.osd_message("Starting download...", 1)
 	end
 end
 
--- HELPER: Run command with "sh -c" to allow file redirection (>)
+-- HELPER: Run command with "sh -c"
 local function run_with_progress(cmd_string, step_name, callback)
 	msg.info("Running: " .. cmd_string)
 
 	mp.command_native_async({
 		name = "subprocess",
 		playback_only = false,
-		-- We use 'sh -c' so we can use '>' to redirect output to a file
 		args = { "sh", "-c", cmd_string },
 		capture_stdout = true,
 		capture_stderr = true,
@@ -102,7 +163,7 @@ local function prompt_open_file(mkv_path)
 	end)
 end
 
-local function download_video_and_captured_sub()
+local function download_video_and_captured_sub(force_overwrite)
 	if is_downloading then
 		mp.osd_message("⚠️ Download already in progress!", 2)
 		return
@@ -126,54 +187,134 @@ local function download_video_and_captured_sub()
 
 	local final_video_path = utils.join_path(final_save_dir, clean_title .. ".mkv")
 
-	-- Check if file exists
-	local info = utils.file_info(final_video_path)
-	if info and info.size > 0 then
-		mp.osd_message("File exists. Skipping download.", 3)
-		prompt_open_file(final_video_path)
-		return
+	-- Check if file exists, skip if not forcing an overwrite
+	if not force_overwrite then
+		local info = utils.file_info(final_video_path)
+		if info and info.size > 0 then
+			mp.osd_message("File exists. Skipping download.", 3)
+			prompt_open_file(final_video_path)
+			return
+		end
+	else
+		mp.osd_message("Force downloading and overwriting...", 2)
+	end
+
+	-- Determine download URL (API vs Stream)
+	local target_download_url = video_url
+	local is_jellyfin_api = false
+	local active_base = nil
+
+	local j_base, j_id, j_key = extract_jellyfin_info(video_url)
+
+	if j_base and j_id and j_key then
+		active_base = j_base
+
+		-- Check local override
+		if local_server_url and local_server_url ~= "" then
+			local clean_local = local_server_url:gsub("/+$", "")
+			msg.info("Checking local server: " .. clean_local)
+			local res = mp.command_native({
+				name = "subprocess",
+				capture_stdout = true,
+				capture_stderr = true,
+				-- Verify local server is responding using standard Public Info endpoint
+				args = {
+					"curl",
+					"-s",
+					"-f",
+					"-L",
+					"-m",
+					"5",
+					clean_local .. "/System/Info/Public",
+				},
+			})
+			if res and res.status == 0 then
+				msg.info("Local server is reachable. Using local server.")
+				active_base = clean_local
+			else
+				local err_code = res and res.status or "unknown"
+				msg.info("Local server unreachable (Exit code: " .. tostring(err_code) .. "). Defaulting to primary.")
+			end
+		end
+
+		-- Jellyfin Download API Endpoint
+		target_download_url = string.format("%s/Items/%s/Download?api_key=%s", active_base, j_id, j_key)
+		is_jellyfin_api = true
 	end
 
 	-- START DOWNLOAD & LOCK
 	is_downloading = true
 
-	-- Clear old progress file
-	os.execute("echo '' > " .. progress_file)
+	local function do_download(url_to_use, is_fallback)
+		-- Clear old progress file
+		os.execute("echo '' > " .. progress_file)
 
-	-- Start the timer to poll the file
-	progress_timer = mp.add_periodic_timer(0.5, update_progress_osd)
+		-- Start the timer to poll the file
+		progress_timer = mp.add_periodic_timer(0.5, update_progress_osd)
 
-	-- Construct command: yt-dlp [args] > progress_file 2>&1
-	-- We use 'sh -c' so we must wrap the inner command in quotes
-	local cmd = string.format("yt-dlp -o '%s' --newline '%s' > '%s' 2>&1", final_video_path, video_url, progress_file)
+		-- FFMPEG command utilizing the native -progress file logger
+		-- -v warning stops it from spamming the mpv standard error output
+		local cmd = string.format(
+			"ffmpeg -y -v warning -i '%s' -map 0 -c copy -progress '%s' '%s'",
+			url_to_use,
+			progress_file,
+			final_video_path
+		)
 
-	run_with_progress(cmd, "video download", function(success_video)
-		-- STOP TIMER & UNLOCK
-		if progress_timer then
-			progress_timer:kill()
-		end
-		progress_timer = nil
-		is_downloading = false
+		run_with_progress(cmd, is_fallback and "fallback video download" or "video download", function(success_video)
+			-- STOP TIMER & UNLOCK
+			if progress_timer then
+				progress_timer:kill()
+			end
+			progress_timer = nil
+			is_downloading = false
 
-		if not success_video then
-			return
-		end
+			if not success_video then
+				-- If API download fails, cleanly fallback to the raw stream URL
+				if not is_fallback and is_jellyfin_api then
+					is_downloading = true
+					msg.warn("API download failed. Falling back to stream URL.")
+					mp.osd_message("API Download Failed. Falling back to Stream URL...", 3)
+					do_download(video_url, true)
+				end
+				return
+			end
 
-		if current_network_sub_url then
-			mp.osd_message("Fetching subtitle...", 2)
-			local final_sub_path = utils.join_path(final_save_dir, clean_title .. ".srt")
-			local sub_cmd = string.format("curl -s -L -o '%s' '%s'", final_sub_path, current_network_sub_url)
+			if current_network_sub_url then
+				mp.osd_message("Fetching sidecar subtitle...", 2)
+				local final_sub_path = utils.join_path(final_save_dir, clean_title .. ".srt")
+				local target_sub_url = current_network_sub_url
 
-			run_with_progress(sub_cmd, "sub download", function()
+				-- If we switched to a local server, gently patch the subtitle URL base
+				-- to avoid pinging the external URL for subs too.
+				if j_base and active_base and active_base ~= j_base then
+					local s_start, s_end = target_sub_url:find(j_base, 1, true)
+					if s_start == 1 then
+						target_sub_url = active_base .. target_sub_url:sub(s_end + 1)
+					end
+				end
+
+				local sub_cmd = string.format("curl -s -L -o '%s' '%s'", final_sub_path, target_sub_url)
+
+				run_with_progress(sub_cmd, "sub download", function()
+					prompt_open_file(final_video_path)
+				end)
+			else
 				prompt_open_file(final_video_path)
-			end)
-		else
-			prompt_open_file(final_video_path)
-		end
-	end)
+			end
+		end)
+	end
+
+	if is_jellyfin_api then
+		mp.osd_message("Starting API Download...", 2)
+	end
+	do_download(target_download_url, false)
 end
 
--- Listeners
+-- INFO: -----------------------------
+--         listeners and binds
+-- -----------------------------------
+
 mp.observe_property("track-list", "native", function(name, val)
 	if not val then
 		return
@@ -185,6 +326,11 @@ mp.observe_property("track-list", "native", function(name, val)
 	end
 end)
 
-mp.add_key_binding("alt+s", "download-video", download_video_and_captured_sub)
+mp.add_key_binding("alt+s", "download-video", function()
+	download_video_and_captured_sub(false)
+end)
+mp.add_key_binding("alt+shift+s", "download-video-force", function()
+	download_video_and_captured_sub(true)
+end)
 
 msg.info("Jellyfin Downloader (Async+Progress) loaded.")
