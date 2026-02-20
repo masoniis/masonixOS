@@ -28,7 +28,13 @@
   outputs =
     { ... }@inputs:
     rec {
-      # Flake templates to provide for general use
+      # package overlay to expose for use in other flakes
+      overlays = {
+        default = import ./overlays/masonpkgs;
+        masonpkgs = import ./overlays/masonpkgs;
+      };
+
+      # flake templates to provide for general use
       templates = {
         default = {
           path = ./templates/default;
@@ -36,7 +42,7 @@
         };
       };
 
-      # To load a nixos config with home-manager built into it run
+      # to load a nixos config with home-manager built into it run
       # sudo nixos-rebuild switch --flake .#hostname
       nixosConfigurations = {
         worldgov = import ./hosts/worldGovOS { inherit inputs; };
@@ -44,7 +50,7 @@
         xpsOnix = import ./hosts/xpsOnix { inherit inputs; };
       };
 
-      # To load a home-manager config isolated from the nixos config, these can be used.
+      # to load a home-manager config isolated from the nixos config, these can be used.
       # home-manager switch --flake .#user@hostname
       # TODO: error on home-manager news evoked when using these. Same as:
       # https://discourse.nixos.org/t/news-json-output-and-home-activationpackage-in-home-manager-switch/54192
@@ -54,7 +60,7 @@
         "mason@xpsOnix" = nixosConfigurations.xpsOnix.config.home-manager.users."mason".home;
       };
 
-      # Config for aarch-darwin based home-manager configs used currently on macbook
+      # config for aarch-darwin based home-manager configs used currently on macbook
       # home-manager switch --flake .#user@hostname
       packages.aarch64-darwin.homeConfigurations = {
         mason = import ./hosts/masonmac { inherit inputs; };

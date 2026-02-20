@@ -1,4 +1,3 @@
-# overlays/default.nix
 self: super:
 let
   lib = super.lib;
