@@ -67,7 +67,7 @@ jobs:
         uses: ./.github/actions/setup-nix
 
       - name: Build mason macOS configuration
-        run: nix build .#homeConfigurations.mason.activationPackage --dry-run
+        run: nix build .#homeConfigurations."mason@masonmac".activationPackage --dry-run
 
   # Auto-merge for PRs with "automated" label
   auto-merge:

@@ -2,12 +2,12 @@
   description = "the masonix nix configuration";
 
   inputs = {
-    # Stable branch flakes
+    # stable branch flakes
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     spicetify.url = "github:Gerg-L/spicetify-nix";
 
-    # Other flakes
+    # other flakes
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
@@ -17,7 +17,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
     nixarr.url = "github:rasmus-kirk/nixarr";
 
-    # Following
+    # following
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
@@ -54,11 +54,11 @@
       # home-manager switch --flake .#user@hostname
       homeConfigurations = {
         "mason@worldgov" = import ./hosts/masongov { inherit inputs; };
+        "mason@masonmac" = import ./hosts/masonmac { inherit inputs; };
         # TODO: error on home-manager news evoked when using these. Same as:
         # https://discourse.nixos.org/t/news-json-output-and-home-activationpackage-in-home-manager-switch/54192
         "mason@wslOnix" = nixosConfigurations.wslOnix.config.home-manager.users."mason".home;
         "mason@xpsOnix" = nixosConfigurations.xpsOnix.config.home-manager.users."mason".home;
-        "mason@masonmac" = import ./hosts/masonmac { inherit inputs; };
       };
 
     }
@@ -80,6 +80,16 @@
           formatting = treefmtEval.${pkgs.system}.config.build.check self;
         });
 
+        # expose overlay packages directly from flake
+        packages = eachSystem (
+          pkgs:
+          let
+            overlayPackages = import ./overlays/masonpkgs/default.nix pkgs pkgs;
+          in
+          overlayPackages
+        );
+
+        # flake updating devshell
         devShells = eachSystem (pkgs: {
           default = pkgs.mkShell {
             nativeBuildInputs = with pkgs; [

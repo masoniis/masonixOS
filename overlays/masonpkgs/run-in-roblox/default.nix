@@ -25,8 +25,11 @@ pkgs.rustPlatform.buildRustPackage rec {
     "run-in-roblox"
   ];
 
+  # copy the file and make it writable
   postPatch = ''
-    ln -sf ${./Cargo.lock} Cargo.lock
+    rm -f Cargo.lock
+    cp ${./Cargo.lock} Cargo.lock
+    chmod +w Cargo.lock
   '';
 
   doCheck = false;

@@ -34,7 +34,7 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          masonpkgs = masonpkgs.packages.${system};
+          mpkgs = masonpkgs.packages.${system};
         in
         {
           default = pkgs.mkShell {
@@ -43,7 +43,7 @@
               just
               uv
               treefmtEval.${system}.config.build.wrapper
-              masonpkgs.run-in-roblox
+              mpkgs.run-in-roblox
             ];
 
             shellHook = ''
