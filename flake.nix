@@ -1,5 +1,5 @@
 {
-  description = "doomsday nix configuration";
+  description = "the masonix nix configuration";
 
   inputs = {
     # Stable branch flakes
@@ -52,19 +52,15 @@
 
       # to load a home-manager config isolated from the nixos config, these can be used.
       # home-manager switch --flake .#user@hostname
-      # TODO: error on home-manager news evoked when using these. Same as:
-      # https://discourse.nixos.org/t/news-json-output-and-home-activationpackage-in-home-manager-switch/54192
-      packages.x86_64-linux.homeConfigurations = {
+      homeConfigurations = {
         "mason@worldgov" = import ./hosts/masongov { inherit inputs; };
+        # TODO: error on home-manager news evoked when using these. Same as:
+        # https://discourse.nixos.org/t/news-json-output-and-home-activationpackage-in-home-manager-switch/54192
         "mason@wslOnix" = nixosConfigurations.wslOnix.config.home-manager.users."mason".home;
         "mason@xpsOnix" = nixosConfigurations.xpsOnix.config.home-manager.users."mason".home;
+        "mason@masonmac" = import ./hosts/masonmac { inherit inputs; };
       };
 
-      # config for aarch-darwin based home-manager configs used currently on macbook
-      # home-manager switch --flake .#user@hostname
-      packages.aarch64-darwin.homeConfigurations = {
-        mason = import ./hosts/masonmac { inherit inputs; };
-      };
     }
     # system dependent config in this merge block
     // (
