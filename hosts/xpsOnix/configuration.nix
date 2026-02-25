@@ -107,6 +107,17 @@
 
   services.vnstat.enable = true;
 
+  # broadcast hostname to local network
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+    };
+  };
+
   # INFO: Secrets setup
   sops.defaultSopsFile = ../../secrets/default.yaml;
   sops.defaultSopsFormat = "yaml";
