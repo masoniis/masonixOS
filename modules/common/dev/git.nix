@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  home.packages = [ pkgs.git-crypt ];
+  home.packages = [
+    pkgs.git-crypt
+    pkgs.diffnav
+  ];
 
   programs.lazygit = {
     enable = true;
@@ -31,6 +34,7 @@
     extraConfig = {
       merge.tool = "nvimdiff2";
       merge.conflictstyle = "diff3";
+      pager.diff = "diffnav";
       diff = {
         colorMoved = "default";
       };
