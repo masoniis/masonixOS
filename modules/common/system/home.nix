@@ -37,8 +37,8 @@ in
     # ssh-add -l to see loaded keys
     # enabling the ssh-agent informs some software of active keys
     enable = true;
-    addKeysToAgent = "yes";
     matchBlocks = {
+      "*".addKeysToAgent = "yes";
       # update hostname of xps to local address if available
       "check-xps-local" = {
         match = "host xps exec \"${pkgs.coreutils}/bin/timeout 0.2 ${pkgs.netcat}/bin/nc -z 192.168.68.72 22\"";
