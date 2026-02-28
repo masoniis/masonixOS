@@ -1,4 +1,4 @@
-{ ... }:
+{ root, ... }:
 {
   programs = {
     direnv = {
@@ -17,4 +17,6 @@
     dr = "direnv reload";
     da = "direnv allow";
   };
+
+  nix.registry.masonix.flake = root;
 }

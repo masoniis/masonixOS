@@ -63,7 +63,7 @@ in
             { ... }:
             {
               nixpkgs.overlays = [
-                (import ../overlays/masonpkgs)
+                inputs.self.overlays.masonpkgs
               ];
               imports = [
                 ../modules/linux/default.nix
@@ -89,7 +89,7 @@ in
     home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [ (import ../overlays/masonpkgs) ];
+        overlays = [ inputs.self.overlays.masonpkgs ];
       };
       extraSpecialArgs = mkHomeManagerSpecialArgs system username;
       modules = [

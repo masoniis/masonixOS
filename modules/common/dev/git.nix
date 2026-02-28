@@ -1,11 +1,20 @@
 { pkgs, ... }:
 {
-  home.packages = [ pkgs.git-crypt ];
+  home.packages = [
+    pkgs.git-crypt
+    pkgs.diffnav
+  ];
 
   programs.lazygit = {
     enable = true;
     settings = {
       notARepository = "skip";
+      git = {
+        paging = {
+          colorArg = "always";
+          pager = "delta --dark --paging=never";
+        };
+      };
     };
   };
 
@@ -17,6 +26,11 @@
         email = "58895787+masoniis@users.noreply.github.com";
       };
       merge.tool = "nvimdiff2";
+      merge.conflictstyle = "diff3";
+      pager.diff = "diffnav";
+      diff = {
+        colorMoved = "default";
+      };
       init.defaultBranch = "main";
       pull.rebase = false; # default to merging
       fetch = {

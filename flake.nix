@@ -1,5 +1,5 @@
 {
-  description = "doomsday nix configuration";
+  description = "the masonix nix configuration";
 
   inputs = {
     # Stable branch flakes
@@ -7,7 +7,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     spicetify.url = "github:Gerg-L/spicetify-nix";
 
-    # Other flakes
+    # other flakes
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
@@ -17,7 +17,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
     nixarr.url = "github:rasmus-kirk/nixarr";
 
-    # Following
+    # following
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +28,21 @@
   outputs =
     { ... }@inputs:
     rec {
-      # To load a nixos config with home-manager built into it run
+      # package overlay to expose for use in other flakes
+      overlays = {
+        default = import ./overlays/masonpkgs;
+        masonpkgs = import ./overlays/masonpkgs;
+      };
+
+      # flake templates to provide for general use
+      templates = {
+        default = {
+          path = ./templates/default;
+          description = "Basic flake with treefmt and devShell";
+        };
+      };
+
+      # to load a nixos config with home-manager built into it run
       # sudo nixos-rebuild switch --flake .#hostname
       nixosConfigurations = {
         worldgov = import ./hosts/worldGovOS { inherit inputs; };
@@ -36,21 +50,17 @@
         xpsOnix = import ./hosts/xpsOnix { inherit inputs; };
       };
 
-      # To load a home-manager config isolated from the nixos config, these can be used.
+      # to load a home-manager config isolated from the nixos config, these can be used.
       # home-manager switch --flake .#user@hostname
-      # TODO: error on home-manager news evoked when using these. Same as:
-      # https://discourse.nixos.org/t/news-json-output-and-home-activationpackage-in-home-manager-switch/54192
-      packages.x86_64-linux.homeConfigurations = {
+      homeConfigurations = {
         "mason@worldgov" = import ./hosts/masongov { inherit inputs; };
+        "mason@masonmac" = import ./hosts/masonmac { inherit inputs; };
+        # TODO: error on home-manager news evoked when using these. Same as:
+        # https://discourse.nixos.org/t/news-json-output-and-home-activationpackage-in-home-manager-switch/54192
         "mason@wslOnix" = nixosConfigurations.wslOnix.config.home-manager.users."mason".home;
         "mason@xpsOnix" = nixosConfigurations.xpsOnix.config.home-manager.users."mason".home;
       };
 
-      # Config for aarch-darwin based home-manager configs used currently on macbook
-      # home-manager switch --flake .#user@hostname
-      packages.aarch64-darwin.homeConfigurations = {
-        mason = import ./hosts/masonmac { inherit inputs; };
-      };
     }
     # system dependent config in this merge block
     // (
@@ -70,6 +80,16 @@
           formatting = treefmtEval.${pkgs.system}.config.build.check self;
         });
 
+        # expose overlay packages directly from flake
+        packages = eachSystem (
+          pkgs:
+          let
+            overlayPackages = import ./overlays/masonpkgs/default.nix pkgs pkgs;
+          in
+          overlayPackages
+        );
+
+        # flake updating devshell
         devShells = eachSystem (pkgs: {
           default = pkgs.mkShell {
             nativeBuildInputs = with pkgs; [

@@ -51,10 +51,10 @@ jobs:
         uses: ./.github/actions/setup-nix
 
       - name: Build mason@xpsOnix configuration
-        run: nix build .#packages.x86_64-linux.homeConfigurations."mason@xpsOnix".activationPackage --dry-run
+        run: nix build .#homeConfigurations."mason@xpsOnix".activationPackage --dry-run
 
       - name: Build mason@wslOnix configuration
-        run: nix build .#packages.x86_64-linux.homeConfigurations."mason@wslOnix".activationPackage --dry-run
+        run: nix build .#homeConfigurations."mason@wslOnix".activationPackage --dry-run
 
   # Test macOS Home Manager configuration
   test-home-macos:
@@ -67,7 +67,7 @@ jobs:
         uses: ./.github/actions/setup-nix
 
       - name: Build mason macOS configuration
-        run: nix build .#packages.aarch64-darwin.homeConfigurations.mason.activationPackage --dry-run
+        run: nix build .#homeConfigurations."mason@masonmac".activationPackage --dry-run
 
   # Auto-merge for PRs with "automated" label
   auto-merge:
