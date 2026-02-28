@@ -35,7 +35,6 @@ in
   services.ssh-agent.enable = !isDarwin;
   programs.ssh = {
     # ssh-add -l to see loaded keys
-    # enabling the ssh-agent informs some software of active keys
     enable = true;
     matchBlocks = {
       "*".addKeysToAgent = "yes";
@@ -90,7 +89,7 @@ in
     };
     gc = {
       automatic = true;
-      frequency = "weekly";
+      dates = "weekly";
       options = "--delete-older-than 30d";
     };
   };
