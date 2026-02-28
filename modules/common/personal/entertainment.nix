@@ -1,6 +1,7 @@
 # packages and config for media and gaming
 {
   pkgs-spice,
+  pkgs-unstable,
   config,
   root,
   pkgs,
@@ -119,6 +120,7 @@ in
 
     programs.yt-dlp = {
       enable = true;
+      package = pkgs-unstable.yt-dlp;
       settings = {
         write-sub = true;
         write-auto-sub = true;
