@@ -77,6 +77,9 @@ in
       ];
 
       scriptOpts = {
+        ytdl_hook = {
+          ytdl_path = "${pkgs-unstable.yt-dlp}/bin/yt-dlp";
+        };
         simpleSubSync = {
           ffsubsync_bin = "${pkgs.ffsubsync}/bin/ffsubsync";
         };
