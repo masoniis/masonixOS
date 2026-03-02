@@ -1,11 +1,4 @@
-{
-  config,
-  root,
-  pkgs,
-  lib,
-  ...
-}:
-{
+{ config, root, pkgs, lib, ... }: {
   # ghostty only available on linux in nixpkgs at the moment
   # install it on macos manually bruv or use regular terminal
   home.packages = [
@@ -16,8 +9,7 @@
     pkgs.parallel
     pkgs.wget
     pkgs.onefetch
-  ]
-  ++ lib.optional config.isLinux pkgs.ghostty;
+  ] ++ lib.optional config.isLinux pkgs.ghostty;
 
   # INFO: Source dotfiles directly
   xdg.configFile = {
@@ -31,9 +23,7 @@
     };
   };
 
-  home.shellAliases = {
-    cat = "bat";
-  };
+  home.shellAliases = { cat = "bat"; };
 
   # INFO: Programs
   programs = {
@@ -76,15 +66,14 @@
         bindkey '^l' autosuggest-accept
         export EDITOR=nvim
       '';
-      profileExtra =
-        ""
-        + lib.optionalString config.isDarwin ''
-          export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
-        '';
-      completionInit = "
-    	  bindkey '^ ' autosuggest-accept
-    	  bindkey '^l' autosuggest-accept
-			";
+      profileExtra = "" + lib.optionalString config.isDarwin ''
+        export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
+      '';
+      completionInit = ''
+
+            	  bindkey '^ ' autosuggest-accept
+            	  bindkey '^l' autosuggest-accept
+        			'';
     };
   };
 }

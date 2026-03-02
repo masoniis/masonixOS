@@ -8,30 +8,21 @@
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      systems,
-      treefmt-nix,
-    }:
+  outputs = { self, nixpkgs, systems, treefmt-nix, }:
     let
       eachSystem = nixpkgs.lib.genAttrs (import systems);
-      treefmtEval = eachSystem (
-        system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
-      );
-    in
-    {
+      treefmtEval = eachSystem (system:
+        treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system}
+        ./treefmt.nix);
+    in {
       # Standard formatter output
-      formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
+      formatter =
+        eachSystem (system: treefmtEval.${system}.config.build.wrapper);
 
       # Development shell
-      devShells = eachSystem (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
+      devShells = eachSystem (system:
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in {
           default = pkgs.mkShell {
             packages = with pkgs; [
               # Add your core tools here
@@ -44,8 +35,7 @@
               echo "Modular Dev Environment Loaded"
             '';
           };
-        }
-      );
+        });
 
       # Optional: CI checks
       checks = eachSystem (system: {

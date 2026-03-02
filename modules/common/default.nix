@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
-{
+{ pkgs, lib, ... }: {
   options.isDarwin = lib.mkEnableOption "is platform darwin?" // {
     default = pkgs.stdenv.hostPlatform.isDarwin;
   };
@@ -15,7 +10,8 @@
   options.ldLibraryPathParts = lib.mkOption {
     type = with lib.types; listOf str;
     default = [ ];
-    description = "A list of paths to be combined into the LD_LIBRARY_PATH environment variable.";
+    description =
+      "A list of paths to be combined into the LD_LIBRARY_PATH environment variable.";
   };
 
   imports = [

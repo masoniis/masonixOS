@@ -1,5 +1,4 @@
-{ pkgs-unstable, pkgs, ... }:
-{
+{ pkgs-unstable, pkgs, ... }: {
   home.packages = [
     pkgs-unstable.gemini-cli
     pkgs-unstable.claude-code

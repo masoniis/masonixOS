@@ -1,27 +1,19 @@
-{
-  username,
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ username, config, pkgs, lib, ... }:
 let
   isLinux = pkgs.stdenv.hostPlatform.isLinux;
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
   unsupported = builtins.abort "Unsupported platform";
-in
-{
+in {
   home.username = username;
   home.stateVersion = "23.11"; # WARNING: read docs before updating
   news.display = "silent";
 
-  home.homeDirectory =
-    if isLinux then
-      "/home/${username}"
-    else if isDarwin then
-      "/Users/${username}"
-    else
-      unsupported;
+  home.homeDirectory = if isLinux then
+    "/home/${username}"
+  else if isDarwin then
+    "/Users/${username}"
+  else
+    unsupported;
 
   home.shellAliases = {
     hm = "home-manager";
@@ -41,7 +33,8 @@ in
     matchBlocks = {
       # update hostname of xps to local address if available
       "check-xps-local" = {
-        match = "host xps exec \"${pkgs.coreutils}/bin/timeout 0.2 ${pkgs.netcat}/bin/nc -z 192.168.68.72 22\"";
+        match = ''
+          host xps exec "${pkgs.coreutils}/bin/timeout 0.2 ${pkgs.netcat}/bin/nc -z 192.168.68.72 22"'';
         hostname = "192.168.68.72";
       };
       xps = {
@@ -52,7 +45,8 @@ in
 
       # update hostname of worldgov to local address if available
       "check-worldgov-local" = {
-        match = "host worldgov exec \"${pkgs.coreutils}/bin/timeout 0.2 ${pkgs.netcat}/bin/nc -z 192.168.68.69 22\"";
+        match = ''
+          host worldgov exec "${pkgs.coreutils}/bin/timeout 0.2 ${pkgs.netcat}/bin/nc -z 192.168.68.69 22"'';
         hostname = "192.168.68.69";
         port = 22;
       };
@@ -74,18 +68,14 @@ in
 
   # INFO: If home-manager is not isolated then home-manager is not in the path,
   # we need to add home-manager to the path by installing the package
-  home.packages = [
-    (lib.mkIf (!config.homeManagerIsolated) pkgs.home-manager)
-  ];
+  home.packages =
+    [ (lib.mkIf (!config.homeManagerIsolated) pkgs.home-manager) ];
 
   # Add nix only on home-manager isolated systems since nixos has it in default module
   nix = lib.mkIf config.homeManagerIsolated {
     package = pkgs.nixVersions.latest;
     settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+      experimental-features = [ "nix-command" "flakes" ];
       # auto-optimise-store = false; # will cause errors on mac sadly
     };
     gc = {

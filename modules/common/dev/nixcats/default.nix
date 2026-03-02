@@ -1,76 +1,56 @@
 { pkgs-unstable, ... }:
-let
-  binds = import ./binds.nix;
-in
-{
+let binds = import ./binds.nix;
+in {
   nixCats = {
     enable = true;
     luaPath = ./nvim;
 
     packageNames = [ "onixNvim" ];
     packageDefinitions.replace = {
-      onixNvim =
-        { pkgs, ... }:
-        {
-          settings = {
-            aliases = [
-              "vim"
-              "vi"
-              "n"
-              "nv"
-              "nvi"
-              "nvim"
-            ];
-          };
+      onixNvim = { pkgs, ... }: {
+        settings = { aliases = [ "vim" "vi" "n" "nv" "nvi" "nvim" ]; };
 
-          # Determines which plugin categories to enable
-          categories = {
-            # INFO: ----------------
-            #    Broad categories
-            # ----------------------
-            necessary = true;
-            general = true;
+        # Determines which plugin categories to enable
+        categories = {
+          # INFO: ----------------
+          #    Broad categories
+          # ----------------------
+          necessary = true;
+          general = true;
 
-            # INFO: -------------------
-            #    Language categories
-            # -------------------------
-            clang.enable = true;
-            glsl.enable = true;
-            java.enable = true;
-            lua.enable = true;
-            markdown.enable = true;
-            markup.enable = true;
-            nix.enable = true;
-            python.enable = true;
-            rust.enable = true;
-            shell.enable = true;
-            web.enable = true;
-            zig.enable = true;
+          # INFO: -------------------
+          #    Language categories
+          # -------------------------
+          clang.enable = true;
+          glsl.enable = true;
+          java.enable = true;
+          lua.enable = true;
+          markdown.enable = true;
+          markup.enable = true;
+          nix.enable = true;
+          python.enable = true;
+          rust.enable = true;
+          shell.enable = true;
+          web.enable = true;
+          zig.enable = true;
 
-            # INFO: ----------------
-            #    Config variables
-            # ----------------------
-            binds = binds;
-            javaPaths = {
-              java_debug_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
-              java_test_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";
-              jdtls_executable = "${pkgs.jdt-language-server}/bin/jdtls";
-            };
+          # INFO: ----------------
+          #    Config variables
+          # ----------------------
+          binds = binds;
+          javaPaths = {
+            java_debug_dir =
+              "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
+            java_test_dir =
+              "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";
+            jdtls_executable = "${pkgs.jdt-language-server}/bin/jdtls";
           };
         };
+      };
     };
 
-    categoryDefinitions.replace = (
-      {
-        pkgs,
-        settings,
-        categories,
-        extra,
-        name,
-        mkPlugin,
-        ...
-      }:
-      {
+    categoryDefinitions.replace =
+      ({ pkgs, settings, categories, extra, name, mkPlugin, ... }: {
         lspsAndRuntimeDeps = with pkgs; {
           # INFO: ----------------
           #    Broad categories
@@ -89,9 +69,7 @@ in
             clang-tools # includes clangd langserver
           ];
 
-          glsl = [
-            glsl_analyzer
-          ];
+          glsl = [ glsl_analyzer ];
 
           java = [
             jdt-language-server
@@ -100,29 +78,18 @@ in
             vscode-extensions.vscjava.vscode-java-debug
           ];
 
-          lua = [
-            lua-language-server
-            stylua
-          ];
+          lua = [ lua-language-server stylua ];
 
-          markdown = [
-            prettierd
-          ];
+          markdown = [ prettierd ];
 
           markup = [
             prettierd
             taplo # toml formatter
           ];
 
-          nix = [
-            nixfmt-rfc-style
-            nixd
-          ];
+          nix = [ nixfmt-rfc-style nixd ];
 
-          python = [
-            basedpyright
-            ruff
-          ];
+          python = [ basedpyright ruff ];
 
           rust = [
             pkgs-unstable.rustfmt
@@ -132,15 +99,9 @@ in
             pkgs-unstable.wgsl-analyzer # provides wgslfmt
           ];
 
-          shell = [
-            shfmt
-            shellcheck
-          ];
+          shell = [ shfmt shellcheck ];
 
-          web = [
-            typescript-language-server
-            tailwindcss-language-server
-          ];
+          web = [ typescript-language-server tailwindcss-language-server ];
 
           zig = [
             zls # zig langserver
@@ -167,6 +128,7 @@ in
             floaterm-masonpkgs
             gitsigns-nvim
             inc-rename-nvim
+            minuet-ai-nvim
             neo-tree-nvim
             neotree-nesting-config-masonpkgs
             noice-nvim
@@ -201,19 +163,12 @@ in
           # INFO: -------------------
           #    Language categories
           # -------------------------
-          java = with pkgs.vimPlugins; [
-            nvim-jdtls
-          ];
+          java = with pkgs.vimPlugins; [ nvim-jdtls ];
 
-          lua = with pkgs.vimPlugins; [
-            lazydev-nvim
-          ];
+          lua = with pkgs.vimPlugins; [ lazydev-nvim ];
 
-          python = with pkgs.vimPlugins; [
-            nvim-dap-python
-          ];
+          python = with pkgs.vimPlugins; [ nvim-dap-python ];
         };
-      }
-    );
+      });
   };
 }

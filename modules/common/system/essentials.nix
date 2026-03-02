@@ -1,10 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
-{
+{ pkgs, lib, config, ... }: {
   home.packages = with pkgs; [
     fastfetch # eblic show system stuff
     fzf # useful for piping commands into searches
@@ -22,10 +16,7 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      emoji = [
-        "Noto Color Emoji"
-        "Noto Monochrome Emoji"
-      ];
+      emoji = [ "Noto Color Emoji" "Noto Monochrome Emoji" ];
       monospace = [ "FiraCode Nerd Font" ];
       sansSerif = [ "Noto Sans" ];
       serif = [ "Noto Serif" ];
@@ -35,10 +26,7 @@
   # Fix for allowing fontconfig over coretext (apple builtin) on darwin
   home.sessionVariables = lib.optionalAttrs config.isDarwin {
     FONTCONFIG_FILE = pkgs.makeFontsConf {
-      fontDirectories = [
-        "/System/Library/Fonts"
-        "/Library/Fonts"
-      ];
+      fontDirectories = [ "/System/Library/Fonts" "/Library/Fonts" ];
     };
   };
 }

@@ -12,18 +12,13 @@ pkgs.rustPlatform.buildRustPackage rec {
   };
 
   # use the absolute-relative path syntax
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   nativeBuildInputs = [ pkgs.pkg-config ];
   buildInputs = [ pkgs.openssl ];
 
   # only build the main binary
-  cargoBuildFlags = [
-    "--bin"
-    "run-in-roblox"
-  ];
+  cargoBuildFlags = [ "--bin" "run-in-roblox" ];
 
   # copy the file and make it writable
   postPatch = ''

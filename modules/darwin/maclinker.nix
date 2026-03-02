@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   # This script symlinks all of the nix apps into the mac applications folder
   # and copies some files directly like icons. This results in better support
   # for applications like apple spotlight, where it can properly find the app
