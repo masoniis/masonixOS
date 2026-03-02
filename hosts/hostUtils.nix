@@ -101,6 +101,7 @@ in
         )
         inputs.nixCats.homeModule
         inputs.spicetify.homeManagerModules.spicetify
+        inputs.sops-nix.homeManagerModules.sops
         config
         { homeManagerIsolated = true; }
       ];
