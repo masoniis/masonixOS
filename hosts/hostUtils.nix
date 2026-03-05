@@ -59,7 +59,7 @@ in {
     };
 
   # General home-manager configuration wrapper that takes in config system and username
-  homeManagerSetup = { config, system, username, }:
+  homeManagerSetup = { config, system, username, extraModules ? [ ], }:
     home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
         inherit system;
@@ -76,6 +76,6 @@ in {
         inputs.sops-nix.homeManagerModules.sops
         config
         { homeManagerIsolated = true; }
-      ];
+      ] ++ extraModules;
     };
 }

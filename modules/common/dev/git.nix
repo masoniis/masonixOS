@@ -10,6 +10,8 @@
           colorArg = "always";
           pager = "delta --dark --paging=never";
         };
+        # tells lazygit to stop dropping to the terminal for signed commits
+        overrideGpg = true;
       };
     };
   };
@@ -18,6 +20,7 @@
     enable = true;
     userName = "mason";
     userEmail = "58895787+masoniis@users.noreply.github.com";
+
     delta = {
       enable = true;
       options = {

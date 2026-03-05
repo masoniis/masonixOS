@@ -8,4 +8,5 @@ in utils.homeManagerSetup {
     personal.enable = true;
     language = { python.enable = true; };
   };
+  extraModules = [ ./home.nix ];
 }
