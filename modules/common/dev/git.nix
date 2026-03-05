@@ -33,7 +33,7 @@
       pager.diff = "diffnav";
       diff = { colorMoved = "default"; };
       init.defaultBranch = "main";
-      pull.rebase = false; # default to merging
+      pull.rebase = true; # default to rebase pull
       fetch = {
         prune = true; # auto prune deleted remote branches from local
         pruneTags = true; # auto prune deleted remote tags from local
