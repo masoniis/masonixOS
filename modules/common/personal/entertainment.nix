@@ -121,8 +121,8 @@ in {
       settings = {
         write-sub = true;
         write-auto-sub = true;
-        sub-lang = "en.*,ja.*";
-        sub-format = "vtt"; # format MPV prefers
+        sub-lang = "en,ja,ja-orig";
+        sub-format = "srt/vrt/best";
         cookies-from-browser = "firefox";
         output = "%(title)s.%(ext)s";
       };

@@ -87,7 +87,7 @@ in {
             taplo # toml formatter
           ];
 
-          nix = [ nixfmt-rfc-style nixd ];
+          nix = [ nixfmt nixd ];
 
           python = [ basedpyright ruff ];
 
