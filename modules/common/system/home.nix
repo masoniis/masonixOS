@@ -41,6 +41,11 @@ in {
         hostname = "bop.tplinkdns.com";
         user = "mason";
         port = 22;
+        localForwards = [{
+          bind.port = 9091;
+          host.address = "localhost";
+          host.port = 9091; # transmission port
+        }];
       };
 
       # update hostname of worldgov to local address if available
@@ -54,14 +59,11 @@ in {
         hostname = "bop.tplinkdns.com";
         user = "mason";
         port = 23;
-        localForwards = [
-          # open port 9091 to localhost for accessing transmission
-          {
-            bind.port = 9091;
-            host.address = "localhost";
-            host.port = 9091;
-          }
-        ];
+        localForwards = [{
+          bind.port = 9091;
+          host.address = "localhost";
+          host.port = 9091; # transmission port
+        }];
       };
     };
   };
