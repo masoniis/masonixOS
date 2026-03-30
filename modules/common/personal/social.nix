@@ -1,10 +1,4 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-{
+{ lib, pkgs, config, ... }: {
   config = lib.mkIf config.personal.enable {
     nixpkgs.config.allowUnfree = true; # discord = unfree ‼️
 

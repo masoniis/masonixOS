@@ -9,7 +9,8 @@
     # relating to files and the system
     group = "<leader>s";
     reveal_file = "${group}r";
-    copy_file_path = "${group}f"; # copy the (absolute) file path associated with the open buffer
+    copy_file_path =
+      "${group}f"; # copy the (absolute) file path associated with the open buffer
     open_file = "${group}b";
     copy_file = "${group}c";
     open_in_github = "${group}g";

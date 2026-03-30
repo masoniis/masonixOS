@@ -1,19 +1,13 @@
 # packages and config for media and gaming
-{
-  pkgs-spice,
-  config,
-  root,
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs-spice, pkgs-unstable, config, root, pkgs, lib, ... }:
 let
   enableSpice = true; # toggle between spicetify and regular spotify desktop
 
   # Note for IINA: must import the input.conf as
   # keybindings manually. Found in dotfiles directory
   anime4k-files = pkgs.fetchzip {
-    url = "https://github.com/Tama47/Anime4K/releases/download/v4.0.1/GLSL_Mac_Linux_Low-end.zip";
+    url =
+      "https://github.com/Tama47/Anime4K/releases/download/v4.0.1/GLSL_Mac_Linux_Low-end.zip";
     sha256 = "1v4cxx6lay3vzwm5d9ns8k3crg4zd9p9kylpzbi789pymqkaz1ng";
     stripRoot = false;
   };
@@ -23,11 +17,11 @@ let
   #   sha256 = "1d50zzqwyh264rbqj3dr9hdylcjs4xbji95hrna5icl3a2fmy7q2"; # nix-preferch-url --unpack hash
   #   stripRoot = false; # Assume multiple files, which requires --unpack hash
   # };
-in
-{
-  options.entertainment.enable = lib.mkEnableOption "enable entertainment modules" // {
-    default = false;
-  };
+in {
+  options.entertainment.enable =
+    lib.mkEnableOption "enable entertainment modules" // {
+      default = false;
+    };
 
   config = lib.mkIf config.entertainment.enable {
     home.packages = [
@@ -46,11 +40,15 @@ in
     xdg.configFile = {
       "mpv/mpv.conf".source = "${root}/dotfiles/mpv/mpv.conf";
       "mpv/input.conf".source = "${root}/dotfiles/mpv/input.conf";
-      "mpv/scripts/streamDownloader.lua".source = "${root}/dotfiles/mpv/scripts/streamDownloader.lua";
-      "mpv/scripts/secondarySubs.lua".source = "${root}/dotfiles/mpv/scripts/secondarySubs.lua";
-      "mpv/scripts/simpleSubSync.lua".source = "${root}/dotfiles/mpv/scripts/simpleSubSync.lua";
+      "mpv/scripts/streamDownloader.lua".source =
+        "${root}/dotfiles/mpv/scripts/streamDownloader.lua";
+      "mpv/scripts/secondarySubs.lua".source =
+        "${root}/dotfiles/mpv/scripts/secondarySubs.lua";
+      "mpv/scripts/simpleSubSync.lua".source =
+        "${root}/dotfiles/mpv/scripts/simpleSubSync.lua";
       "mpv/shaders" = {
-        source = "${anime4k-files}/shaders"; # only extracts /shaders folder to not get any of the mpv.conf they provide
+        source =
+          "${anime4k-files}/shaders"; # only extracts /shaders folder to not get any of the mpv.conf they provide
       };
       # Necessary font for the modernz script's ui
       "mpv/fonts" = {
@@ -58,7 +56,8 @@ in
         recursive = true;
       };
       # Loading config files
-      "mpv/script-opts/SimpleHistory.conf".source = "${root}/dotfiles/mpv/script-opts/SimpleHistory.conf";
+      "mpv/script-opts/SimpleHistory.conf".source =
+        "${root}/dotfiles/mpv/script-opts/SimpleHistory.conf";
     };
 
     programs.mpv = {
@@ -76,9 +75,8 @@ in
       ];
 
       scriptOpts = {
-        simpleSubSync = {
-          ffsubsync_bin = "${pkgs.ffsubsync}/bin/ffsubsync";
-        };
+        ytdl_hook = { ytdl_path = "${pkgs-unstable.yt-dlp}/bin/yt-dlp"; };
+        simpleSubSync = { ffsubsync_bin = "${pkgs.ffsubsync}/bin/ffsubsync"; };
         modernz = {
           seekbarfg_color = "#FF0032";
           seekbarbg_color = "#555A61";
@@ -119,11 +117,12 @@ in
 
     programs.yt-dlp = {
       enable = true;
+      package = pkgs-unstable.yt-dlp;
       settings = {
         write-sub = true;
         write-auto-sub = true;
-        sub-lang = "en.*,ja.*";
-        sub-format = "vtt"; # format MPV prefers
+        sub-lang = "en,ja,ja-orig";
+        sub-format = "srt/vrt/best";
         cookies-from-browser = "firefox";
         output = "%(title)s.%(ext)s";
       };
@@ -135,13 +134,12 @@ in
       settings = {
         enable_notify = false;
         enable_media_control = true; # physical keyboard media buttons
-        device = {
-          volume = 100;
-        };
+        device = { volume = 100; };
       };
       keymaps = [
         {
-          command = "None"; # disable q so that we can leave neovim toggleterm without closing player
+          command =
+            "None"; # disable q so that we can leave neovim toggleterm without closing player
           key_sequence = "q";
         }
         {

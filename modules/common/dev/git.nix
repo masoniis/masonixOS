@@ -1,9 +1,5 @@
-{ pkgs, ... }:
-{
-  home.packages = [
-    pkgs.git-crypt
-    pkgs.diffnav
-  ];
+{ pkgs, ... }: {
+  home.packages = [ pkgs.git-crypt pkgs.diffnav ];
 
   programs.lazygit = {
     enable = true;
@@ -14,6 +10,8 @@
           colorArg = "always";
           pager = "delta --dark --paging=never";
         };
+        # tells lazygit to stop dropping to the terminal for signed commits
+        overrideGpg = true;
       };
     };
   };
@@ -28,11 +26,9 @@
       merge.tool = "nvimdiff2";
       merge.conflictstyle = "diff3";
       pager.diff = "diffnav";
-      diff = {
-        colorMoved = "default";
-      };
+      diff = { colorMoved = "default"; };
       init.defaultBranch = "main";
-      pull.rebase = false; # default to merging
+      pull.rebase = true; # default to rebase pull
       fetch = {
         prune = true; # auto prune deleted remote branches from local
         pruneTags = true; # auto prune deleted remote tags from local
@@ -42,8 +38,6 @@
 
   programs.gh = {
     enable = true;
-    settings = {
-      git_protocol = "ssh";
-    };
+    settings = { git_protocol = "ssh"; };
   };
 }

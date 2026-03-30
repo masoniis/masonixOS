@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   nixarr.recyclarr = {
     enable = true;
     configuration = {
@@ -15,10 +14,14 @@
           # template config to be pulled in
           include = [
             # general config template
-            { template = "radarr-quality-definition-movie"; }
+            {
+              template = "radarr-quality-definition-movie";
+            }
             # movie hd web profile and formats
             { template = "radarr-quality-profile-hd-bluray-web"; }
-            { template = "radarr-custom-formats-hd-bluray-web"; }
+            {
+              template = "radarr-custom-formats-hd-bluray-web";
+            }
             # NOTE: Anime
             # anime custom formats doesnt use templates because I couldn't
             # get it to properly work out with my setup of having different
@@ -40,9 +43,7 @@
           };
 
           # download quality preference
-          quality_definition = {
-            type = "movie";
-          };
+          quality_definition = { type = "movie"; };
 
           # overarching quality profiles
           quality_profiles = [
@@ -73,10 +74,7 @@
                 }
                 {
                   name = "Web-2160p";
-                  qualities = [
-                    "WEBDL-2160p"
-                    "WEBRip-2160p"
-                  ];
+                  qualities = [ "WEBDL-2160p" "WEBRip-2160p" ];
                   enabled = false;
                 }
                 {
@@ -85,49 +83,25 @@
                 }
                 {
                   name = "Bluray-1080p";
-                  qualities = [
-                    "Remux-1080p"
-                    "Bluray-1080p"
-                  ];
+                  qualities = [ "Remux-1080p" "Bluray-1080p" ];
                 }
                 {
                   name = "Web-1080p";
-                  qualities = [
-                    "WEBDL-1080p"
-                    "WEBRip-1080p"
-                    "HDTV-1080p"
-                  ];
+                  qualities = [ "WEBDL-1080p" "WEBRip-1080p" "HDTV-1080p" ];
                 }
-                {
-                  name = "Bluray-720p";
-                }
+                { name = "Bluray-720p"; }
                 {
                   name = "Web-720p";
-                  qualities = [
-                    "WEBDL-720p"
-                    "WEBRip-720p"
-                    "HDTV-720p"
-                  ];
+                  qualities = [ "WEBDL-720p" "WEBRip-720p" "HDTV-720p" ];
                 }
-                {
-                  name = "Bluray-576p";
-                }
-                {
-                  name = "Bluray-480p";
-                }
+                { name = "Bluray-576p"; }
+                { name = "Bluray-480p"; }
                 {
                   name = "Web-480p";
-                  qualities = [
-                    "WEBDL-480p"
-                    "WEBRip-480p"
-                  ];
+                  qualities = [ "WEBDL-480p" "WEBRip-480p" ];
                 }
-                {
-                  name = "DVD";
-                }
-                {
-                  name = "SDTV";
-                }
+                { name = "DVD"; }
+                { name = "SDTV"; }
               ];
             }
             {
@@ -157,10 +131,7 @@
                 }
                 {
                   name = "Web-2160p";
-                  qualities = [
-                    "WEBDL-2160p"
-                    "WEBRip-2160p"
-                  ];
+                  qualities = [ "WEBDL-2160p" "WEBRip-2160p" ];
                   enabled = false;
                 }
                 {
@@ -169,49 +140,25 @@
                 }
                 {
                   name = "Bluray-1080p";
-                  qualities = [
-                    "Remux-1080p"
-                    "Bluray-1080p"
-                  ];
+                  qualities = [ "Remux-1080p" "Bluray-1080p" ];
                 }
                 {
                   name = "Web-1080p";
-                  qualities = [
-                    "WEBDL-1080p"
-                    "WEBRip-1080p"
-                    "HDTV-1080p"
-                  ];
+                  qualities = [ "WEBDL-1080p" "WEBRip-1080p" "HDTV-1080p" ];
                 }
-                {
-                  name = "Bluray-720p";
-                }
+                { name = "Bluray-720p"; }
                 {
                   name = "Web-720p";
-                  qualities = [
-                    "WEBDL-720p"
-                    "WEBRip-720p"
-                    "HDTV-720p"
-                  ];
+                  qualities = [ "WEBDL-720p" "WEBRip-720p" "HDTV-720p" ];
                 }
-                {
-                  name = "Bluray-576p";
-                }
-                {
-                  name = "Bluray-480p";
-                }
+                { name = "Bluray-576p"; }
+                { name = "Bluray-480p"; }
                 {
                   name = "Web-480p";
-                  qualities = [
-                    "WEBDL-480p"
-                    "WEBRip-480p"
-                  ];
+                  qualities = [ "WEBDL-480p" "WEBRip-480p" ];
                 }
-                {
-                  name = "DVD";
-                }
-                {
-                  name = "SDTV";
-                }
+                { name = "DVD"; }
+                { name = "SDTV"; }
               ];
             }
           ];
@@ -249,12 +196,8 @@
                 "a5d148168c4506b55cf53984107c396e" # 10bit
               ];
               assign_scores_to = [
-                {
-                  name = "Anime (sub priority)";
-                }
-                {
-                  name = "Anime (dub priority)";
-                }
+                { name = "Anime (sub priority)"; }
+                { name = "Anime (dub priority)"; }
               ];
             }
             {
@@ -304,12 +247,16 @@
           # template config to be pulled in
           include = [
             # general config template
-            { template = "sonarr-quality-definition-series"; }
+            {
+              template = "sonarr-quality-definition-series";
+            }
             # sonarr series hd web profile and formats
             { template = "sonarr-v4-quality-profile-web-1080p-alternative"; }
             { template = "sonarr-v4-custom-formats-web-1080p"; }
             { template = "sonarr-v4-quality-profile-web-2160p-alternative"; }
-            { template = "sonarr-v4-custom-formats-web-2160p"; }
+            {
+              template = "sonarr-v4-custom-formats-web-2160p";
+            }
             # NOTE: Anime
             # anime custom formats doesnt use templates because I couldn't
             # get it to properly work out with my setup of having different
@@ -356,10 +303,7 @@
                 }
                 {
                   name = "Web-2160p";
-                  qualities = [
-                    "WEBDL-2160p"
-                    "WEBRip-2160p"
-                  ];
+                  qualities = [ "WEBDL-2160p" "WEBRip-2160p" ];
                   enabled = false;
                 }
                 {
@@ -368,49 +312,25 @@
                 }
                 {
                   name = "Bluray-1080p";
-                  qualities = [
-                    "Bluray-1080p"
-                    "Bluray-1080p Remux"
-                  ];
+                  qualities = [ "Bluray-1080p" "Bluray-1080p Remux" ];
                 }
                 {
                   name = "Web-1080p";
-                  qualities = [
-                    "WEBDL-1080p"
-                    "WEBRip-1080p"
-                    "HDTV-1080p"
-                  ];
+                  qualities = [ "WEBDL-1080p" "WEBRip-1080p" "HDTV-1080p" ];
                 }
-                {
-                  name = "Bluray-720p";
-                }
+                { name = "Bluray-720p"; }
                 {
                   name = "Web-720p";
-                  qualities = [
-                    "WEBDL-720p"
-                    "WEBRip-720p"
-                    "HDTV-720p"
-                  ];
+                  qualities = [ "WEBDL-720p" "WEBRip-720p" "HDTV-720p" ];
                 }
-                {
-                  name = "Bluray-576p";
-                }
-                {
-                  name = "Bluray-480p";
-                }
+                { name = "Bluray-576p"; }
+                { name = "Bluray-480p"; }
                 {
                   name = "Web-480p";
-                  qualities = [
-                    "WEBDL-480p"
-                    "WEBRip-480p"
-                  ];
+                  qualities = [ "WEBDL-480p" "WEBRip-480p" ];
                 }
-                {
-                  name = "DVD";
-                }
-                {
-                  name = "SDTV";
-                }
+                { name = "DVD"; }
+                { name = "SDTV"; }
                 {
                   name = "Raw-HD";
                   enabled = false;
@@ -440,10 +360,7 @@
                 }
                 {
                   name = "Web-2160p";
-                  qualities = [
-                    "WEBDL-2160p"
-                    "WEBRip-2160p"
-                  ];
+                  qualities = [ "WEBDL-2160p" "WEBRip-2160p" ];
                   enabled = false;
                 }
                 {
@@ -452,49 +369,25 @@
                 }
                 {
                   name = "Bluray-1080p";
-                  qualities = [
-                    "Bluray-1080p"
-                    "Bluray-1080p Remux"
-                  ];
+                  qualities = [ "Bluray-1080p" "Bluray-1080p Remux" ];
                 }
                 {
                   name = "Web-1080p";
-                  qualities = [
-                    "WEBDL-1080p"
-                    "WEBRip-1080p"
-                    "HDTV-1080p"
-                  ];
+                  qualities = [ "WEBDL-1080p" "WEBRip-1080p" "HDTV-1080p" ];
                 }
-                {
-                  name = "Bluray-720p";
-                }
+                { name = "Bluray-720p"; }
                 {
                   name = "Web-720p";
-                  qualities = [
-                    "WEBDL-720p"
-                    "WEBRip-720p"
-                    "HDTV-720p"
-                  ];
+                  qualities = [ "WEBDL-720p" "WEBRip-720p" "HDTV-720p" ];
                 }
-                {
-                  name = "Bluray-576p";
-                }
-                {
-                  name = "Bluray-480p";
-                }
+                { name = "Bluray-576p"; }
+                { name = "Bluray-480p"; }
                 {
                   name = "Web-480p";
-                  qualities = [
-                    "WEBDL-480p"
-                    "WEBRip-480p"
-                  ];
+                  qualities = [ "WEBDL-480p" "WEBRip-480p" ];
                 }
-                {
-                  name = "DVD";
-                }
-                {
-                  name = "SDTV";
-                }
+                { name = "DVD"; }
+                { name = "SDTV"; }
                 {
                   name = "Raw-HD";
                   enabled = false;
@@ -552,12 +445,8 @@
                 "570b03b3145a25011bf073274a407259" # Hidive
               ];
               assign_scores_to = [
-                {
-                  name = "Anime Series (sub)";
-                }
-                {
-                  name = "Anime Series (dub)";
-                }
+                { name = "Anime Series (sub)"; }
+                { name = "Anime Series (dub)"; }
               ];
             }
             {

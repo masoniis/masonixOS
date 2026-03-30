@@ -3,8 +3,7 @@ let
   inherit (inputs) nixpkgs home-manager sops-nix;
 
   # lil helper to allow unfree in all the unstables
-  mkPkgsUnstable =
-    system:
+  mkPkgsUnstable = system:
     import inputs.nixpkgs-unstable {
       inherit system;
       config.allowUnfree = true;
@@ -23,33 +22,17 @@ let
     root = inputs.self;
     inherit username;
   };
-in
-{
+in {
   # NixOS isolated setup with no assumptions on default user
-  nixosSystem =
-    {
-      config,
-      system,
-      extraModules ? [ ],
-    }:
+  nixosSystem = { config, system, extraModules ? [ ], }:
     nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = mkSpecialArgs system;
-      modules = [
-        sops-nix.nixosModules.sops
-        config
-      ]
-      ++ extraModules;
+      modules = [ sops-nix.nixosModules.sops config ] ++ extraModules;
     };
 
   # NixOS + Homemanager personal PC setup
-  nixosHomeManagerSystem =
-    {
-      config,
-      system,
-      username,
-      extraModules ? [ ],
-    }:
+  nixosHomeManagerSystem = { config, system, username, extraModules ? [ ], }:
     nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = mkSpecialArgs system;
@@ -59,33 +42,24 @@ in
         {
           # home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
-          home-manager.users.${username} =
-            { ... }:
-            {
-              nixpkgs.overlays = [
-                inputs.self.overlays.masonpkgs
-              ];
-              imports = [
-                ../modules/linux/default.nix
-                config
-                inputs.nixCats.homeModule
-                inputs.spicetify.homeManagerModules.spicetify
-              ];
-            };
+          home-manager.users.${username} = { ... }: {
+            nixpkgs.overlays = [ inputs.self.overlays.masonpkgs ];
+            imports = [
+              ../modules/linux/default.nix
+              config
+              inputs.nixCats.homeModule
+              inputs.spicetify.homeManagerModules.spicetify
+            ];
+          };
 
-          home-manager.extraSpecialArgs = mkHomeManagerSpecialArgs system username;
+          home-manager.extraSpecialArgs =
+            mkHomeManagerSpecialArgs system username;
         }
-      ]
-      ++ extraModules;
+      ] ++ extraModules;
     };
 
   # General home-manager configuration wrapper that takes in config system and username
-  homeManagerSetup =
-    {
-      config,
-      system,
-      username,
-    }:
+  homeManagerSetup = { config, system, username, extraModules ? [ ], }:
     home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
         inherit system;
@@ -93,16 +67,15 @@ in
       };
       extraSpecialArgs = mkHomeManagerSpecialArgs system username;
       modules = [
-        (
-          if system == "aarch64-darwin" || system == "x86_64-darwin" then
-            ../modules/darwin/default.nix
-          else
-            ../modules/linux/default.nix
-        )
+        (if system == "aarch64-darwin" || system == "x86_64-darwin" then
+          ../modules/darwin/default.nix
+        else
+          ../modules/linux/default.nix)
         inputs.nixCats.homeModule
         inputs.spicetify.homeManagerModules.spicetify
+        inputs.sops-nix.homeManagerModules.sops
         config
         { homeManagerIsolated = true; }
-      ];
+      ] ++ extraModules;
     };
 }

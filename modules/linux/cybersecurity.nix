@@ -1,6 +1,1 @@
-{ pkgs, ... }:
-{
-  home.packages = with pkgs; [
-    burpsuite
-  ];
-}
+{ pkgs, ... }: { home.packages = with pkgs; [ burpsuite ]; }

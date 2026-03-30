@@ -1,9 +1,7 @@
 { fetchFromGitHub, vimUtils }:
 
-let
-  version = "34e14f0b5e2687fd31a93fe75982ec84e5145856"; # 9/24/25
-in
-vimUtils.buildVimPlugin {
+let version = "34e14f0b5e2687fd31a93fe75982ec84e5145856"; # 9/24/25
+in vimUtils.buildVimPlugin {
   pname = "floaterm";
   version = version;
   src = fetchFromGitHub {

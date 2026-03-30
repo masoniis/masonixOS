@@ -111,5 +111,4 @@ end
 
 -- Bindings
 mp.register_script_message("run-ffsubsync", sync_current_sub)
-
-msg.info("Script loaded with binary: " .. opts.ffsubsync_bin)
+msg.info("Subsync script loaded with binary: " .. opts.ffsubsync_bin)

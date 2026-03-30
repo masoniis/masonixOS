@@ -1,6 +1,5 @@
 # nixos-help to open nixos manual for information on options
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   # WARNING: Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
@@ -8,10 +7,7 @@
   nixpkgs.config.allowUnfree = true;
   nix = {
     package = pkgs.nix;
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    settings.experimental-features = [ "nix-command" "flakes" ];
     gc = {
       automatic = true;
       dates = "weekly";
@@ -74,19 +70,14 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqYhMkfTYA7biVs4xp0OxhcV0Zk4yxvMTLn7u6S0PWc" # mason@[nixless windows 3080pc]
       ];
     };
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
+    extraGroups = [ "networkmanager" "wheel" ];
   };
 
   # INFO: Remote control
   services.openssh = {
     enable = true;
     ports = [ 22 ];
-    settings = {
-      PasswordAuthentication = false;
-    };
+    settings = { PasswordAuthentication = false; };
   };
 
   services.xrdp = {
@@ -126,8 +117,6 @@
   # writes secrets to /run/secrets/...
   sops.secrets = {
     "personalEmail" = { }; # uses defaults
-    "wgQuickConfiguration" = {
-      sopsFile = ../../secrets/nordConfig.yaml;
-    };
+    "wgQuickConfiguration" = { sopsFile = ../../secrets/nordConfig.yaml; };
   };
 }

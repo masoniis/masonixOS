@@ -333,4 +333,4 @@ mp.add_key_binding("alt+shift+s", "download-video-force", function()
 	download_video_and_captured_sub(true)
 end)
 
-msg.info("Jellyfin Downloader (Async+Progress) loaded.")
+msg.info("Jellyfin Downloader loaded.")

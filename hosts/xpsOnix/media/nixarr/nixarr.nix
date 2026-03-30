@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
 
   nixarr = {
     enable = true;
@@ -44,19 +43,21 @@
       # to access the page on other devices is the best strategy
       vpn.enable = true;
       extraSettings = {
-        # Below only lets host access transmission
+        # below only lets host access transmission
         rpc-host-whitelist-enabled = false; # allow any hostname to access
         rpc-whitelist-enabled = false; # allow any ip to access
 
-        rpc-authentication-required = false; # require user/pass (might be useful in future)
+        # no user/pass needed since only local host
+        rpc-authentication-required = false;
         rpc-username = "N/A";
         rpc-password = "N/A";
 
-        # Seeding and download configs
+        # seeding and download configs
         ratio-limit-enabled = true;
         download-queue-size = 8;
-        ratio-limit = 0.1; # set on show basis with sonarr
-        preallocation = 2; # (0 = Off, 1 = Fast, 2 = Full (slower but reduces disk fragmentation), default = 1)
+        ratio-limit = 1; # can set on show basis with sonarr
+        preallocation =
+          2; # (0 = Off, 1 = Fast, 2 = Full (slower but reduces disk fragmentation), default = 1)
       };
     };
 

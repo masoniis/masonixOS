@@ -8,10 +8,7 @@
   ];
 
   # enable flakes
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # mount drives
   fileSystems."/mnt/sdb1" = {
@@ -108,18 +105,11 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim
-    mergerfs
-  ];
+  environment.systemPackages = with pkgs; [ vim mergerfs ];
 
   programs.git = {
     enable = true;
-    config = {
-      safe = {
-        directory = "/etc/nixos/masonixOS";
-      };
-    };
+    config = { safe = { directory = "/etc/nixos/masonixOS"; }; };
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -135,9 +125,7 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    settings = {
-      PasswordAuthentication = false;
-    };
+    settings = { PasswordAuthentication = false; };
   };
 
   # Enable Cockpit (Dashboard + Web Terminal)
@@ -162,8 +150,6 @@
 
   # writes secrets to /run/secrets/...
   sops.secrets = {
-    "wgQuickConfiguration" = {
-      sopsFile = ../../secrets/worldgov.yaml;
-    };
+    "wgQuickConfiguration" = { sopsFile = ../../secrets/worldgov.yaml; };
   };
 }
