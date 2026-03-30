@@ -25,7 +25,8 @@
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  outputs = { ... }@inputs:
+  outputs =
+    { ... }@inputs:
     rec {
       # package overlay to expose for use in other flakes
       overlays = {
@@ -56,43 +57,45 @@
         "mason@masonmac" = import ./hosts/masonmac { inherit inputs; };
         # TODO: error on home-manager news evoked when using these. Same as:
         # https://discourse.nixos.org/t/news-json-output-and-home-activationpackage-in-home-manager-switch/54192
-        "mason@wslOnix" =
-          nixosConfigurations.wslOnix.config.home-manager.users."mason".home;
-        "mason@xpsOnix" =
-          nixosConfigurations.xpsOnix.config.home-manager.users."mason".home;
+        "mason@wslOnix" = nixosConfigurations.wslOnix.config.home-manager.users."mason".home;
+        "mason@xpsOnix" = nixosConfigurations.xpsOnix.config.home-manager.users."mason".home;
       };
 
     }
     # system dependent config in this merge block
-    // (with inputs;
+    // (
+      with inputs;
       let
         # iter each system
-        eachSystem = f:
-          nixpkgs.lib.genAttrs (import systems)
-          (system: f nixpkgs.legacyPackages.${system});
+        eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
 
         # eval the treefmt modules from ./treefmt.nix
-        treefmtEval =
-          eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
-      in {
+        treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+      in
+      {
         # for `nix fmt`
-        formatter =
-          eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+        formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
         # for `nix flake check`
         checks = eachSystem (pkgs: {
           formatting = treefmtEval.${pkgs.system}.config.build.check self;
         });
 
         # expose overlay packages directly from flake
-        packages = eachSystem (pkgs:
+        packages = eachSystem (
+          pkgs:
           let
             overlayPackages = import ./overlays/masonpkgs/default.nix pkgs pkgs;
-          in overlayPackages);
+          in
+          overlayPackages
+        );
 
         # flake updating devshell
         devShells = eachSystem (pkgs: {
           default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [ sops ssh-to-age ];
+            nativeBuildInputs = with pkgs; [
+              sops
+              ssh-to-age
+            ];
 
             # automatically load sops key when in dev shell
             shellHook = ''
@@ -106,5 +109,6 @@
             '';
           };
         });
-      });
+      }
+    );
 }

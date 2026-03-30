@@ -2,7 +2,8 @@
 let
   inherit (inputs) nixos-wsl;
   utils = import ../hostUtils.nix { inherit inputs; };
-in utils.nixosHomeManagerSystem {
+in
+utils.nixosHomeManagerSystem {
   system = "x86_64-linux";
   username = "mason";
   extraModules = [
@@ -11,6 +12,8 @@ in utils.nixosHomeManagerSystem {
   ];
   config = {
     personal.enable = true;
-    language = { python.enable = true; };
+    language = {
+      python.enable = true;
+    };
   };
 }

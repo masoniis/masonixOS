@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   # enable signing for just this device
   programs.git = {
     signing = {
