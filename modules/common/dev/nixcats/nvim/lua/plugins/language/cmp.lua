@@ -6,19 +6,24 @@ return {
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
-		keymap = { preset = "super-tab" },
+		keymap = {
+			preset = "super-tab",
+			["<C-l>"] = {
+				function(cmp)
+					cmp.show({ providers = { "copilot" } })
+					return true
+				end,
+			},
+		},
 
 		appearance = {
 			nerd_font_variant = "mono",
 		},
 
-		-- (Default) Only show the documentation popup when manually triggered
 		completion = {
 			documentation = { auto_show = true, auto_show_delay_ms = 2000 },
 			menu = {
 				draw = {
-					-- We don't need label_description now because label and label_description are already
-					-- combined together in label by colorful-menu.nvim.
 					columns = { { "kind_icon" }, { "label", gap = 1 } },
 					components = {
 						label = {
@@ -35,7 +40,7 @@ return {
 		},
 
 		sources = {
-			default = { "copilot", "snippets", "lsp", "path", "buffer" },
+			default = { "snippets", "lsp", "path", "buffer" },
 
 			providers = {
 				copilot = {
