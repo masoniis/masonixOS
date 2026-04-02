@@ -2,8 +2,9 @@ return {
 	"stevearc/conform.nvim",
 	event = { "BufReadPre", "BufNewFile" },
 	opts = {
-		format_on_save = {
-			timeout_ms = 2000,
+		-- format after save is better than fromat_on_save because it doesn't block saving from happening
+		-- which reduces "lag" when you save a file, and then it runs formatting in the background
+		format_after_save = {
 			lsp_fallback = true,
 		},
 		formatters_by_ft = {
