@@ -30,9 +30,10 @@ return {
 			wgsl = { "wgslfmt" },
 			zig = { "zigfmt" },
 
-			["*"] = { "codespell" }, -- Applies to all files
+			-- Applies to files with no preset formatter
 			["_"] = {
-				"trim_whitespace", -- Applies to files with no preset formatter
+				"codespell",
+				"trim_whitespace",
 			},
 		},
 
