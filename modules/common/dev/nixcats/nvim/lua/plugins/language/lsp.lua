@@ -41,21 +41,22 @@ return {
 			})
 			vim.lsp.enable("svelte")
 
-			vim.lsp.config("rust_analyzer", {
-				settings = {
-					["rust-analyzer"] = {
-						cargo = {
-							build_scripts = {
-								enable = true,
-							},
-						},
-						procMacro = {
-							enable = true,
-						},
-					},
-				},
-			})
-			vim.lsp.enable("rust_analyzer")
+			-- NOTE: configured in tools.lua now
+			-- vim.lsp.config("rust_analyzer", {
+			-- 	settings = {
+			-- 		["rust-analyzer"] = {
+			-- 			cargo = {
+			-- 				build_scripts = {
+			-- 					enable = true,
+			-- 				},
+			-- 			},
+			-- 			procMacro = {
+			-- 				enable = true,
+			-- 			},
+			-- 		},
+			-- 	},
+			-- })
+			-- vim.lsp.enable("rust_analyzer")
 
 			vim.lsp.config("wgsl_analyzer", {
 				filetypes = {

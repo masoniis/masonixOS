@@ -23,4 +23,38 @@ return {
 			},
 		},
 	},
+	-- Optimized Rust experience (LSP, DAP, and Management)
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^5",
+		lazy = false,
+		config = function()
+			vim.g.rustaceanvim = {
+				server = {
+					on_attach = function(_client, _bufnr)
+						-- keybindings here
+					end,
+					default_settings = {
+						["rust-analyzer"] = {
+							cargo = {
+								allFeatures = true,
+								loadOutDirsFromCheck = true,
+								buildScripts = {
+									enable = true,
+								},
+							},
+							procMacro = {
+								enable = true,
+								ignored = {
+									["async-trait"] = { "async_trait" },
+									["napi-derive"] = { "napi" },
+									["async-recursion"] = { "async_recursion" },
+								},
+							},
+						},
+					},
+				},
+			}
+		end,
+	},
 }
