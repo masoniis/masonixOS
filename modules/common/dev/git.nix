@@ -30,6 +30,8 @@
       };
     };
 
+    ignores = [ ".DS_Store" "GEMINI.md" "claude.md" ];
+
     extraConfig = {
       merge.tool = "nvimdiff2";
       merge.conflictstyle = "diff3";
