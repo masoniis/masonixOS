@@ -1,7 +1,13 @@
-{ pkgs-unstable, ... }:
+{ pkgs-unstable, config, lib, ... }:
 let binds = import ./binds.nix;
 in {
-  nixCats = {
+  options.nvim = {
+    showBattery = lib.mkEnableOption "show battery in statusline?" // {
+      default = false;
+    };
+  };
+
+  config.nixCats = {
     enable = true;
     luaPath = ./nvim;
 
@@ -17,6 +23,7 @@ in {
           # ----------------------
           necessary = true;
           general = true;
+          show_battery = config.nvim.showBattery;
 
           # INFO: -------------------
           #    Language categories

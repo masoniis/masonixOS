@@ -14,5 +14,6 @@ in utils.nixosHomeManagerSystem {
     personal.enable = true;
     entertainment.enable = true;
     language = { python.enable = true; };
+    nvim.showBattery = true;
   };
 }

@@ -7,6 +7,7 @@ in utils.homeManagerSetup {
     entertainment.enable = true;
     personal.enable = true;
     language = { python.enable = true; };
+    nvim.showBattery = true;
   };
   extraModules = [ ./home.nix ];
 }
