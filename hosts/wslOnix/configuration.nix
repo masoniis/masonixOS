@@ -28,6 +28,7 @@
   # --------------------------
 
   wsl.enable = true;
+  wsl.interop.register = true; # allow executing window exe files
   wsl.defaultUser = "mason";
 
   wsl.wslConf = {
