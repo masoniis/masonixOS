@@ -158,7 +158,8 @@ in {
     # to stop the update request from appearing yet, haven't experimented much
     programs.spicetify = {
       enable = enableSpice;
-      theme = pkgs-spice.themes.lucid; # best theme there is trust
+      # broken https://github.com/Gerg-L/spicetify-nix/pull/354
+      # theme = pkgs-spice.themes.lucid; # best theme there is trust
       alwaysEnableDevTools = true; # doesn't work on mac I dont think
       enabledExtensions = with pkgs-spice.extensions; [
         # INFO: nice-to-haves
