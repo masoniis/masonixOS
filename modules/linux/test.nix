@@ -1,5 +1,6 @@
 # for testing packages
-{ root, ... }: {
+{ root, ... }:
+{
   xdg.configFile.hypr = {
     source = "${root}/dotfiles/hypr";
     recursive = true;

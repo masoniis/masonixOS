@@ -1,5 +1,12 @@
 # packages and config for productive activities
-{ lib, pkgs, config, pkgs-unstable, ... }: {
+{
+  lib,
+  pkgs,
+  config,
+  pkgs-unstable,
+  ...
+}:
+{
   config = lib.mkIf config.personal.enable {
     home.packages = [
       pkgs-unstable.obsidian # might as well pin to unstable since it is proprietary

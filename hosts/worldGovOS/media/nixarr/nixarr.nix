@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
 
   nixarr = {
     enable = true;
@@ -47,8 +48,7 @@
         rpc-host-whitelist-enabled = false; # allow any hostname to access
         rpc-whitelist-enabled = false; # allow any ip to access
 
-        rpc-authentication-required =
-          false; # require user/pass (might be useful in future)
+        rpc-authentication-required = false; # require user/pass (might be useful in future)
         rpc-username = "N/A";
         rpc-password = "N/A";
 
@@ -56,8 +56,7 @@
         ratio-limit-enabled = true;
         download-queue-size = 8;
         ratio-limit = 0.1; # set on show basis with sonarr
-        preallocation =
-          2; # (0 = Off, 1 = Fast, 2 = Full (slower but reduces disk fragmentation), default = 1)
+        preallocation = 2; # (0 = Off, 1 = Fast, 2 = Full (slower but reduces disk fragmentation), default = 1)
       };
     };
 

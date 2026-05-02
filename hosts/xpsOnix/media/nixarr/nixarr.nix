@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
 
   nixarr = {
     enable = true;
@@ -56,8 +57,7 @@
         ratio-limit-enabled = true;
         download-queue-size = 8;
         ratio-limit = 1; # can set on show basis with sonarr
-        preallocation =
-          2; # (0 = Off, 1 = Fast, 2 = Full (slower but reduces disk fragmentation), default = 1)
+        preallocation = 2; # (0 = Off, 1 = Fast, 2 = Full (slower but reduces disk fragmentation), default = 1)
       };
     };
 

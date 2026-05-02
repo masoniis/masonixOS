@@ -1,4 +1,5 @@
-{ root, ... }: {
+{ root, ... }:
+{
   programs = {
     direnv = {
       enable = true;
@@ -6,10 +7,8 @@
       nix-direnv.enable = true;
 
       config = {
-        warn_timeout =
-          "-1m"; # disable warning that direnv is taking long, common for any nixdirenv and gets annoying
-        hide_env_diff =
-          true; # hides the massive env export string that gets printed on entrance of direnv shell
+        warn_timeout = "-1m"; # disable warning that direnv is taking long, common for any nixdirenv and gets annoying
+        hide_env_diff = true; # hides the massive env export string that gets printed on entrance of direnv shell
       };
     };
   };

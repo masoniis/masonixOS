@@ -1,11 +1,16 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
-  runtimeLibs = with pkgs;
-    [
-      # The key package that provides libstdc++.so.6
-      stdenv.cc.cc.lib
-    ];
-in {
+  runtimeLibs = with pkgs; [
+    # The key package that provides libstdc++.so.6
+    stdenv.cc.cc.lib
+  ];
+in
+{
   config = lib.mkIf config.language.python.enable {
     home.packages = with pkgs; [
       uv

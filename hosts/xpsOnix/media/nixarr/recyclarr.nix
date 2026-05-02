@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   nixarr.recyclarr = {
     enable = true;
     configuration = {
@@ -43,7 +44,9 @@
           };
 
           # download quality preference
-          quality_definition = { type = "movie"; };
+          quality_definition = {
+            type = "movie";
+          };
 
           # overarching quality profiles
           quality_profiles = [
@@ -74,7 +77,10 @@
                 }
                 {
                   name = "Web-2160p";
-                  qualities = [ "WEBDL-2160p" "WEBRip-2160p" ];
+                  qualities = [
+                    "WEBDL-2160p"
+                    "WEBRip-2160p"
+                  ];
                   enabled = false;
                 }
                 {
@@ -83,22 +89,36 @@
                 }
                 {
                   name = "Bluray-1080p";
-                  qualities = [ "Remux-1080p" "Bluray-1080p" ];
+                  qualities = [
+                    "Remux-1080p"
+                    "Bluray-1080p"
+                  ];
                 }
                 {
                   name = "Web-1080p";
-                  qualities = [ "WEBDL-1080p" "WEBRip-1080p" "HDTV-1080p" ];
+                  qualities = [
+                    "WEBDL-1080p"
+                    "WEBRip-1080p"
+                    "HDTV-1080p"
+                  ];
                 }
                 { name = "Bluray-720p"; }
                 {
                   name = "Web-720p";
-                  qualities = [ "WEBDL-720p" "WEBRip-720p" "HDTV-720p" ];
+                  qualities = [
+                    "WEBDL-720p"
+                    "WEBRip-720p"
+                    "HDTV-720p"
+                  ];
                 }
                 { name = "Bluray-576p"; }
                 { name = "Bluray-480p"; }
                 {
                   name = "Web-480p";
-                  qualities = [ "WEBDL-480p" "WEBRip-480p" ];
+                  qualities = [
+                    "WEBDL-480p"
+                    "WEBRip-480p"
+                  ];
                 }
                 { name = "DVD"; }
                 { name = "SDTV"; }
@@ -131,7 +151,10 @@
                 }
                 {
                   name = "Web-2160p";
-                  qualities = [ "WEBDL-2160p" "WEBRip-2160p" ];
+                  qualities = [
+                    "WEBDL-2160p"
+                    "WEBRip-2160p"
+                  ];
                   enabled = false;
                 }
                 {
@@ -140,22 +163,36 @@
                 }
                 {
                   name = "Bluray-1080p";
-                  qualities = [ "Remux-1080p" "Bluray-1080p" ];
+                  qualities = [
+                    "Remux-1080p"
+                    "Bluray-1080p"
+                  ];
                 }
                 {
                   name = "Web-1080p";
-                  qualities = [ "WEBDL-1080p" "WEBRip-1080p" "HDTV-1080p" ];
+                  qualities = [
+                    "WEBDL-1080p"
+                    "WEBRip-1080p"
+                    "HDTV-1080p"
+                  ];
                 }
                 { name = "Bluray-720p"; }
                 {
                   name = "Web-720p";
-                  qualities = [ "WEBDL-720p" "WEBRip-720p" "HDTV-720p" ];
+                  qualities = [
+                    "WEBDL-720p"
+                    "WEBRip-720p"
+                    "HDTV-720p"
+                  ];
                 }
                 { name = "Bluray-576p"; }
                 { name = "Bluray-480p"; }
                 {
                   name = "Web-480p";
-                  qualities = [ "WEBDL-480p" "WEBRip-480p" ];
+                  qualities = [
+                    "WEBDL-480p"
+                    "WEBRip-480p"
+                  ];
                 }
                 { name = "DVD"; }
                 { name = "SDTV"; }
@@ -303,7 +340,10 @@
                 }
                 {
                   name = "Web-2160p";
-                  qualities = [ "WEBDL-2160p" "WEBRip-2160p" ];
+                  qualities = [
+                    "WEBDL-2160p"
+                    "WEBRip-2160p"
+                  ];
                   enabled = false;
                 }
                 {
@@ -312,22 +352,36 @@
                 }
                 {
                   name = "Bluray-1080p";
-                  qualities = [ "Bluray-1080p" "Bluray-1080p Remux" ];
+                  qualities = [
+                    "Bluray-1080p"
+                    "Bluray-1080p Remux"
+                  ];
                 }
                 {
                   name = "Web-1080p";
-                  qualities = [ "WEBDL-1080p" "WEBRip-1080p" "HDTV-1080p" ];
+                  qualities = [
+                    "WEBDL-1080p"
+                    "WEBRip-1080p"
+                    "HDTV-1080p"
+                  ];
                 }
                 { name = "Bluray-720p"; }
                 {
                   name = "Web-720p";
-                  qualities = [ "WEBDL-720p" "WEBRip-720p" "HDTV-720p" ];
+                  qualities = [
+                    "WEBDL-720p"
+                    "WEBRip-720p"
+                    "HDTV-720p"
+                  ];
                 }
                 { name = "Bluray-576p"; }
                 { name = "Bluray-480p"; }
                 {
                   name = "Web-480p";
-                  qualities = [ "WEBDL-480p" "WEBRip-480p" ];
+                  qualities = [
+                    "WEBDL-480p"
+                    "WEBRip-480p"
+                  ];
                 }
                 { name = "DVD"; }
                 { name = "SDTV"; }
@@ -360,7 +414,10 @@
                 }
                 {
                   name = "Web-2160p";
-                  qualities = [ "WEBDL-2160p" "WEBRip-2160p" ];
+                  qualities = [
+                    "WEBDL-2160p"
+                    "WEBRip-2160p"
+                  ];
                   enabled = false;
                 }
                 {
@@ -369,22 +426,36 @@
                 }
                 {
                   name = "Bluray-1080p";
-                  qualities = [ "Bluray-1080p" "Bluray-1080p Remux" ];
+                  qualities = [
+                    "Bluray-1080p"
+                    "Bluray-1080p Remux"
+                  ];
                 }
                 {
                   name = "Web-1080p";
-                  qualities = [ "WEBDL-1080p" "WEBRip-1080p" "HDTV-1080p" ];
+                  qualities = [
+                    "WEBDL-1080p"
+                    "WEBRip-1080p"
+                    "HDTV-1080p"
+                  ];
                 }
                 { name = "Bluray-720p"; }
                 {
                   name = "Web-720p";
-                  qualities = [ "WEBDL-720p" "WEBRip-720p" "HDTV-720p" ];
+                  qualities = [
+                    "WEBDL-720p"
+                    "WEBRip-720p"
+                    "HDTV-720p"
+                  ];
                 }
                 { name = "Bluray-576p"; }
                 { name = "Bluray-480p"; }
                 {
                   name = "Web-480p";
-                  qualities = [ "WEBDL-480p" "WEBRip-480p" ];
+                  qualities = [
+                    "WEBDL-480p"
+                    "WEBRip-480p"
+                  ];
                 }
                 { name = "DVD"; }
                 { name = "SDTV"; }

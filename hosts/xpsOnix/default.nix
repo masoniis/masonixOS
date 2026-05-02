@@ -1,6 +1,8 @@
 { inputs, ... }:
-let utils = import ../hostUtils.nix { inherit inputs; };
-in utils.nixosHomeManagerSystem {
+let
+  utils = import ../hostUtils.nix { inherit inputs; };
+in
+utils.nixosHomeManagerSystem {
   system = "x86_64-linux";
   username = "mason";
   extraModules = [
@@ -13,7 +15,9 @@ in utils.nixosHomeManagerSystem {
   config = {
     personal.enable = true;
     entertainment.enable = true;
-    language = { python.enable = true; };
+    language = {
+      python.enable = true;
+    };
     nvim.showBattery = true;
   };
 }

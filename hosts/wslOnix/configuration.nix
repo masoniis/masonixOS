@@ -1,12 +1,16 @@
 # https://github.com/nix-community/NixOS-WSL
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   # WARNING: Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 
   nix = {
     package = pkgs.nix;
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -50,9 +54,16 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [ libglvnd mesa ];
+    extraPackages = with pkgs; [
+      libglvnd
+      mesa
+    ];
   };
-  environment.systemPackages = with pkgs; [ vulkan-loader vulkan-tools mesa ];
+  environment.systemPackages = with pkgs; [
+    vulkan-loader
+    vulkan-tools
+    mesa
+  ];
 
   # bridge that tells nix apps where the WSL GPU drivers live
   environment.variables = {
@@ -98,13 +109,18 @@
   networking = {
     hostName = "wslOnix";
     networkmanager.enable = true;
-    nameservers = [ "8.8.8.8" "8.8.4.4" ];
+    nameservers = [
+      "8.8.8.8"
+      "8.8.4.4"
+    ];
   };
 
   services.openssh = {
     enable = true;
     ports = [ 22 ];
-    settings = { PasswordAuthentication = false; };
+    settings = {
+      PasswordAuthentication = false;
+    };
   };
 
   # INFO: ---------------
@@ -115,7 +131,6 @@
     enable = true;
     user = "mason";
     # hint: the password is `1234` 😈
-    hashedPassword =
-      "$argon2i$v=19$m=4096,t=3,p=1$c1hXbkhFNG8rUlg3aVBnOHVEZENXVmk1WlVzPQ$D1rr2WNl75cnpti+q/PkpTHNXGD+ENSktp2m+nMr2Vw";
+    hashedPassword = "$argon2i$v=19$m=4096,t=3,p=1$c1hXbkhFNG8rUlg3aVBnOHVEZENXVmk1WlVzPQ$D1rr2WNl75cnpti+q/PkpTHNXGD+ENSktp2m+nMr2Vw";
   };
 }

@@ -1,5 +1,9 @@
-{ pkgs, ... }: {
-  home.packages = [ pkgs.git-crypt pkgs.diffnav ];
+{ pkgs, ... }:
+{
+  home.packages = [
+    pkgs.git-crypt
+    pkgs.diffnav
+  ];
 
   programs.lazygit = {
     enable = true;
@@ -30,13 +34,19 @@
       };
     };
 
-    ignores = [ ".DS_Store" "GEMINI.md" "claude.md" ];
+    ignores = [
+      ".DS_Store"
+      "GEMINI.md"
+      "claude.md"
+    ];
 
     extraConfig = {
       merge.tool = "nvimdiff2";
       merge.conflictstyle = "diff3";
       pager.diff = "diffnav";
-      diff = { colorMoved = "default"; };
+      diff = {
+        colorMoved = "default";
+      };
       init.defaultBranch = "main";
       pull.rebase = true; # default to rebase pull
       fetch = {
@@ -48,6 +58,8 @@
 
   programs.gh = {
     enable = true;
-    settings = { git_protocol = "ssh"; };
+    settings = {
+      git_protocol = "ssh";
+    };
   };
 }
