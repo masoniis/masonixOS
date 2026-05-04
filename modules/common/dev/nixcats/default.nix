@@ -123,7 +123,7 @@ in
           ];
 
           nix = [
-            nixfmt
+            nixfmt-rfc-style
             nixd
           ];
 
