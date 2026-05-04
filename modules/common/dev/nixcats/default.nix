@@ -113,6 +113,7 @@ in
           lua = [
             lua-language-server
             stylua
+            selene
           ];
 
           markdown = [ prettierd ];

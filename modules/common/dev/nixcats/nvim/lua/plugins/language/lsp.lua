@@ -14,9 +14,9 @@ return {
 				update_in_insert = false,
 			})
 
-			-- INFO: ------------------------------
-			--        Default config servers
-			-- ------------------------------------
+			-- INFO: --------------------------------
+			--         default config servers
+			-- --------------------------------------
 			vim.lsp.enable("basedpyright")
 			vim.lsp.enable("tailwindcss")
 			vim.lsp.enable("clangd")
@@ -27,9 +27,9 @@ return {
 			vim.lsp.enable("nixd")
 			vim.lsp.enable("zls") -- zig
 
-			-- INFO: -------------------------------
-			--         Tweaked config servers
-			-- -------------------------------------
+			-- INFO: --------------------------------
+			--         tweaked config servers
+			-- --------------------------------------
 
 			vim.lsp.config("svelte", {
 				cmd = {
