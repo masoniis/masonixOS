@@ -1,6 +1,3 @@
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-# NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
 { pkgs, ... }:
 {
@@ -30,8 +27,12 @@
     };
   };
 
-  # INFO: WSL STUFF
+  # INFO: --------------------
+  #         wsl config
+  # --------------------------
+
   wsl.enable = true;
+  wsl.interop.register = true; # allow executing window exe files
   wsl.defaultUser = "mason";
 
   wsl.wslConf = {
@@ -46,8 +47,43 @@
     };
   };
 
+  # INFO: ----------------------
+  #         gpu/graphics
+  # ----------------------------
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      libglvnd
+      mesa
+    ];
+  };
+  environment.systemPackages = with pkgs; [
+    vulkan-loader
+    vulkan-tools
+    mesa
+  ];
+
+  # bridge that tells nix apps where the WSL GPU drivers live
+  environment.variables = {
+    LD_LIBRARY_PATH = "/usr/lib/wsl/lib";
+    WGPU_BACKEND = "vulkan";
+  };
+
   # important on WSL so that nvidia-smi & drivers in /usr/lib/wsl/lib can link properly
-  programs.nix-ld.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      vulkan-loader
+      mesa
+      libglvnd
+      libxkbcommon
+      wayland
+      xorg.libX11
+    ];
+  };
 
   # prevents nrswitch from failing on WSL despite network usually working
   systemd.services.NetworkManager-wait-online.enable = false;
@@ -61,11 +97,15 @@
     enable = true;
     defaultWindowManager = "startplasma-x11";
     openFirewall = true;
-    port = 3390; # windows likes to use the default port 3389 for rdp stuff in their apps (ie windows app)
+    # windows likes to use the default port 3389 for rdp stuff in their apps (ie windows app)
     # if on networking mirrored, can simply use windows rdp to connect to localhost:3390
+    port = 3390;
   };
 
-  # INFO: Networking stuff
+  # INFO: --------------------
+  #         networking
+  # --------------------------
+
   networking = {
     hostName = "wslOnix";
     networkmanager.enable = true;
@@ -83,7 +123,10 @@
     };
   };
 
-  # INFO: Other
+  # INFO: ---------------
+  #         utils
+  # ---------------------
+
   services.code-server = {
     enable = true;
     user = "mason";

@@ -37,9 +37,10 @@ return {
 			popup_border_style = "", -- uses 'winborder' on Neovim v0.11+
 			window = {
 				mappings = {
-					["<space>"] = false, -- disable space for toggle node, interferes leader
-					["<S-CR>"] = {
-						command = "toggle_node", -- shift enter to toggle fold node instead
+					-- disable default space (interferes with <space> leader key) replace it with tab
+					["<space>"] = false,
+					["<tab>"] = {
+						command = "toggle_node",
 					},
 				},
 			},

@@ -1,9 +1,10 @@
 return {
 	{
 		"justinhj/battery.nvim",
+		enabled = nixCats("show_battery"),
 		opts = {
 			update_rate_seconds = 30,
-			show_status_when_no_battery = true, -- Don't show any icon or text when no battery found (desktop for example)
+			show_status_when_no_battery = false, -- Don't show any icon or text when no battery found (desktop for example)
 			show_plugged_icon = true,
 			show_unplugged_icon = false,
 			show_percent = true,
@@ -31,8 +32,11 @@ return {
 					"filetype_lsp",
 					function(active)
 						local time = os.date("%H:%M")
-						local batt = require("battery").get_status_line()
-						local content = string.format("%s  %s", batt, time)
+						local content = time
+						if nixCats("show_battery") then
+							local batt = require("battery").get_status_line()
+							content = string.format("%s  %s", batt, time)
+						end
 						return Slimline.highlights.hl_component(
 							{ primary = content },
 							Slimline.highlights.hls.components["path"],

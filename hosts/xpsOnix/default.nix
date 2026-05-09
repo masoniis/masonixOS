@@ -18,5 +18,6 @@ utils.nixosHomeManagerSystem {
     language = {
       python.enable = true;
     };
+    nvim.showBattery = true;
   };
 }

@@ -27,6 +27,15 @@
         name = "mason";
         email = "58895787+masoniis@users.noreply.github.com";
       };
+    };
+
+    ignores = [
+      ".DS_Store"
+      "GEMINI.md"
+      "claude.md"
+    ];
+
+    extraConfig = {
       merge.tool = "nvimdiff2";
       merge.conflictstyle = "diff3";
       pager.diff = "diffnav";
