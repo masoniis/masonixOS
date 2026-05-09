@@ -28,4 +28,11 @@ in
 
   timetrack = args: super.callPackage ./timetrack/default.nix args;
   vimPlugins = super.vimPlugins // customVimPlugins;
+
+  mpvacious = super.callPackage ./mpvacious/default.nix {
+    inherit (super.mpvScripts) buildLua;
+  };
+  mpvScripts = super.mpvScripts // {
+    mpvacious = self.mpvacious;
+  };
 }
