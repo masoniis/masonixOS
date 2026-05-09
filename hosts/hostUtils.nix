@@ -30,7 +30,7 @@ in
     {
       config,
       system,
-      extraModules ? [ ],
+      extraNixosModules ? [ ],
     }:
     nixpkgs.lib.nixosSystem {
       inherit system;
@@ -39,7 +39,7 @@ in
         sops-nix.nixosModules.sops
         config
       ]
-      ++ extraModules;
+      ++ extraNixosModules;
     };
 
   # NixOS + homemanager (personal user) setup
@@ -48,7 +48,7 @@ in
       config,
       system,
       username,
-      extraModules ? [ ],
+      extraNixosModules ? [ ],
       extraHomeModules ? [ ],
       useDefaultHomeModules ? true,
     }:
@@ -82,7 +82,7 @@ in
           home-manager.extraSpecialArgs = mkHomeManagerSpecialArgs system username;
         }
       ]
-      ++ extraModules;
+      ++ extraNixosModules;
     };
 
   # General home-manager configuration wrapper that takes in config system and username
@@ -91,7 +91,7 @@ in
       config,
       system,
       username,
-      extraModules ? [ ],
+      extraHomeModules ? [ ],
       useDefaultModules ? true,
     }:
     let
@@ -119,6 +119,6 @@ in
         { homeManagerIsolated = true; }
       ]
       ++ (if useDefaultModules then defaultModules else [ ])
-      ++ extraModules;
+      ++ extraHomeModules;
     };
 }

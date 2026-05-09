@@ -4,7 +4,7 @@ let
 in
 utils.nixosSystem {
   system = "x86_64-linux";
-  extraModules = [
+  extraNixosModules = [
     ../../modules/linux/media-server
     ./minecraft.nix
     ./configuration.nix

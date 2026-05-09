@@ -6,7 +6,7 @@ in
 utils.nixosHomeManagerSystem {
   system = "x86_64-linux";
   username = "mason";
-  extraModules = [
+  extraNixosModules = [
     nixos-wsl.nixosModules.wsl # nixos-wsl necessary modules
     ./configuration.nix
   ];

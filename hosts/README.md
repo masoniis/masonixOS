@@ -20,7 +20,7 @@ Used for standard NixOS systems without built-in home-manager.
 
 - `system`: The architecture (e.g., `"x86_64-linux"`).
 - `config`: Configuration attributes.
-- `extraModules`: List of additional NixOS modules to include.
+- `extraNixosModules`: List of additional NixOS modules to include.
 
 ### `nixosHomeManagerSystem`
 
@@ -29,7 +29,7 @@ Used for NixOS systems with home-manager integrated.
 - `system`: The architecture.
 - `username`: The primary user.
 - `config`: Home-manager configuration attributes.
-- `extraModules`: List of NixOS modules.
+- `extraNixosModules`: List of NixOS modules.
 - `extraHomeModules`: List of home-manager modules.
 - `useDefaultHomeModules`: (Default: `true`) Whether to include standard modules (Linux defaults, nixCats, spicetify).
 
@@ -40,7 +40,7 @@ Used for standalone home-manager configurations (e.g., on macOS or non-NixOS Lin
 - `system`: The architecture.
 - `username`: The user.
 - `config`: Home-manager configuration attributes.
-- `extraModules`: List of home-manager modules.
+- `extraHomeModules`: List of home-manager modules.
 - `useDefaultModules`: (Default: `true`) Whether to include standard platform-specific modules.
 
 ## Usage
