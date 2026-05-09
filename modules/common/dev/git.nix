@@ -3,6 +3,7 @@
   home.packages = [
     pkgs.git-crypt
     pkgs.diffnav
+    pkgs.delta
   ];
 
   programs.lazygit = {
@@ -10,10 +11,12 @@
     settings = {
       notARepository = "skip";
       git = {
-        paging = {
-          colorArg = "always";
-          pager = "delta --dark --paging=never";
-        };
+        pagers = [
+          {
+            colorArg = "always";
+            pager = "delta --dark --paging=never";
+          }
+        ];
         # tells lazygit to stop dropping to the terminal for signed commits
         overrideGpg = true;
       };
@@ -27,15 +30,6 @@
         name = "mason";
         email = "58895787+masoniis@users.noreply.github.com";
       };
-    };
-
-    ignores = [
-      ".DS_Store"
-      "GEMINI.md"
-      "claude.md"
-    ];
-
-    extraConfig = {
       merge.tool = "nvimdiff2";
       merge.conflictstyle = "diff3";
       pager.diff = "diffnav";
@@ -49,6 +43,12 @@
         pruneTags = true; # auto prune deleted remote tags from local
       };
     };
+
+    ignores = [
+      ".DS_Store"
+      "GEMINI.md"
+      "claude.md"
+    ];
   };
 
   programs.gh = {

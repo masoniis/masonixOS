@@ -36,6 +36,7 @@ in
   programs.ssh = {
     # ssh-add -l to see loaded keys
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       "*".addKeysToAgent = "yes";
       # update hostname of xps to local address if available
