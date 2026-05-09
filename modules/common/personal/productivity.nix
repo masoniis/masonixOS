@@ -13,7 +13,7 @@
       pkgs.zotero
       # pkgs.anki-bin # waiting for update to 25.07, they are having UV issues
       # clockify only on linux, time tracker
-      (pkgs.timetrack {
+      (pkgs.timetrack.override {
         obsidianVaultPath = "/Users/mason/obsidian/obsidian";
       }) # masonpkgs
     ];

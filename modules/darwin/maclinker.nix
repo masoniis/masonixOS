@@ -6,7 +6,7 @@
   # and also apply the correct icons that would otherwise fail with symlinks.
 
   # NOTE:
-  # I called the folder `masonix` just so if you ever wonder why the folder
+  # The folder is named `masonix` so if you ever wonder why the folder
   # exists you will know it was generated directly by masonix. This also
   # lowers the chance of any conflict with nix/nix-darwin in the future
 

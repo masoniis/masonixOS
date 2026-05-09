@@ -2,9 +2,9 @@
   description = "the masonix nix configuration";
 
   inputs = {
-    # stable branch flakes
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    # Stable branch flakes
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     spicetify.url = "github:Gerg-L/spicetify-nix";
 
     # other flakes
@@ -74,10 +74,10 @@
       in
       {
         # for `nix fmt`
-        formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+        formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
         # for `nix flake check`
         checks = eachSystem (pkgs: {
-          formatting = treefmtEval.${pkgs.system}.config.build.check self;
+          formatting = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;
         });
 
         # expose overlay packages directly from flake
