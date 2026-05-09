@@ -26,8 +26,14 @@ buildLua rec {
       --replace-fail "'curl" "'${lib.getExe curl}"
     substituteInPlace platform/nix.lua \
       --replace-fail "'curl" "'${lib.getExe curl}" \
-      ${lib.optionalString (stdenv.hostPlatform.isLinux && wl-clipboard != null) ''--replace-fail "'wl-copy" "'${lib.getExe' wl-clipboard "wl-copy"}"''} \
-      ${lib.optionalString (stdenv.hostPlatform.isLinux && xclip != null) ''--replace-fail "'xclip" "'${lib.getExe xclip}"''}
+      ${
+        lib.optionalString (
+          stdenv.hostPlatform.isLinux && wl-clipboard != null
+        ) ''--replace-fail "'wl-copy" "'${lib.getExe' wl-clipboard "wl-copy"}"''
+      } \
+      ${lib.optionalString (
+        stdenv.hostPlatform.isLinux && xclip != null
+      ) ''--replace-fail "'xclip" "'${lib.getExe xclip}"''}
   '';
 
   installPhase = ''

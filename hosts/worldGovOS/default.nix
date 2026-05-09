@@ -5,7 +5,7 @@ in
 utils.nixosSystem {
   system = "x86_64-linux";
   extraModules = [
-    ./media
+    ../../modules/linux/media-server
     ./minecraft.nix
     ./configuration.nix
     inputs.nixarr.nixosModules.default

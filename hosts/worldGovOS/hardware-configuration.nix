@@ -51,7 +51,7 @@
     extraPackages = with pkgs; [
       intel-media-driver # required for Skylake+ (HD 530)
       intel-vaapi-driver # fallback driver
-      vaapiVdpau
+      libva-vdpau-driver
       libvdpau-va-gl
 
       intel-compute-runtime # OpenCL support

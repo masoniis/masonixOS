@@ -28,7 +28,7 @@
         acmeMail = "masonmbott@gmail.com";
       };
     };
-    jellyseerr = {
+    seerr = {
       enable = true;
       openFirewall = true; # port 5055
       expose.https = {
@@ -39,6 +39,7 @@
     };
     transmission = {
       enable = true;
+      peerPort = 51413; # Set explicitly to avoid upstream nixarr error with null peerPort
       flood.enable = true;
       # with vpn on, firewalling doesn't work for local access, using ssh forwarding
       # to access the page on other devices is the best strategy
