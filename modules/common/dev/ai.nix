@@ -1,9 +1,9 @@
-{ pkgs-unstable, ... }:
+{ pkgs-unstable, pkgs, ... }:
 {
   home.packages = [
     pkgs-unstable.gemini-cli
     pkgs-unstable.claude-code
-    pkgs-unstable.codex
+    pkgs.codex
     # pkgs.entire-masonpkgs
   ];
 }
