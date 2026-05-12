@@ -1,14 +1,11 @@
 { config, ... }:
 {
-
   nixarr = {
     enable = true;
-    # this is the default, but leaving it in b/c it is
-    # useful to know where all the data is stored
-    mediaDir = "/data/media";
+    mediaDir = "/data/media"; # default media dir, still specified to be explicit
     mediaUsers = [ "mason" ];
 
-    # vpn setup for use by services
+    # vpn setup for media services, relies on a wireguard config secret in sops
     vpn = {
       enable = true;
       wgConf = config.sops.secrets."wgQuickConfiguration".path;
@@ -39,10 +36,10 @@
     };
     transmission = {
       enable = true;
-      peerPort = 51413; # Set explicitly to avoid upstream nixarr error with null peerPort
+      peerPort = 51413; # set explicitly to avoid upstream nixarr error with null peerPort
       flood.enable = true;
       # with vpn on, firewalling doesn't work for local access, using ssh forwarding
-      # to access the page on other devices is the best strategy
+      # to access the page on other devices is the best replacemen strategy
       vpn.enable = true;
       extraSettings = {
         # below only lets host access transmission

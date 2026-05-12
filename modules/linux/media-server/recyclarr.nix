@@ -207,7 +207,7 @@
             {
               # full anime config
               trash_ids = [
-                # List taken in-order from https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/#anime
+                # list taken in-order from https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/#anime
                 "fb3ccc5d5cc8f77c9055d4cb4561dded" # Anime BD Tier 01 (Top SeaDex Muxers)
                 "66926c8fa9312bc74ab71bf69aae4f4a" # Anime BD Tier 02 (SeaDex Muxers)
                 "fa857662bad28d5ff21a6e611869a0ff" # Anime BD Tier 03 (SeaDex Muxers)
