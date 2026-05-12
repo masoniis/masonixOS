@@ -63,12 +63,25 @@
     #         *arr services
     # -----------------------------
 
-    sonarr.enable = true;
-    radarr.enable = true;
-    bazarr.enable = true;
-    prowlarr.enable = true;
+    sonarr = {
+      enable = true;
+      openFirewall = true; # port 8989
+    };
+    radarr = {
+      enable = true;
+      openFirewall = true; # port 7878
+    };
+    bazarr = {
+      enable = true;
+      openFirewall = true; # port 6767
+    };
+    prowlarr = {
+      enable = true;
+      openFirewall = true; # port 9696
+    };
     autobrr = {
       enable = true;
+      openFirewall = true; # port 7474
       settings = {
         checkForUpdates = false;
         host = "0.0.0.0";

@@ -17,4 +17,8 @@
     # project formatting
     stylua.enable = true;
   };
+
+  settings.global.excludes = [
+    "secrets/**"
+  ];
 }
