@@ -80,7 +80,7 @@
     ];
   };
 
-  # INFO: Remote control
+  # INFO: remote control
   services.openssh = {
     enable = true;
     ports = [ 22 ];
@@ -94,7 +94,7 @@
     defaultWindowManager = "startplasma-x11";
   };
 
-  # INFO: Networking
+  # INFO: networking
   networking.networkmanager.enable = true;
   networking.hostName = "xpsOnix";
 
@@ -118,14 +118,17 @@
     };
   };
 
-  # INFO: Secrets setup
+  # INFO: secrets setup
   sops.defaultSopsFile = ../../secrets/default.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
   # writes secrets to /run/secrets/...
   sops.secrets = {
-    "personalEmail" = { }; # uses defaults
+    # uses default vals (from above) if not specified
+    "personalEmail" = { };
+    "personalDomain" = { };
+    # others
     "wgQuickConfiguration" = {
       sopsFile = ../../secrets/nordConfig.yaml;
     };
