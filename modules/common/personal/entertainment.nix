@@ -110,13 +110,14 @@ in
           secondary_field = "SentenceEnglish";
           miscinfo_field = "MiscInfo";
           image_field = "Picture";
-          deck_name = "daily decks::mining";
-          model_name = "Lapis";
+          deck_name = "日本語::vocab::ruri vocab";
+          model_name = "Ruri Vocab Note";
           snapshot_quality = 100;
           snapshot_height = 480;
           animated_snapshot_enabled = true;
           animated_snapshot_quality = 100;
           animated_snapshot_height = 480;
+          enable_new_note_timer = false;
         };
       };
     };
