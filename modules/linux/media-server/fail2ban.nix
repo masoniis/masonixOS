@@ -27,11 +27,11 @@
         };
       };
 
-      # jail for too many jellyseerr login fails
-      jellyseerr = {
+      # jail for too many seerr login fails
+      seerr = {
         settings = {
           enabled = true;
-          filter = "jellyseerr";
+          filter = "seerr";
           backend = "systemd";
           maxretry = 5;
         };
@@ -47,11 +47,11 @@
     journalmatch = _SYSTEMD_UNIT=jellyfin.service
   '';
 
-  # filter for IP address of jellyseerr "login with jellyfin" failures, example log line ⬇️
+  # filter for IP address of seerr "login with jellyfin" failures, example log line ⬇️
   # 2025-12-25T00:54:23.364Z [warn][Auth]: Failed login attempt from user with incorrect Jellyfin credentials {"account":{"ip":"<ADDR>","email":"<USER>","password":"__REDACTED__"}}
-  environment.etc."fail2ban/filter.d/jellyseerr.conf".text = ''
+  environment.etc."fail2ban/filter.d/seerr.conf".text = ''
     [Definition]
     failregex = ^.*Failed login attempt.*"ip"\s*:\s*"<ADDR>"
-    journalmatch = _SYSTEMD_UNIT=jellyseerr.service
+    journalmatch = _SYSTEMD_UNIT=seerr.service
   '';
 }
