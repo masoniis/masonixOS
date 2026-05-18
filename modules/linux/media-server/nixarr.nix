@@ -21,7 +21,7 @@
       openFirewall = true; # port 8096
       expose.https = {
         enable = true;
-        domainName = "jellyfin.masonbott.com";
+        domainName = "fin.masonbott.com";
         acmeMail = "masonmbott@gmail.com";
       };
     };
@@ -30,7 +30,7 @@
       openFirewall = true; # port 5055
       expose.https = {
         enable = true;
-        domainName = "jellyseerr.masonbott.com";
+        domainName = "seerr.masonbott.com";
         acmeMail = "masonmbott@gmail.com";
       };
     };
