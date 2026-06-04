@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    ollama # run local ml models
+    # ollama # run local ml models
   ];
 }
