@@ -37,18 +37,18 @@ in
     # ssh-add -l to see loaded keys
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
-      "*".addKeysToAgent = "yes";
+    settings = {
+      "*".AddKeysToAgent = "yes";
       # update hostname of xps to local address if available
       "check-xps-local" = {
-        match = ''host xps exec "${pkgs.coreutils}/bin/timeout 0.2 ${pkgs.netcat}/bin/nc -z 192.168.68.72 22"'';
-        hostname = "192.168.68.72";
+        header = "Match host xps exec \"${pkgs.coreutils}/bin/timeout 0.2 ${pkgs.netcat}/bin/nc -z 192.168.68.72 22\"";
+        HostName = "192.168.68.72";
       };
       xps = {
-        hostname = "bop.tplinkdns.com";
-        user = "mason";
-        port = 22;
-        localForwards = [
+        HostName = "bop.tplinkdns.com";
+        User = "mason";
+        Port = 22;
+        LocalForward = [
           {
             bind.port = 9091;
             host.address = "localhost";
@@ -59,15 +59,15 @@ in
 
       # update hostname of worldgov to local address if available
       "check-worldgov-local" = {
-        match = ''host worldgov exec "${pkgs.coreutils}/bin/timeout 0.2 ${pkgs.netcat}/bin/nc -z 192.168.68.69 22"'';
-        hostname = "192.168.68.69";
-        port = 22;
+        header = "Match host worldgov exec \"${pkgs.coreutils}/bin/timeout 0.2 ${pkgs.netcat}/bin/nc -z 192.168.68.69 22\"";
+        HostName = "192.168.68.69";
+        Port = 22;
       };
       worldgov = {
-        hostname = "bop.tplinkdns.com";
-        user = "mason";
-        port = 23;
-        localForwards = [
+        HostName = "bop.tplinkdns.com";
+        User = "mason";
+        Port = 23;
+        LocalForward = [
           {
             bind.port = 9091;
             host.address = "localhost";

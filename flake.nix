@@ -2,9 +2,9 @@
   description = "the masonix nix configuration";
 
   inputs = {
-    # Stable branch flakes
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    # stable branch flakes
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     spicetify.url = "github:Gerg-L/spicetify-nix";
 
     # other flakes

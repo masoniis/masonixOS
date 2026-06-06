@@ -5,13 +5,13 @@
     # nix formatting
     nixfmt = {
       enable = true;
-      package = pkgs.nixfmt-rfc-style;
+      package = pkgs.nixfmt;
     };
 
     # general formatting (markdown, yaml, json, etc)
     prettier = {
       enable = true;
-      package = pkgs.nodePackages.prettier;
+      package = pkgs.prettier;
     };
 
     # project formatting
