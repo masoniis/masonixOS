@@ -48,6 +48,7 @@
       ".DS_Store"
       "GEMINI.md"
       "claude.md"
+      ".antigravitycli"
     ];
   };
 
