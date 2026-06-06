@@ -20,7 +20,7 @@ api.nvim_create_autocmd("TermOpen", { command = [[setlocal nonumber norelativenu
 vim.api.nvim_create_autocmd("VimEnter", {
 	desc = "Clear LSP log on startup",
 	callback = function()
-		local log_path = vim.lsp.get_log_path()
+		local log_path = vim.lsp.log.get_filename()
 		if vim.fn.filereadable(log_path) == 1 then
 			os.remove(log_path)
 		end

@@ -75,18 +75,14 @@ in
     categoryDefinitions.replace = (
       {
         pkgs,
-        settings,
-        categories,
-        extra,
-        name,
-        mkPlugin,
         ...
       }:
       {
         lspsAndRuntimeDeps = with pkgs; {
-          # INFO: ----------------
-          #    Broad categories
-          # ----------------------
+          # INFO: --------------------------
+          #         broad categories
+          # --------------------------------
+
           general = [
             nodejs-slim # required for copilot
             codespell
@@ -94,9 +90,10 @@ in
             fd
           ];
 
-          # INFO: -------------------
-          #    Language categories
-          # -------------------------
+          # INFO: -----------------------------
+          #         language categories
+          # -----------------------------------
+
           clang = [
             clang-tools # includes clangd langserver
           ];
@@ -160,9 +157,21 @@ in
         # Even though every plugin is a "startup plugin",
         # lazy-nvim manages the lazy loading of them.
         startupPlugins = {
-          # INFO: ----------------
-          #    Broad categories
-          # ----------------------
+          # All necessary baseline plugins
+          necessary = with pkgs.vimPlugins; [
+            lazy-nvim
+
+            # common dependencies
+            friendly-snippets
+            nvim-web-devicons
+            nvim-lspconfig
+            plenary-nvim
+          ];
+
+          # INFO: --------------------------
+          #         broad categories
+          # --------------------------------
+
           general = with pkgs.vimPlugins; [
             barbar-nvim
             battery-nvim-masonpkgs
@@ -173,49 +182,44 @@ in
             colorful-menu-nvim
             copilot-lua
             fidget-nvim
-            floaterm-masonpkgs
+            floaterm
             gitsigns-nvim
             inc-rename-nvim
             minuet-ai-nvim
+            neotest
             neo-tree-nvim
             neotree-nesting-config-masonpkgs
             noice-nvim
-            pkgs-unstable.vimPlugins.nui-nvim # unstable fixes an annoying deprecation warning 8/28/25
-            tint-nvim
-            todo-comments-nvim
             nvim-dap-ui
             nvim-treesitter.withAllGrammars
+            nui-nvim
             nvzone-minty
+            oil-nvim
             persistence-nvim
             slimline-masonpkgs
+            render-markdown-nvim
             smart-splits-nvim
             snacks-nvim
-            oil-nvim
-            render-markdown-nvim
+            tint-nvim
+            todo-comments-nvim
             todo-comments-nvim
             toggleterm-nvim
             which-key-nvim
           ];
 
-          # All necessary baseline plugins
-          necessary = with pkgs.vimPlugins; [
-            lazy-nvim
+          # INFO: -----------------------------
+          #         language categories
+          # -----------------------------------
 
-            # Common dependencies
-            friendly-snippets
-            nvim-web-devicons
-            nvim-lspconfig
-            plenary-nvim
-          ];
-
-          # INFO: -------------------
-          #    Language categories
-          # -------------------------
           java = with pkgs.vimPlugins; [ nvim-jdtls ];
 
           lua = with pkgs.vimPlugins; [ lazydev-nvim ];
 
           python = with pkgs.vimPlugins; [ nvim-dap-python ];
+
+          rust = with pkgs.vimPlugins; [
+            rustaceanvim
+          ];
         };
       }
     );

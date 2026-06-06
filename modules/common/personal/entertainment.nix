@@ -90,6 +90,7 @@ in
           keeponpause = false; # hide controls when paused on a timer
           window_top_bar = false;
           jump_amount = 3;
+          deadzonesize = 0.9; # makes it so you have to move cursor lower to trigger ui
           jump_softrepeat = false;
           nibbles_style = "single-bar";
           fade_alpha = 185; # ensures covering the default OSD bar when paused

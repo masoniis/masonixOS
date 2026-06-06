@@ -21,6 +21,7 @@ local options = {
 	foldenable = false,
 	timeout = true,
 	timeoutlen = 300, -- Controls how fast whichkey appears among other things
+	fillchars = "eob: ", -- fill gutter with empty-ness on empty lines (default ~)
 }
 
 for option, value in pairs(options) do
