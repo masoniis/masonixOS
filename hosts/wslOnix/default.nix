@@ -7,8 +7,14 @@ utils.nixosHomeManagerSystem {
   system = "x86_64-linux";
   username = "mason";
   extraNixosModules = [
-    nixos-wsl.nixosModules.wsl # nixos-wsl necessary modules
-    ./configuration.nix
+    # nixos-wsl necessary modules
+    nixos-wsl.nixosModules.wsl
+    # custom nixos configs
+    ./nixos/configuration.nix
+  ];
+  extraHomeModules = [
+    # custom hm configs
+    ./home-manager/home.nix
   ];
   config = {
     personal.enable = true;

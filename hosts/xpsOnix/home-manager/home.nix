@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ ... }:
 {
   # allow unfree stuff
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = pkg: true;
 
   # enable signing for just this device
   programs.git = {
@@ -11,10 +11,4 @@
       format = "ssh";
     };
   };
-
-  # special host packages
-  home.packages = [
-    pkgs.obsidian
-    pkgs.zotero
-  ];
 }

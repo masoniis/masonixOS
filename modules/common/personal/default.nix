@@ -6,7 +6,5 @@
 
   imports = [
     ./entertainment.nix
-    ./productivity.nix
-    ./social.nix
   ];
 }

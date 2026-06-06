@@ -119,7 +119,7 @@
   };
 
   # INFO: secrets setup
-  sops.defaultSopsFile = ../../secrets/default.yaml;
+  sops.defaultSopsFile = ../../../secrets/default.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
@@ -130,7 +130,7 @@
     "personalDomain" = { };
     # others
     "wgQuickConfiguration" = {
-      sopsFile = ../../secrets/nordConfig.yaml;
+      sopsFile = ../../../secrets/nordConfig.yaml;
     };
   };
 }

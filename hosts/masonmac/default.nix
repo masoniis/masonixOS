@@ -13,5 +13,7 @@ utils.homeManagerSetup {
     };
     nvim.showBattery = true;
   };
-  extraHomeModules = [ ./home.nix ];
+  extraHomeModules = [
+    ./home.nix
+  ];
 }
