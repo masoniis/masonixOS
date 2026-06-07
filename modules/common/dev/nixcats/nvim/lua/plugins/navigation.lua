@@ -109,6 +109,10 @@ return {
 					pattern = "flake%.nix$",
 					files = { "flake%.lock", "treefmt%.nix" },
 				}
+				rules["just"] = {
+					pattern = "^%.?justfile$",
+					files = { ".*%.just" },
+				}
 				return rules
 			end)()
 			-- Setup snacks renaming
