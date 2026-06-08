@@ -4,13 +4,15 @@
   lib,
   ...
 }:
-let
-  binds = import ./binds.nix;
-in
 {
   options.nvim = {
-    showBattery = lib.mkEnableOption "show battery in statusline?" // {
+    showBattery = lib.mkEnableOption "Show battery in statusline?" // {
       default = false;
+    };
+    binds = lib.mkOption {
+      type = lib.types.attrs;
+      default = { };
+      description = "Keybinding overrides for Neovim (overrides defaults defined in binds.nix)";
     };
   };
 
@@ -62,7 +64,7 @@ in
             # INFO: ----------------
             #    Config variables
             # ----------------------
-            binds = binds;
+            binds = lib.recursiveUpdate (import ./binds.nix) config.nvim.binds;
             javaPaths = {
               java_debug_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
               java_test_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";

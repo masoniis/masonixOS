@@ -21,5 +21,9 @@ utils.nixosHomeManagerSystem {
     language = {
       python.enable = true;
     };
+    nvim.binds.editing = {
+      buffer_previous = "<A-,>";
+      buffer_next = "<A-.>";
+    };
   };
 }
