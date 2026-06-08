@@ -81,7 +81,7 @@
       libglvnd
       libxkbcommon
       wayland
-      xorg.libX11
+      libx11
     ];
   };
 
