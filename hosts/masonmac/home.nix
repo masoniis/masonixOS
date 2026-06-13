@@ -16,5 +16,6 @@
   home.packages = [
     pkgs.obsidian
     pkgs.zotero
+    pkgs.subplz-mac
   ];
 }
