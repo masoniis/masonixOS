@@ -7,6 +7,14 @@ api.nvim_create_autocmd("TextYankPost", {
 	group = yankGrp,
 })
 
+-- autostart treesitter on file open
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		pcall(vim.treesitter.start)
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end,
+})
+
 -- check if we need to reload the file when it changed
 api.nvim_create_autocmd("FocusGained", { command = [[:checktime]] })
 
