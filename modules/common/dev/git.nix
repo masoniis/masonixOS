@@ -46,7 +46,7 @@
 
     ignores = [
       ".DS_Store"
-      "GEMINI.md"
+      "AGENTS.md"
       "claude.md"
       ".gemini"
       ".antigravitycli"

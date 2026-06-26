@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
   # allow unfree stuff
   nixpkgs.config.allowUnfree = true;
@@ -14,8 +14,14 @@
 
   # special host packages
   home.packages = [
+    # productivity
     pkgs.obsidian
     pkgs.zotero
+
+    # ai stuff
     pkgs.subplz-mac
+    pkgs-unstable.antigravity-cli
+    pkgs-unstable.codex
+    pkgs-unstable.opencode
   ];
 }
