@@ -8,20 +8,22 @@ local options = {
 	shiftwidth = 2, -- 4 spaces when indenting with '>'
 	smartcase = true,
 	ignorecase = true,
-	-- Fold based on indents rather than manual
 	cmdheight = 0, -- Cmd height to 0, using noice which doesnt use the bottom command bar
 	scrolloff = 2, -- Makes it so screen starts scrolling before cursor reaches edge
 	sidescrolloff = 8, -- Handled in VSCode settings
 	laststatus = 3,
-	-- Folding options
+
+	-- folding options
 	foldmethod = "indent",
-	foldlevel = 99, -- Fold this many indentations (essentially inf)
-	-- foldmethod = "expr",
-	-- foldexpr = "nvim_treesitter#foldexpr()", -- nvim-treesitter folding
+	foldlevel = 99, -- fold this many indentations (essentially inf)
 	foldenable = false,
 	timeout = true,
-	timeoutlen = 300, -- Controls how fast whichkey appears among other things
+	timeoutlen = 300, -- controls how fast whichkey appears among other things
 	fillchars = "eob: ", -- fill gutter with empty-ness on empty lines (default ~)
+
+	-- enable project-local configuration (eg project/.nvim.lua)
+	exrc = true,
+	secure = true,
 }
 
 for option, value in pairs(options) do
