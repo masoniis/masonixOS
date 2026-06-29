@@ -19,18 +19,18 @@
     };
   };
 
-  # Bootloader.
+  # bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Time zone and internationalization settings
+  # time zone and internationalization settings
   time.timeZone = "America/Denver";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Enable the X11 windowing system.
+  # enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment and wayland as display manager
+  # enable the KDE Plasma Desktop Environment and wayland as display manager
   services.desktopManager.plasma6.enable = true;
   services.displayManager = {
     sddm.enable = true;
@@ -62,7 +62,13 @@
 
   programs.zsh.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # clean up stale journal logs
+  services.journald.extraConfig = ''
+    SystemMaxUse=500M
+    MaxRetentionSec=3month
+  '';
+
+  # define a user account. Don't forget to set a password with ‘passwd’.
   users.defaultUserShell = pkgs.zsh;
   users.users.mason = {
     isNormalUser = true;

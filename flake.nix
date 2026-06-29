@@ -19,6 +19,7 @@
 
     # following
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixarr.inputs.nixpkgs.follows = "nixpkgs-unstable";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     spicetify.inputs.nixpkgs.follows = "nixpkgs";
