@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   # allow unfree stuff
   nixpkgs.config.allowUnfreePredicate = pkg: true;
@@ -11,4 +11,11 @@
       format = "ssh";
     };
   };
+
+  # special host packages
+  home.packages = [
+    # ai stuff
+    pkgs.codex
+    pkgs.opencode
+  ];
 }
