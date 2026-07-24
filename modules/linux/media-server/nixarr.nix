@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   nixarr = {
     enable = true;
@@ -89,5 +89,13 @@
         logLevel = "DEBUG";
       };
     };
+  };
+
+  # WORKAROUND: nixarr nullifies LoadCredential but leaves the upstream
+  # AUTOBRR__SESSION_SECRET_FILE env var pointing to a non-existent
+  # credentials file. The ExecStartPre already injects the secret into
+  # config.toml directly, so clear the env var.
+  systemd.services.autobrr = {
+    serviceConfig.Environment = lib.mkForce [];
   };
 }
