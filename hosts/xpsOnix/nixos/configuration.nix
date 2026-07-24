@@ -136,7 +136,7 @@
     "personalDomain" = { };
     # others
     "wgQuickConfiguration" = {
-      sopsFile = ../../../secrets/nordConfig.yaml;
+      sopsFile = ../../../secrets/wgConfig.yaml;
     };
   };
 }

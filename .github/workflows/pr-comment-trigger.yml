@@ -50,10 +50,6 @@ jobs:
 
       - name: Setup Nix
         uses: ./.github/actions/setup-nix
-        with:
-          ovpn-file: ${{ secrets.ovpnFile }}
-          nord-user: ${{ secrets.nordUser }}
-          nord-pass: ${{ secrets.nordPass }}
 
       - name: Build NixOS configurations
         run: |
