@@ -12,13 +12,17 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "kaegi";
     repo = "alass";
-    rev = "v${version}";
-    sha256 = "sha256-fi4kpJEaD9v6wWl6fRfMP5myL8c9mNyxxtS/0IhWzM8=";
+    rev = "c438ff6344b24319e6804ed42cceb606d63961ea";
+    sha256 = "sha256-q1IV9TtmznpR7RO75iN0p16nmTja5ADWqFj58EOPWvU=";
   };
 
-  cargoHash = "sha256-U1rwktvRSr34V0lNQrrxg8fdchVpeSbyPClnZHRUpQs=";
+  cargoHash = "sha256-d/gYGjNBcl8GmbwlvuK6odjBActuwiozuVf5BUowjYg=";
 
   cargoBuildFlags = [ "--bins" ];
+
+  cargoPatches = [
+    ./alass-cargo-lock.patch
+  ];
 
   postPatch = ''
     rm -rf alass-cli/examples
