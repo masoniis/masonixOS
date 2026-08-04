@@ -12,23 +12,6 @@
           base_url = "http://localhost:7878";
           api_key = "!env_var RADARR_API_KEY";
 
-          # template config to be pulled in
-          include = [
-            # general config template
-            {
-              template = "radarr-quality-definition-movie";
-            }
-            # movie hd web profile and formats
-            { template = "radarr-quality-profile-hd-bluray-web"; }
-            {
-              template = "radarr-custom-formats-hd-bluray-web";
-            }
-            # NOTE: Anime
-            # anime custom formats doesnt use templates because I couldn't
-            # get it to properly work out with my setup of having different
-            # sub/dub quality profiles
-          ];
-
           # naming-style config
           media_naming = {
             folder = "jellyfin-tmdb";
@@ -203,19 +186,51 @@
               reset_unmatched_scores.enabled = true;
               upgrade = {
                 allowed = true;
-                until_quality = "Bluray-1080p 3D";
+                until_quality = "Bluray-1080p";
               };
-              min_format_score = 0;
+              min_format_score = 100; # only releases tagged with 3D will be grabbed
               qualities = [
-                { name = "Bluray-1080p 3D"; }
-                { name = "Bluray-720p 3D"; }
+                { name = "Remux-1080p"; }
+                { name = "Bluray-1080p"; }
+                {
+                  name = "Web-1080p";
+                  qualities = [
+                    "WEBDL-1080p"
+                    "WEBRip-1080p"
+                  ];
+                }
+                { name = "Bluray-720p"; }
+                {
+                  name = "Web-720p";
+                  qualities = [
+                    "WEBDL-720p"
+                    "WEBRip-720p"
+                  ];
+                }
+                { name = "HDTV-1080p"; }
+                { name = "HDTV-720p"; }
+                { name = "Bluray-576p"; }
+                { name = "Bluray-480p"; }
+                {
+                  name = "Web-480p";
+                  qualities = [
+                    "WEBDL-480p"
+                    "WEBRip-480p"
+                  ];
+                }
+                { name = "DVD"; }
+                { name = "SDTV"; }
               ];
+            }
+            {
+              # HD Bluray + WEB | https://trash-guides.info/Radarr/radarr-setup-quality-profiles/#hd-bluray-web
+              trash_id = "d1d67249d3890e49bc12e275d989a7e9";
+              reset_unmatched_scores.enabled = true;
             }
           ];
 
           # download format preference
           delete_old_custom_formats = true;
-          replace_existing_custom_formats = true;
           custom_formats = [
             {
               # full anime config
@@ -283,9 +298,9 @@
               ];
             }
             {
-              # condtional 3d movies format
+              # conditional 3d movies format
               trash_ids = [
-                "b8cd450b06c6e338c281e01726715f20" # 3D Custom Format
+                "b8cd450cbfa689c0259a01d9e29ba3d6" # 3D | https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/#3d
               ];
               assign_scores_to = [
                 {
@@ -306,25 +321,6 @@
           # recyclarr instance/config
           base_url = "http://localhost:8989";
           api_key = "!env_var SONARR_API_KEY";
-
-          # template config to be pulled in
-          include = [
-            # general config template
-            {
-              template = "sonarr-quality-definition-series";
-            }
-            # sonarr series hd web profile and formats
-            { template = "sonarr-v4-quality-profile-web-1080p-alternative"; }
-            { template = "sonarr-v4-custom-formats-web-1080p"; }
-            { template = "sonarr-v4-quality-profile-web-2160p-alternative"; }
-            {
-              template = "sonarr-v4-custom-formats-web-2160p";
-            }
-            # NOTE: Anime
-            # anime custom formats doesnt use templates because I couldn't
-            # get it to properly work out with my setup of having different
-            # sub/dub quality profiles
-          ];
 
           quality_definition = {
             # for quality definition anime over series is better because series often sets
@@ -495,11 +491,21 @@
                 }
               ];
             }
+            # guide-based profiles
+            {
+              # WEB-1080p (Alternative) | https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles/#web-1080p-alternative-quality-profile
+              trash_id = "9d142234e45d6143785ac55f5a9e8dc9";
+              reset_unmatched_scores.enabled = true;
+            }
+            {
+              # WEB-2160p (Alternative) | https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles/#web-2160p-alternative-quality-profile
+              trash_id = "dfa5eaae7894077ad6449169b6eb03e0";
+              reset_unmatched_scores.enabled = true;
+            }
           ];
 
           # download format preference
           delete_old_custom_formats = true;
-          replace_existing_custom_formats = true;
           custom_formats = [
             {
               # full anime config (‼️ THESE ARE DIFFERENT FROM RADARR's IDs)
