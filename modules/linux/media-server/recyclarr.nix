@@ -198,6 +198,19 @@
                 { name = "SDTV"; }
               ];
             }
+            {
+              name = "3D Movies";
+              reset_unmatched_scores.enabled = true;
+              upgrade = {
+                allowed = true;
+                until_quality = "Bluray-1080p 3D";
+              };
+              min_format_score = 0;
+              qualities = [
+                { name = "Bluray-1080p 3D"; }
+                { name = "Bluray-720p 3D"; }
+              ];
+            }
           ];
 
           # download format preference
@@ -269,9 +282,22 @@
                 }
               ];
             }
+            {
+              # condtional 3d movies format
+              trash_ids = [
+                "b8cd450b06c6e338c281e01726715f20" # 3D Custom Format
+              ];
+              assign_scores_to = [
+                {
+                  name = "3D Movies";
+                  score = 100;
+                }
+              ];
+            }
           ];
         };
       };
+
       # INFO: ---------------------------
       #         config for sonarr
       # ---------------------------------

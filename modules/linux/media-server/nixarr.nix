@@ -96,6 +96,6 @@
   # credentials file. The ExecStartPre already injects the secret into
   # config.toml directly, so clear the env var.
   systemd.services.autobrr = {
-    serviceConfig.Environment = lib.mkForce [];
+    serviceConfig.Environment = lib.mkForce [ ];
   };
 }
