@@ -42,6 +42,7 @@
       # to access the page on other devices is the best replacemen strategy
       vpn.enable = true;
       extraSettings = {
+        # https://github.com/transmission/transmission/blob/main/docs/Editing-Configuration-Files.md
         # below only lets host access transmission
         rpc-host-whitelist-enabled = false; # allow any hostname to access
         rpc-whitelist-enabled = false; # allow any ip to access
@@ -51,11 +52,14 @@
         rpc-username = "N/A";
         rpc-password = "N/A";
 
+        # files & perms
+        umask = "002"; # preserve group write permissions
+        preallocation = 2; # (0 = Off, 1 = Fast, 2 = Full (slower but reduces disk fragmentation), default = 1)
+
         # seeding and download configs
         ratio-limit-enabled = true;
         download-queue-size = 8;
         ratio-limit = 0; # should be set on show basis with *arr stack
-        preallocation = 2; # (0 = Off, 1 = Fast, 2 = Full (slower but reduces disk fragmentation), default = 1)
       };
     };
 
