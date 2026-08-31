@@ -39,6 +39,7 @@
               upgrade = {
                 allowed = true;
                 until_quality = "Web-1080p";
+                until_score = 9999;
               };
               min_format_score = 6;
               qualities = [
@@ -113,6 +114,7 @@
               upgrade = {
                 allowed = true;
                 until_quality = "Web-1080p";
+                until_score = 9999;
               };
               min_format_score = 6;
               qualities = [
@@ -187,6 +189,7 @@
               upgrade = {
                 allowed = true;
                 until_quality = "Bluray-1080p";
+                until_score = 9999;
               };
               min_format_score = 100; # only releases tagged with 3D will be grabbed
               qualities = [
@@ -349,6 +352,7 @@
               upgrade = {
                 allowed = true;
                 until_quality = "Web-1080p";
+                until_score = 9999;
               };
               min_format_score = 6;
               qualities = [
@@ -423,6 +427,7 @@
               upgrade = {
                 allowed = true;
                 until_quality = "Web-1080p";
+                until_score = 9999;
               };
               min_format_score = 6;
               qualities = [
