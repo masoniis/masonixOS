@@ -34,6 +34,7 @@ in
     home.packages = [
       # video players and other
       pkgs.ffmpeg-full # just useful for a lot of things
+      (lib.mkIf pkgs.stdenv.isDarwin pkgs.iina)
 
       # music
       pkgs.spotifyd
@@ -53,12 +54,12 @@ in
       "mpv/shaders" = {
         source = "${anime4k-files}/shaders"; # only extracts /shaders folder to not get any of the mpv.conf they provide
       };
-      # Necessary font for the modernz script's ui
+      # necessary font for the modernz script's ui
       "mpv/fonts" = {
         source = "${pkgs.mpvScripts.modernz}/share/fonts";
         recursive = true;
       };
-      # Loading config files
+      # loading config files
       "mpv/script-opts/SimpleHistory.conf".source = "${root}/dotfiles/mpv/script-opts/SimpleHistory.conf";
     };
 
