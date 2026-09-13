@@ -94,7 +94,10 @@ return {
 				follow_current_file = { -- intelligently follow current buffer's file
 					enabled = true,
 				},
-				use_libuv_file_watcher = true, -- refresh on file changes (useful for external edits like AI)
+				-- Disabled because on macOS, libuv's file watcher uses Apple FSEvents, which
+				-- deadlocks the main thread (stuck in uv__fsevents_close -> uv_sem_wait) during
+				-- heavy write cascades (e.g. cargo check writes to target/ on save).
+				use_libuv_file_watcher = false,
 			},
 		},
 		config = function(_, opts)
