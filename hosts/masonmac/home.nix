@@ -21,6 +21,7 @@
     # ai stuff
     pkgs.subplz-mac
     pkgs-unstable.antigravity-cli
+    pkgs-unstable.claude-code
     pkgs-unstable.codex
     pkgs-unstable.opencode
   ];
