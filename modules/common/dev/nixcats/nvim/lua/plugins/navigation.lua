@@ -116,6 +116,26 @@ return {
 					pattern = "^%.?justfile$",
 					files = { ".*%.just" },
 				}
+				-- extend upstream cargo rules to also nest release-plz.toml under Cargol.toml
+				local cargo_rule = rules["Cargo.toml"] or rules["cargo"]
+				if cargo_rule then
+					cargo_rule.files = cargo_rule.files or {}
+					local has_release_plz = false
+					for _, f in ipairs(cargo_rule.files) do
+						if f == "release%-plz%.toml" then
+							has_release_plz = true
+							break
+						end
+					end
+					if not has_release_plz then
+						table.insert(cargo_rule.files, "release%-plz%.toml")
+					end
+				else
+					rules["cargo"] = {
+						pattern = "Cargo%.toml$",
+						files = { "release%-plz%.toml" },
+					}
+				end
 				return rules
 			end)()
 			-- Setup snacks renaming
