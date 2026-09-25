@@ -18,8 +18,11 @@
     pkgs.obsidian
     pkgs.zotero
 
-    # ai stuff
+    # misc
     pkgs.subplz-mac
+
+    # ai stuff
+    pkgs.repomix
     pkgs-unstable.antigravity-cli
     pkgs-unstable.claude-code
     pkgs-unstable.codex
