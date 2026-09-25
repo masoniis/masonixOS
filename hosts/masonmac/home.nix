@@ -16,7 +16,7 @@
   home.packages = [
     # productivity
     pkgs.obsidian
-    pkgs.zotero
+    # pkgs.zotero
 
     # misc
     pkgs.subplz-mac
