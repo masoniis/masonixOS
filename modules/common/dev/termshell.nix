@@ -72,6 +72,7 @@
       autosuggestion.enable = true;
       enableCompletion = true;
       initContent = ''
+        export PATH="$HOME/.local/bin:$PATH"
         set -o vi
         bindkey '^l' autosuggest-accept
         export EDITOR=nvim

@@ -22,7 +22,9 @@ in
       "/Users/${username}"
     else
       unsupported;
-
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
   home.shellAliases = {
     hm = "home-manager";
     hmswitch = "home-manager switch --flake ${config.flakePath}";
