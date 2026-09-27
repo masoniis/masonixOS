@@ -4,7 +4,7 @@
 { lib, ... }:
 {
   options.language =
-    lib.genAttrs [ "c" "python" ] (name: {
+    lib.genAttrs [ "c" "csharp" "python" ] (name: {
       enable = lib.mkEnableOption "enable ${name} modules" // {
         default = false;
       };
@@ -18,5 +18,6 @@
   imports = [
     ./python.nix
     ./c.nix
+    ./csharp.nix
   ];
 }

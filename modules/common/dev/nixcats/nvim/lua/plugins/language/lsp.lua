@@ -81,6 +81,10 @@ return {
 			})
 			vim.lsp.enable("glsl_analyzer")
 
+			if nixCats("csharp") then
+				vim.lsp.enable("csharp_ls")
+			end
+
 			-- INFO: ----------------
 			--         Keymaps
 			-- ----------------------

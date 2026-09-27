@@ -49,6 +49,7 @@
             #    Language categories
             # -------------------------
             clang.enable = true;
+            csharp = config.language.csharp.enable;
             glsl.enable = true;
             java.enable = true;
             lua.enable = true;
@@ -98,6 +99,12 @@
 
           clang = [
             clang-tools # includes clangd langserver
+          ];
+
+          # unstable because stable darwin builds of these aren't cached
+          csharp = [
+            pkgs-unstable.csharp-ls
+            pkgs-unstable.csharpier
           ];
 
           glsl = [ glsl_analyzer ];

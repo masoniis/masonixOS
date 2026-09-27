@@ -9,6 +9,7 @@ utils.homeManagerSetup {
     entertainment.enable = true;
     personal.enable = true;
     language = {
+      csharp.enable = true;
       python.enable = true;
     };
     nvim.showBattery = true;

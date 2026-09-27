@@ -10,6 +10,7 @@ return {
 			bash = { "shfmt", "shellcheck", stop_after_first = true },
 			c = { "clang_format" },
 			cpp = { "clang_format" },
+			cs = { "csharpier" },
 			css = { "prettierd" },
 			hbs = { "prettierd" },
 			html = { "prettierd" },
