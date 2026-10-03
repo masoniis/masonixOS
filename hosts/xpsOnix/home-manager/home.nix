@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
   # allow unfree stuff
   nixpkgs.config.allowUnfreePredicate = pkg: true;
@@ -15,7 +15,10 @@
   # special host packages
   home.packages = [
     # ai stuff
-    pkgs.codex
-    pkgs.opencode
+    pkgs.repomix
+    pkgs-unstable.antigravity-cli
+    pkgs-unstable.claude-code # install externally to be up to date
+    pkgs-unstable.codex
+    pkgs-unstable.opencode
   ];
 }
