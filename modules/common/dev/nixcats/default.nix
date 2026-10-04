@@ -191,7 +191,6 @@
             catppuccin-nvim
             conform-nvim
             colorful-menu-nvim
-            pkgs-unstable.vimPlugins.copilot-lua # stable's v2.0.4 tag was re-tagged upstream (hash mismatch)
             fidget-nvim
             floaterm
             gitsigns-nvim
