@@ -8,6 +8,7 @@ utils.nixosHomeManagerSystem {
   extraNixosModules = [
     ./nixos/configuration.nix
     ./nixos/hardware-configuration.nix
+    # ./nixos/forgejo-runner.nix # disabled for now
     ../../modules/linux/media-server
     inputs.nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
     inputs.nixarr.nixosModules.default
