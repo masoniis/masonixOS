@@ -194,7 +194,6 @@
             floaterm
             gitsigns-nvim
             inc-rename-nvim
-            minuet-ai-nvim
             neotest
             neo-tree-nvim
             neotree-nesting-config-masonpkgs
