@@ -142,46 +142,6 @@ return {
 				end,
 			})
 
-			local spotify = Terminal:new({
-				cmd = "spotify_player",
-				dir = "git_dir",
-				direction = "float",
-				on_open = function(term)
-					vim.cmd("startinsert!")
-					vim.api.nvim_buf_set_keymap(
-						term.bufnr,
-						"n",
-						"q",
-						"<cmd>close<CR>",
-						{ noremap = true, silent = true }
-					)
-					vim.api.nvim_buf_set_keymap(
-						term.bufnr,
-						"t",
-						"q",
-						"<cmd>close<CR>",
-						{ noremap = true, silent = true }
-					)
-					vim.api.nvim_buf_set_keymap(term.bufnr, "t", "Q", "<cmd>q!<CR>", { noremap = true, silent = true })
-					vim.api.nvim_buf_set_keymap(term.bufnr, "n", "Q", "<cmd>q!<CR>", { noremap = true, silent = true })
-					vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<C-d>", "<C-c>", { silent = true })
-					vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<esc>", "<esc>", { noremap = true, silent = true })
-
-					-- Disable <C-h> and <C-l> in both normal and terminal modes so we can use them in the term
-					vim.api.nvim_buf_set_keymap(term.bufnr, "n", "<C-h>", "<C-h>", { noremap = true, silent = true })
-					vim.api.nvim_buf_set_keymap(term.bufnr, "n", "<C-l>", "<C-l>", { noremap = true, silent = true })
-					vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<C-h>", "<C-h>", { noremap = true, silent = true })
-					vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<C-l>", "<C-l>", { noremap = true, silent = true })
-				end,
-				on_exit = function(term, code)
-					-- Remove the <C-h> and <C-l> mappings so that the global mappings are effective again.
-					pcall(vim.api.nvim_buf_del_keymap, term.bufnr, "n", "<C-h>")
-					pcall(vim.api.nvim_buf_del_keymap, term.bufnr, "n", "<C-l>")
-					pcall(vim.api.nvim_buf_del_keymap, term.bufnr, "t", "<C-h>")
-					pcall(vim.api.nvim_buf_del_keymap, term.bufnr, "t", "<C-l>")
-				end,
-			})
-
 			local flutter_run = Terminal:new({
 				cmd = "flutter run",
 				dir = "git_dir",
@@ -240,10 +200,6 @@ return {
 				hm_switch:toggle()
 			end
 
-			function _Spotify_Toggle()
-				spotify:toggle()
-			end
-
 			function _FlutterRun()
 				flutter_run:toggle()
 			end
@@ -263,13 +219,6 @@ return {
 					_HomeManagerSwitch()
 				end,
 				desc = "hm switch term",
-			},
-			{
-				nixCats("binds.terminals.spotify"),
-				function()
-					_Spotify_Toggle()
-				end,
-				desc = "spotify term",
 			},
 			{
 				nixCats("binds.terminals.flutter"),

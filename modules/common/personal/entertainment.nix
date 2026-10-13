@@ -1,6 +1,5 @@
 # packages and config for media and gaming
 {
-  pkgs-spice,
   pkgs-unstable,
   config,
   root,
@@ -9,8 +8,6 @@
   ...
 }:
 let
-  enableSpice = true; # toggle between spicetify and regular spotify desktop
-
   # Note for IINA: must import the input.conf as
   # keybindings manually. Found in dotfiles directory
   anime4k-files = pkgs.fetchzip {
@@ -35,10 +32,6 @@ in
       # video players and other
       pkgs.ffmpeg-full # just useful for a lot of things
       (lib.mkIf pkgs.stdenv.isDarwin pkgs.iina)
-
-      # music
-      pkgs.spotifyd
-      (lib.mkIf (!enableSpice) pkgs.spotify)
 
       # games
       pkgs.prismlauncher
@@ -137,58 +130,7 @@ in
       };
     };
 
-    programs.spotify-player = {
-      enable = true;
-      package = pkgs.spotify-player;
-      settings = {
-        enable_notify = false;
-        enable_media_control = true; # physical keyboard media buttons
-        device = {
-          volume = 100;
-        };
-      };
-      keymaps = [
-        {
-          command = "None"; # disable q so that we can leave neovim toggleterm without closing player
-          key_sequence = "q";
-        }
-        {
-          command = "FocusNextWindow";
-          key_sequence = "C-l";
-        }
-        {
-          command = "FocusPreviousWindow";
-          key_sequence = "C-h";
-        }
-      ];
-    };
-
-    # WARNING: On MacOS, spotify will ask you to "update" and it will remove all
-    # the spicetify modifications if you say yes. Not sure if there is a good way
-    # to stop the update request from appearing yet, haven't experimented much
-    programs.spicetify = {
-      enable = enableSpice;
-      # broken https://github.com/Gerg-L/spicetify-nix/pull/354
-      # theme = pkgs-spice.themes.lucid; # best theme there is trust
-      alwaysEnableDevTools = true; # doesn't work on mac I dont think
-      enabledExtensions = with pkgs-spice.extensions; [
-        # INFO: nice-to-haves
-        shuffle # fischer-yates lets go (ballotery)
-        beautifulLyrics # adds epic lyrics with cool fullscreen mode
-
-        # INFO: stats
-        songStats # shows song key and other
-        # INFO: opinionated
-        hidePodcasts # note you can also go to settings and toggle it back and forth
-
-        # lowkey this fullscreen mode looks epic but it kinda overlaps with
-        # simpleBeautiful lyrics fullscreen and it feels weird to have two
-        # fullScreen # cooler group screen but adds a dupe button
-      ];
-    };
-
     home.shellAliases = {
-      spt = "spotify_player";
       mpv = "mpv --idle --force-window";
     };
   };

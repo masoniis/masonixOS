@@ -31,7 +31,7 @@ Used for NixOS systems with home-manager integrated.
 - `config`: Home-manager configuration attributes.
 - `extraNixosModules`: List of NixOS modules.
 - `extraHomeModules`: List of home-manager modules.
-- `useDefaultHomeModules`: (Default: `true`) Whether to include standard modules (Linux defaults, nixCats, spicetify).
+- `useDefaultHomeModules`: (Default: `true`) Whether to include standard modules (Linux defaults, nixCats).
 
 ### `homeManagerSetup`
 

@@ -19,7 +19,6 @@ let
   # general special args for home manager
   mkHomeManagerSpecialArgs = system: username: {
     pkgs-unstable = mkPkgsUnstable system;
-    pkgs-spice = inputs.spicetify.legacyPackages.${system};
     root = inputs.self;
     inherit username;
   };
@@ -56,7 +55,6 @@ in
       defaultHomeModules = [
         ../modules/linux/default.nix
         inputs.nixCats.homeModule
-        inputs.spicetify.homeManagerModules.spicetify
       ];
     in
     nixpkgs.lib.nixosSystem {
@@ -104,7 +102,6 @@ in
       defaultModules = [
         platformModule
         inputs.nixCats.homeModule
-        inputs.spicetify.homeManagerModules.spicetify
         inputs.sops-nix.homeManagerModules.sops
       ];
     in

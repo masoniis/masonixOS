@@ -34,7 +34,6 @@
     floaterm_new = "<C-a>";
     ollama = "${group}o";
     home_manager = "${group}h";
-    spotify = "${group}s";
     flutter = "${group}f";
   };
   files = {
