@@ -92,6 +92,7 @@
         devShells = eachSystem (pkgs: {
           default = pkgs.mkShell {
             nativeBuildInputs = with pkgs; [
+              just
               sops
               ssh-to-age
             ];
