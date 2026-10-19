@@ -23,7 +23,7 @@
 
     # ai stuff
     pkgs.repomix
-    pkgs-unstable.antigravity-cli
+    # pkgs-unstable.antigravity-cli # install externally to be up to date
     # pkgs-unstable.claude-code # install externally to be up to date
     pkgs-unstable.codex
     pkgs-unstable.opencode
