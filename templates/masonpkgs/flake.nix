@@ -43,7 +43,7 @@
               just
               uv
               treefmtEval.${system}.config.build.wrapper
-              mpkgs.run-in-roblox
+              mpkgs.subplz
             ];
 
             shellHook = ''

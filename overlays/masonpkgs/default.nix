@@ -23,9 +23,6 @@ let
   );
 in
 {
-  entire-masonpkgs = prev.callPackage ./entire/default.nix { };
-  run-in-roblox = prev.callPackage ./run-in-roblox/default.nix { };
-
   subplz = prev.callPackage ./subplz/default.nix { };
   subplz-mac = prev.callPackage ./subplz-mac/default.nix {
     subplz-deps = {
