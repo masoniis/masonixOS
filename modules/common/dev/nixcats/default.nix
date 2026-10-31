@@ -91,6 +91,7 @@
             codespell
             ripgrep
             fd
+            imagemagick # required for snacks.image conversion
           ];
 
           # INFO: -----------------------------
