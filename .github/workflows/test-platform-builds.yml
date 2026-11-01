@@ -1,8 +1,7 @@
 name: Test all masonix platform builds
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 on:
   push:
@@ -10,6 +9,12 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        description: Commit to test
+        required: true
+        type: string
 
 jobs:
   # Test NixOS configurations
@@ -18,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
 
       - name: Setup Nix
         uses: ./.github/actions/setup-nix
@@ -37,6 +44,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
 
       - name: Setup Nix
         uses: ./.github/actions/setup-nix
@@ -53,22 +62,11 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
 
       - name: Setup Nix
         uses: ./.github/actions/setup-nix
 
       - name: Build mason macOS configuration
         run: nix build .#homeConfigurations."mason@masonmac".activationPackage --dry-run
-
-  # Auto-merge for PRs with "automated" label
-  auto-merge:
-    name: Auto-merge automated PRs
-    needs: [test-nixos, test-home-linux, test-home-macos]
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'automated')
-    steps:
-      - name: Enable auto-merge
-        run: gh pr merge --auto --squash "$PR_URL"
-        env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

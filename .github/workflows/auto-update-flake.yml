@@ -5,13 +5,18 @@ on:
     - cron: "0 0 * * 0"
   workflow_dispatch:
 
+env:
+  UPDATE_BRANCH: flake-update
+
 jobs:
-  update-flake:
+  # Commit the update to a temporary branch so it can be tested before reaching main
+  update:
+    name: Update flake.lock
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
-
+    outputs:
+      sha: ${{ steps.commit.outputs.sha }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,13 +24,49 @@ jobs:
       - name: Setup Nix
         uses: ./.github/actions/setup-nix
 
-      - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v24
-        with:
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-          pr-title: "chore: update flake.lock"
-          pr-labels: automated
-          pr-body: |
-            Automated flake dependency update.
+      - name: Update and commit flake.lock
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-            {{env.GIT_COMMIT_MESSAGE}}
+          before="$(git rev-parse HEAD)"
+          nix flake update --commit-lock-file --commit-lockfile-summary "chore: update flake.lock"
+          after="$(git rev-parse HEAD)"
+
+          if [[ "$before" == "$after" ]]; then
+            echo "flake.lock is already up to date"
+            exit 0
+          fi
+
+          git push --force origin "HEAD:refs/heads/$UPDATE_BRANCH"
+          echo "sha=$after" >> "$GITHUB_OUTPUT"
+
+  test:
+    name: Test
+    needs: update
+    if: needs.update.outputs.sha != ''
+    permissions:
+      contents: read
+    uses: ./.github/workflows/test-platform-builds.yml
+    with:
+      ref: ${{ needs.update.outputs.sha }}
+
+  # Fast-forward only: if main moved during the run this fails rather than overwriting it
+  promote:
+    name: Push to main
+    needs: [update, test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout tested commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.update.outputs.sha }}
+          fetch-depth: 0
+
+      - name: Fast-forward main and remove temporary branch
+        run: |
+          git push origin "HEAD:refs/heads/main"
+          git push origin --delete "$UPDATE_BRANCH"
