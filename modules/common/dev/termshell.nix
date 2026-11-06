@@ -35,6 +35,10 @@
     cat = "bat";
   };
 
+  # silence zoxide's hook check: tools that snapshot shell functions (e.g. claude code)
+  # copy the `cd` override without zoxide's hook, which trips the warning on every cd
+  home.sessionVariables._ZO_DOCTOR = "0";
+
   # INFO: Programs
   programs = {
     starship = {
