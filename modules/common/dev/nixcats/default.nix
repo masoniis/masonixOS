@@ -102,10 +102,11 @@
             clang-tools # includes clangd langserver
           ];
 
-          # unstable because stable darwin builds of these aren't cached
+          # csharp-ls: unstable because stable darwin builds aren't cached
+          # csharpier: stable because unstable bootstraps dotnet from source on darwin
           csharp = [
             pkgs-unstable.csharp-ls
-            pkgs-unstable.csharpier
+            csharpier
           ];
 
           glsl = [ glsl_analyzer ];
