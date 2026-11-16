@@ -37,7 +37,11 @@
       templates = {
         default = {
           path = ./templates/default;
-          description = "Basic flake with treefmt and devShell";
+          description = "Basic flake with treefmt, devShell, and justfile";
+        };
+        masonpkgs = {
+          path = ./templates/masonpkgs;
+          description = "Basic flake with treefmt, devShell, justfile, and masonpkgs";
         };
       };
 

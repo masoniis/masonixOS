@@ -1,5 +1,5 @@
 {
-  description = "Minimal project template with devShell and treefmt";
+  description = "Minimal project template with devShell, treefmt, and masonpkgs";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -20,42 +20,46 @@
       treefmt-nix,
     }:
     let
-      eachSystem = nixpkgs.lib.genAttrs (import systems);
-      treefmtEval = eachSystem (
-        system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
-      );
+      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
-      # standard formatter output
-      formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
+      # INFO: -------------------
+      #         dev shell
+      # -------------------------
 
-      # development shell
+      # for `nix develop` (or automatically via direnv)
       devShells = eachSystem (
-        system:
+        pkgs:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
-          mpkgs = masonpkgs.packages.${system};
+          mpkgs = masonpkgs.packages.${pkgs.stdenv.hostPlatform.system};
         in
         {
           default = pkgs.mkShell {
             packages = with pkgs; [
-              # add your core tools here
+              # core
               just
-              uv
-              treefmtEval.${system}.config.build.wrapper
-              mpkgs.subplz
-            ];
 
-            shellHook = ''
-              echo "Modular Dev Environment Loaded"
-            '';
+              # masonpkgs
+              mpkgs.subplz
+
+              # formatting (`treefmt` directly, same as `nix fmt`)
+              treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper
+            ];
           };
         }
       );
 
-      # optional: CI checks
-      checks = eachSystem (system: {
-        formatting = treefmtEval.${system}.config.build.check self;
+      # INFO: --------------------
+      #         formatting
+      # --------------------------
+
+      # for `nix fmt`
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
+
+      # for `nix flake check`
+      checks = eachSystem (pkgs: {
+        formatting = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;
       });
     };
 }

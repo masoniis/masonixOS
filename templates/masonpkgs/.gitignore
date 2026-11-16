@@ -1,0 +1,7 @@
+# nix / direnv artifacts
+/.direnv
+/result
+/result-*
+
+# os artifacts
+.DS_Store
