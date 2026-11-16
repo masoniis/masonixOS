@@ -36,16 +36,18 @@
         in
         {
           default = pkgs.mkShell {
-            packages = with pkgs; [
-              # core
-              just
+            packages =
+              with pkgs;
+              [
+                # core
+                just
 
-              # masonpkgs
-              mpkgs.subplz
-
-              # formatting (`treefmt` directly, same as `nix fmt`)
-              treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper
-            ];
+                # formatting (`treefmt` directly, same as `nix fmt`)
+                treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper
+              ]
+              ++ (with mpkgs; [
+                # add masonpkgs packages here
+              ]);
           };
         }
       );

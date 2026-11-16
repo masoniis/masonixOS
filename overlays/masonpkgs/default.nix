@@ -23,16 +23,6 @@ let
   );
 in
 {
-  subplz = prev.callPackage ./subplz/default.nix { };
-  subplz-mac = prev.callPackage ./subplz-mac/default.nix {
-    subplz-deps = {
-      stable-ts = prev.python3Packages.callPackage ./subplz/stable-ts.nix { };
-      lingua-language-detector =
-        prev.python3Packages.callPackage ./subplz/lingua-language-detector.nix
-          { };
-      alass = prev.callPackage ./subplz/alass.nix { };
-    };
-  };
   vimPlugins = prev.vimPlugins // customVimPlugins;
 
   mpvacious = prev.callPackage ./mpvacious/default.nix {
