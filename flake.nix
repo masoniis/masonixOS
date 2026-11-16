@@ -87,9 +87,13 @@
         packages = eachSystem (
           pkgs:
           let
+            lib = pkgs.lib;
             overlayPackages = import ./overlays/masonpkgs/default.nix pkgs pkgs;
           in
-          overlayPackages
+          # flake `packages` must be flat derivations, so expose the top-level ones
+          # directly and hoist the custom `*-masonpkgs` vim plugins out of `vimPlugins`
+          lib.filterAttrs (_: lib.isDerivation) overlayPackages
+          // lib.filterAttrs (name: _: lib.hasSuffix "-masonpkgs" name) overlayPackages.vimPlugins
         );
 
         # flake updating devshell
