@@ -11,10 +11,10 @@
     settings = {
       notARepository = "skip";
       git = {
-        pagers = [
+        diffRenderers = [
           {
             colorArg = "always";
-            pager = "delta --dark --paging=never";
+            command = "delta --dark --paging=never";
           }
         ];
         # tells lazygit to stop dropping to the terminal for signed commits
