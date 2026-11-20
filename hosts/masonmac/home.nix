@@ -18,9 +18,6 @@
     pkgs.obsidian
     # pkgs.zotero
 
-    # misc
-    pkgs.subplz-mac
-
     # ai stuff
     pkgs.repomix
     # pkgs-unstable.antigravity-cli # install externally to be up to date
