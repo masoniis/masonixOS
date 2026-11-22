@@ -1,5 +1,5 @@
 # nixos-help to open nixos manual for information on options
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   # WARNING: Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
@@ -12,10 +12,30 @@
       "nix-command"
       "flakes"
     ];
+    settings.auto-optimise-store = true;
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 14d";
+    };
+  };
+
+  # expire mason's profile/home-manager generations (root gc skips them)
+  systemd.services.nix-gc-mason = {
+    description = "Expire old nix/home-manager profile generations for mason";
+    before = [ "nix-gc.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "mason";
+    };
+    script = "${config.nix.package}/bin/nix-collect-garbage --delete-older-than 14d";
+  };
+  systemd.timers.nix-gc-mason = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "weekly";
+      Persistent = true;
+      RandomizedDelaySec = "0";
     };
   };
 
