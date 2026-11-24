@@ -14,6 +14,9 @@
 
   # special host packages
   home.packages = [
+    # signs the GitHub App token for swarm
+    pkgs.openssl
+
     # ai stuff
     pkgs.repomix
     pkgs-unstable.antigravity-cli
