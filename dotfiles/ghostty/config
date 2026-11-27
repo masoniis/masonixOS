@@ -1,3 +1,7 @@
+theme = Aurora Drift
+background-opacity = 0.9
+background-blur = true
+
 quit-after-last-window-closed = true
 window-padding-x = 0
 window-padding-y = 0
