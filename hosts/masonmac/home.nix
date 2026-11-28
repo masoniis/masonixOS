@@ -25,4 +25,8 @@
     pkgs-unstable.codex
     pkgs-unstable.opencode
   ];
+
+  home.shellAliases = {
+    claudia = ''env CLAUDE_CONFIG_DIR="$HOME/.claude-claudia" claude'';
+  };
 }
